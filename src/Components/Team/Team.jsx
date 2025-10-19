@@ -356,8 +356,8 @@ const TeamDetailsScreen = ({ teamData }) => {
                 <span className="blue">{user.fullName}</span>
               </p>
               <p>
-                <strong>Email: </strong>{" "}
-                <span className="blue">{user?.email}</span>
+                <strong>Whatsapp No: </strong>{" "}
+                <span className="blue">{user.whatsappNumber}</span>
               </p>
               <p>
                 <strong>Joining Date:</strong>{" "}
@@ -396,8 +396,8 @@ const TeamDetailsScreen = ({ teamData }) => {
                 <span className="blue">{user.fullName}</span>
               </p>
               <p>
-                <strong>Email: </strong>{" "}
-                <span className="blue">{user?.email}</span>
+                <strong>Whatsapp No: </strong>{" "}
+                <span className="blue">{user.whatsappNumber}</span>
               </p>
               <p>
                 <strong>Joining Date:</strong>{" "}
@@ -436,8 +436,8 @@ const TeamDetailsScreen = ({ teamData }) => {
                 <span className="blue">{user.fullName}</span>
               </p>
               <p>
-                <strong>Email: </strong>{" "}
-                <span className="blue">{user?.email}</span>
+                <strong>Whatsapp No: </strong>{" "}
+                <span className="blue">{user.whatsappNumber}</span>
               </p>
               <p>
                 <strong>Joining Date:</strong>{" "}

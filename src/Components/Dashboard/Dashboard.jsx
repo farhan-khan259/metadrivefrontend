@@ -16,10 +16,10 @@
 
 // import "./Dashboard.css";
 
-// import img2 from "../../Assets/Pictures/2new.jpeg";
-// import img1 from "../../Assets/Pictures/dash1.jpeg";
-// import img3 from "../../Assets/Pictures/dash3.jpeg";
 // import img5 from "../../Assets/Pictures/dash5.jpeg";
+// import img2 from "../../Assets/Pictures/dashnewupdatepic1.jpeg";
+// import img1 from "../../Assets/Pictures/dashnewupdatepic2.jpeg";
+// import img3 from "../../Assets/Pictures/dashnewupdatepic3.jpeg";
 // import profileImg from "../../Assets/Pictures/download.jpeg";
 // import img4 from "../../Assets/Pictures/richticketdash.jpeg";
 // import Newsboard from "../Newsboard/Newsboard";
@@ -190,9 +190,8 @@
 //                   <span className="highlight-orange"> 10 AM to 8 PM</span>.
 //                 </li>
 //                 <li>
-//                   Your money will reach your bank account within
-//                   <span className="highlight-orange"> 5 to 10 minutes</span>. If
-//                   it doesn't, please contact customer service.
+//                   Your withdrawal will be credited to your account within{" "}
+//                   <span className="highlight-orange">6-12 hours.</span>
 //                 </li>
 //                 <li>
 //                   You can withdraw a minimum of
@@ -229,7 +228,7 @@
 
 //             <div className="popup-actions">
 //               <a
-//                 href="https://chat.whatsapp.com/FjcgxLqlfzW7HGqvBigxjo?mode=ems_copy_t"
+//                 href="https://chat.whatsapp.com/E3V0WcJKMru954hzfPIGMy?mode=wwt"
 //                 target="_blank"
 //                 rel="noreferrer"
 //                 className="popup-btn orange"
@@ -248,6 +247,12 @@
 //       )}
 
 //       {/* Header */}
+//       <div className="top-banner">
+//         <p>
+//           Claim smart watches, iPhone 17 Pro Max, bikes, Dubai tour and many
+//           more!!! 💸
+//         </p>
+//       </div>
 //       <header className="headerd">
 //         <div className="header-leftd">
 //           <img
@@ -260,10 +265,13 @@
 //             onClick={() => setShowProfilePopup(!showProfilePopup)}
 //             alt="Profile"
 //           />
+//           <div className="welcome-text">
+//             <p>Welcome Back,</p>
+//             <h3>{user?.fullName || "User"}</h3>
+//           </div>
 //         </div>
-//         <div className="header-centerd">
-//           <h1 className="header-titled">SOLAR X DASHBOARD</h1>
-//         </div>
+
+//         <div className="header-centerd"></div>
 //         <div className="header-rightd">
 //           <div className="notification-wrapper">
 //             <div
@@ -312,6 +320,7 @@
 //       </header>
 
 //       {/* Slider */}
+
 //       <div className="slider-container">
 //         <img src={image} alt={title} className="slider-image" />
 //         <button
@@ -438,8 +447,6 @@ import { FaHandHoldingUsd, FaRegMoneyBillAlt } from "react-icons/fa";
 import { FiRefreshCcw } from "react-icons/fi";
 
 import {
-  FiArrowLeft,
-  FiArrowRight,
   FiBarChart2,
   FiBell,
   FiGrid,
@@ -447,67 +454,11 @@ import {
   FiUsers,
 } from "react-icons/fi";
 import { Link } from "react-router-dom";
-
+import profileImg from "../../Assets/Pictures/download.jpeg";
 import "./Dashboard.css";
 
-import img5 from "../../Assets/Pictures/dash5.jpeg";
-import img2 from "../../Assets/Pictures/dashnewupdatepic1.jpeg";
-import img1 from "../../Assets/Pictures/dashnewupdatepic2.jpeg";
-import img3 from "../../Assets/Pictures/dashnewupdatepic3.jpeg";
-import profileImg from "../../Assets/Pictures/download.jpeg";
-import img4 from "../../Assets/Pictures/richticketdash.jpeg";
-import Newsboard from "../Newsboard/Newsboard";
-
-const slides = [
-  {
-    image: img1,
-    title: "Mining Server Facility",
-    subtitle: "High-Performance Computing Center",
-    profit: "$720/day",
-    hashpower: "4200+ TH/s",
-    description:
-      "Professional server room with organized mining hardware and advanced thermal management",
-  },
-  {
-    image: img2,
-    title: "Solar X Power Hub",
-    subtitle: "Sustainable Mining Through Solar Energy",
-    profit: "$650/day",
-    hashpower: "3900+ TH/s",
-    description:
-      "Eco-friendly mining infrastructure using solar power for low-cost, green crypto operations.",
-  },
-  {
-    image: img3,
-    title: "HelioMine Complex",
-    subtitle: "Sun-Powered Blockchain Infrastructure",
-    profit: "$980/day",
-    hashpower: "6900+ TH/s",
-    description:
-      "Advanced ASIC units running on solar arrays for maximum sustainability and ROI.",
-  },
-  {
-    image: img4,
-    title: "NextGen Solar Vault",
-    subtitle: "Future-Proof, Zero-Emission Mining",
-    profit: "$810/day",
-    hashpower: "5100+ TH/s",
-    description:
-      "Solar-powered mining facility with smart energy balancing and uptime optimization.",
-  },
-  {
-    image: img5,
-    title: "NextGen Solar Vault",
-    subtitle: "Future-Proof, Zero-Emission Mining",
-    profit: "$810/day",
-    hashpower: "5100+ TH/s",
-    description:
-      "Solar-powered mining facility with smart energy balancing and uptime optimization.",
-  },
-];
-
 export default function Dashboard() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  // const [currentIndex, setCurrentIndex] = useState(0);
   const [showAnnouncements, setShowAnnouncements] = useState(false);
   const [showPopup, setShowPopup] = useState(true);
   const [showProfilePopup, setShowProfilePopup] = useState(false);
@@ -562,18 +513,6 @@ export default function Dashboard() {
   }, []);
 
   useEffect(() => {
-    startAutoSlide();
-    return () => clearInterval(window.solarXInterval);
-  }, []);
-
-  const startAutoSlide = () => {
-    clearInterval(window.solarXInterval);
-    window.solarXInterval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % slides.length);
-    }, 5000);
-  };
-
-  useEffect(() => {
     const fetchAnnouncements = async () => {
       try {
         const response = await axios.post(
@@ -588,9 +527,6 @@ export default function Dashboard() {
     };
     fetchAnnouncements();
   }, []);
-
-  const { image, title, subtitle, profit, hashpower, description } =
-    slides[currentIndex];
 
   // ✅ Total Balance = wallet balance + plans + commissions
   const totalBalance = useMemo(() => {
@@ -755,33 +691,16 @@ export default function Dashboard() {
 
       {/* Slider */}
 
-      <div className="slider-container">
-        <img src={image} alt={title} className="slider-image" />
-        <button
-          className="slider-btn left"
-          onClick={() =>
-            setCurrentIndex(
-              (prev) => (prev - 1 + slides.length) % slides.length
-            )
-          }
-        >
-          <FiArrowLeft />
-        </button>
-        <button
-          className="slider-btn right"
-          onClick={() => setCurrentIndex((prev) => (prev + 1) % slides.length)}
-        >
-          <FiArrowRight />
-        </button>
-        <div className="slider-caption">
-          <h1 className="bannerh1txt">{title}</h1>
-          <p className="desc">{subtitle}</p>
-          <div className="badges">
-            <span className="badge green">Up to {profit} profit</span>
-            <span className="badge blue">{hashpower}</span>
-          </div>
-          <p className="desc">{description}</p>
-        </div>
+      {/* Video Section */}
+      <div className="video-container">
+        <video
+          src={require("../../Assets/Pictures/dashvideo.MP4")}
+          className="dashboard-video"
+          controls
+          autoPlay
+          loop
+          muted
+        />
       </div>
 
       {/* Actions */}
@@ -837,11 +756,6 @@ export default function Dashboard() {
             </p>
           </div>
         </div>
-      </div>
-
-      {/* News Section */}
-      <div className="newsdash">
-        <Newsboard />
       </div>
 
       {/* Bottom Nav */}
