@@ -52,8 +52,8 @@ const initialPlans = [
     img: img4,
     members: 120,
     amount: 10000,
-    daily: 500, // 5% of 10,000 PKR
-    total: 5, // 5% total profit
+    daily: 430,
+    total: 4.3,
     validity: 90,
     locked: false, // unlocked now
   },
