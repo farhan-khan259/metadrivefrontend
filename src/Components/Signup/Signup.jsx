@@ -20,7 +20,6 @@ export default function Signup() {
   const [popupMessage, setPopupMessage] = useState("");
   const [showSuccess, setShowSuccess] = useState(false);
   const [errors, setErrors] = useState({});
-  const [isFirstUser, setIsFirstUser] = useState(false); // ✅ ADDED: Track first user state
 
   // ✅ Autofill referral code from URL
   useEffect(() => {
@@ -28,14 +27,9 @@ export default function Signup() {
     if (ref) {
       setReferralCode(ref);
     }
-
-    // ✅ ADDED: Check if this might be first user (no referral code in URL)
-    if (!ref) {
-      setIsFirstUser(true);
-    }
   }, []);
 
-  // ✅ FIXED: Validate form - referral code not required for first user
+  // ✅ Validate form before submission
   const validateForm = () => {
     const newErrors = {};
 
@@ -48,11 +42,8 @@ export default function Signup() {
       newErrors.confirmPassword = "Passwords do not match";
     if (!whatsAppNumber || whatsAppNumber === "+92")
       newErrors.whatsAppNumber = "WhatsApp number is required";
-
-    // ✅ FIXED: Only require referral code if NOT first user
-    if (!isFirstUser && !referralCode.trim()) {
-      newErrors.referralCode = "Referral code is required for registration";
-    }
+    if (!referralCode.trim())
+      newErrors.referralCode = "Referral code is required";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -72,22 +63,14 @@ export default function Signup() {
       const res = await axios.post("https://be.solarx0.com/api/signup", {
         fullName,
         whatsappNumber: whatsAppNumber,
-        refercode: referralCode, // This can be empty string for first user
+        refercode: referralCode,
         password,
         email,
       });
 
-      // ✅ Store user data and token
       localStorage.setItem("user", JSON.stringify(res.data.user));
-      localStorage.setItem("token", res.data.token); // ✅ ADDED: Store token
-
       setShowSuccess(true);
       console.log("Signup Success:", res.data);
-
-      // Show custom success message
-      setPopupTitle("✅ Account Created Successfully!");
-      setPopupMessage(res.data.message || "Welcome to SolarX!");
-      setShowSuccess(true);
 
       // Clear form
       setReferralCode("");
@@ -98,43 +81,18 @@ export default function Signup() {
       setWhatsAppNumber("+92");
       setErrors({});
 
-      // ✅ Redirect to dashboard after delay (since we have token)
+      // Redirect after delay
       setTimeout(() => {
-        window.location.href = "/dashboard";
-      }, 3000);
+        window.location.href = "/";
+      }, 2000);
     } catch (error) {
-      console.error("Signup Error:", error.response?.data || error);
-
-      // ✅ IMPROVED: Better error handling
-      const errorMessage =
+      console.error(error);
+      setPopupTitle("Signup Failed");
+      setPopupMessage(
         error.response?.data?.message ||
-        error.response?.data?.error ||
-        "Something went wrong. Please try again!";
-
-      setPopupTitle("❌ Signup Failed");
-      setPopupMessage(errorMessage);
+          "Something went wrong. Please try again!"
+      );
       setShowPopup(true);
-
-      // ✅ If error is about referral code, update first user state
-      if (
-        errorMessage.includes("first user") ||
-        errorMessage.includes("First admin")
-      ) {
-        setIsFirstUser(true);
-      }
-    }
-  };
-
-  // ✅ ADDED: Handle referral code input change
-  const handleReferralCodeChange = (e) => {
-    const value = e.target.value;
-    setReferralCode(value);
-
-    // If user starts typing referral code, they're probably not first user
-    if (value.trim() !== "") {
-      setIsFirstUser(false);
-    } else {
-      setIsFirstUser(true);
     }
   };
 
@@ -143,24 +101,10 @@ export default function Signup() {
       <div className="form-container">
         <div className="form-header">
           <img src={logo} alt="Solar X" className="logo" />
-          <h2>Create Your Account</h2>
-
-          {/* ✅ ADDED: First User Banner */}
-          {isFirstUser && (
-            <div className="first-user-banner">
-              <div className="first-user-icon">👑</div>
-              <div className="first-user-text">
-                <strong>First User Detected!</strong>
-                <p>
-                  You're creating the first account. No referral code needed.
-                </p>
-              </div>
-            </div>
-          )}
         </div>
 
         <form onSubmit={handleSubmit}>
-          <label>WhatsApp Number *</label>
+          <label>WhatsApp Number </label>
           <input
             type="text"
             placeholder="+92XXXXXXXXXX"
@@ -183,7 +127,7 @@ export default function Signup() {
             <span className="error-text">{errors.whatsAppNumber}</span>
           )}
 
-          <label>Full Name *</label>
+          <label>Full Name </label>
           <input
             type="text"
             placeholder="Enter your full name"
@@ -195,7 +139,7 @@ export default function Signup() {
             <span className="error-text">{errors.fullName}</span>
           )}
 
-          <label>Email *</label>
+          <label>Email </label>
           <input
             type="email"
             placeholder="Enter your email"
@@ -205,7 +149,7 @@ export default function Signup() {
           />
           {errors.email && <span className="error-text">{errors.email}</span>}
 
-          <label>Password *</label>
+          <label>Password </label>
           <div className="input-icon-box">
             <input
               type={passwordVisible ? "text" : "password"}
@@ -213,7 +157,6 @@ export default function Signup() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              minLength="6"
             />
             <span
               className="eye-icon"
@@ -226,7 +169,7 @@ export default function Signup() {
             <span className="error-text">{errors.password}</span>
           )}
 
-          <label>Confirm Password *</label>
+          <label>Confirm Password </label>
           <div className="input-icon-box">
             <input
               type={passwordVisible ? "text" : "password"}
@@ -246,41 +189,19 @@ export default function Signup() {
             <span className="error-text">{errors.confirmPassword}</span>
           )}
 
-          <label>
-            Referral Code {!isFirstUser && "*"}
-            {isFirstUser && (
-              <span className="optional-text">
-                (Optional - Not required for first user)
-              </span>
-            )}
-          </label>
+          <label>Referral Code </label>
           <input
             type="text"
-            placeholder={
-              isFirstUser
-                ? "Leave empty for first user"
-                : "Enter referral code (required)"
-            }
+            placeholder="Enter referral code"
             value={referralCode}
-            onChange={handleReferralCodeChange}
-            required={!isFirstUser} // ✅ Only required if NOT first user
+            onChange={(e) => setReferralCode(e.target.value)}
+            required
           />
           {errors.referralCode && (
             <span className="error-text">{errors.referralCode}</span>
           )}
 
-          {/* ✅ ADDED: Help text */}
-          <div className="help-text">
-            {isFirstUser
-              ? "As the first user, you'll become the system admin. Save your referral code to share with others!"
-              : "You need a valid referral code from an existing member to join."}
-          </div>
-
-          <button type="submit" className="signup-button">
-            {isFirstUser
-              ? "Create Admin Account 🚀"
-              : "Create Account & Start Earning"}
-          </button>
+          <button type="submit">Create Account & Start Earning</button>
 
           <p className="signin-link">
             Already have an account? <Link to="/">Sign In</Link>
@@ -292,7 +213,7 @@ export default function Signup() {
       {showPopup && (
         <div className="popup-overlay">
           <div className="popup-box">
-            <h2>{popupTitle}</h2>
+            <h2>❌ {popupTitle}</h2>
             <p>{popupMessage}</p>
             <button onClick={() => setShowPopup(false)}>Close</button>
           </div>
@@ -302,22 +223,16 @@ export default function Signup() {
       {/* Success Popup */}
       {showSuccess && (
         <div className="popup-overlay">
-          <div className="popup-box success-popup">
-            <h2>🎉 Welcome to SolarX!</h2>
-            <p>{popupMessage}</p>
-            <p>
-              <strong>
-                Your Referral Code:{" "}
-                {JSON.parse(localStorage.getItem("user"))?.randomCode}
-              </strong>
-            </p>
+          <div className="popup-box">
+            <h2>✅ Account Created</h2>
+            <p>Your account has been created successfully!</p>
             <button
               onClick={() => {
                 setShowSuccess(false);
-                window.location.href = "/dashboard";
+                window.location.href = "/";
               }}
             >
-              Go to Dashboard
+              Go to Login
             </button>
           </div>
         </div>
