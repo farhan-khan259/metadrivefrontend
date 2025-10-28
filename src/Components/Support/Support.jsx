@@ -30,7 +30,7 @@ export default function Support() {
           <div className="support-cards-new">
             {/* WhatsApp Support Card */}
             <a
-              href="https://wa.me/923001234567"
+              href="https://chat.whatsapp.com/GQoVtPyb7elHuKugtp6ioD?mode=wwt"
               target="_blank"
               rel="noopener noreferrer"
               className="support-card-item whatsapp-card"
@@ -45,7 +45,7 @@ export default function Support() {
 
             {/* Customer Service Card */}
             <a
-              href="tel:+923001234567"
+              href="https://wa.me/923239704664"
               className="support-card-item service-card"
             >
               <div className="card-icon">

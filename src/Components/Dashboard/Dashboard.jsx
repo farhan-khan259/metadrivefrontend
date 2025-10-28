@@ -632,7 +632,7 @@ export default function Dashboard() {
               </div>
               <div className="sx-invested-people">
                 <div className="sx-invested-header">
-                  <span className="sx-invested-icon">👥</span>
+                  <span className="sx-invested-icon"></span>
                   ACTIVE INVESTORS
                 </div>
                 <strong className="sx-invested-count">
@@ -689,7 +689,7 @@ export default function Dashboard() {
               </p>
               <div className="sx-popularity-info">
                 <div className="sx-popularity-badge">
-                  👥 {getSubscribersFor(activePlan).toLocaleString()}+ active
+                  {getSubscribersFor(activePlan).toLocaleString()}+ active
                   investors
                 </div>
                 <p className="sx-popularity-note">

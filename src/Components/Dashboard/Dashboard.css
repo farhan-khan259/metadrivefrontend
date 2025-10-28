@@ -431,7 +431,7 @@
 @media (max-width: 420px) {
     .sx-header {
         padding: 12px;
-        margin: 12px;
+        /* margin: 12px; */
     }
 
     .sx-balance-card {
@@ -934,5 +934,13 @@
 
 
 .sx-net-worth {
+    display: none;
+}
+
+.sx-update-indicator {
+    display: none;
+}
+
+.sx-popular-badge {
     display: none;
 }
