@@ -83,53 +83,58 @@ const Withdraw = () => {
 
   return (
     <div className="withdraw-container">
-      <div className="headerwd">
-        <Link className="back-linkwd" to="/dashboard">
-          <FaArrowLeft />
-        </Link>
-        <span>Withdraw Funds</span>
-      </div>
-
-      {/* ✅ Show balance straight from DB */}
-      <div className="balance-card-withdraw">
-        <div>
-          <span className="balance-label">Available Balance</span>
-          <div className="balance-amount">
-            {userBalance.toLocaleString()} PKR
-          </div>
+      {/* Header with orange background */}
+      <div className="header-section">
+        <div className="headerwd">
+          <Link className="back-linkwd" to="/dashboard">
+            <FaArrowLeft />
+          </Link>
+          <span>Withdraw Funds</span>
         </div>
       </div>
 
-      <div className="step-card">
-        <div className="step-title">Step 1: Withdrawal Account Status</div>
-
-        {hasBoundAccount ? (
-          <div className="status">
-            <FaCheckCircle className="status-icon" style={{ color: "green" }} />
-            <div className="status-text">Account Bound Successfully</div>
-            <div className="account-info"></div>
-            <button className="bind-btn" onClick={handleNavigateToWithdraw}>
-              <FaWallet className="btn-icon" /> Proceed to Withdraw
-            </button>
-          </div>
-        ) : (
-          <div className="status">
-            <FaLock className="status-icon" />
-            <div className="status-text">Account Not Bound</div>
-            <div className="status-subtext">
-              You must bind your withdrawal account before applying for a
-              withdrawal.
+      <div className="content-section">
+        {/* ✅ Show balance straight from DB */}
+        <div className="balance-card-withdraw">
+          <div>
+            <span className="balance-label">Available Balance</span>
+            <div className="balance-amount">
+              {userBalance.toLocaleString()} PKR
             </div>
-            <button className="bind-btn">
-              <Link to="/withdrawform">
-                <FaWallet className="btn-icon" /> Bind Account Now
-              </Link>
-            </button>
           </div>
-        )}
-      </div>
+        </div>
 
-      {error && <div className="error-message">{error}</div>}
+        <div className="step-card">
+          <div className="step-title">Step 1: Withdrawal Account Status</div>
+
+          {hasBoundAccount ? (
+            <div className="status">
+              <FaCheckCircle className="status-icon success" />
+              <div className="status-text">Account Bound Successfully</div>
+              <div className="account-info"></div>
+              <button className="bind-btn" onClick={handleNavigateToWithdraw}>
+                <FaWallet className="btn-icon" /> Proceed to Withdraw
+              </button>
+            </div>
+          ) : (
+            <div className="status">
+              <FaLock className="status-icon locked" />
+              <div className="status-text">Account Not Bound</div>
+              <div className="status-subtext">
+                You must bind your withdrawal account before applying for a
+                withdrawal.
+              </div>
+              <button className="bind-btn">
+                <Link to="/withdrawform">
+                  <FaWallet className="btn-icon" /> Bind Account Now
+                </Link>
+              </button>
+            </div>
+          )}
+        </div>
+
+        {error && <div className="error-message">{error}</div>}
+      </div>
     </div>
   );
 };

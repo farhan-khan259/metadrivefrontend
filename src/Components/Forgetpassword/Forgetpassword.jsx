@@ -108,12 +108,6 @@ export default function Forgetpassword() {
       <div className="login-box4">
         <img src={logo} alt="Solar X" className="bot-icon4" />
         <h2 className="title4">RESET LOGIN PASSWORD</h2>
-        <p className="subtitle4">
-          اگر آپ سولر ایکس اکاؤنٹ میں اپنا پاسپورٹ بدلنا چاہتے ہیں۔تو سب سے پہلے
-          اپنی (ای میل) درج کریں۔اس کے بعد اپنی (جی میل) اوپن کر کے وہاں پر آپ
-          کو او ٹی پی ایا ہوگا،اس کو نیچے لگا کر آپ اپنے پاسورڈ کو تبدیل کر سکتے
-          ہو
-        </p>
 
         {step === 1 && (
           <>

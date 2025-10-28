@@ -13,17 +13,17 @@ import Dashboard from "./Components/Dashboard/Dashboard";
 import Deposit from "./Components/Deposit/Deposit";
 import Forgetpassword from "./Components/Forgetpassword/Forgetpassword";
 import Investmentplans from "./Components/Investmentplans/Investmentplans";
+import InviteScreen from "./Components/InviteScreen/InviteScreen";
 import Profile from "./Components/Profile/Profile";
 import Profilecard from "./Components/Profilecard/Profilecard";
-import Promocodepage from "./Components/Promocodepage/Promocodepage";
-import Rankingdashboard from "./Components/Rankingdashboard/Rankingdashboard";
-import RichTicket from "./Components/RichTicket/RichTicket";
 import Settings from "./Components/Settings/Settings";
 import Signin from "./Components/Signin/Signin";
 import Signup from "./Components/Signup/Signup";
 import Support from "./Components/Support/Support";
 import Team from "./Components/Team/Team";
-import Transactionhistory from "./Components/Transactionhistory/Transactionhistory";
+import UserCommission from "./Components/UserCommission/UserCommission";
+import UserDeposit from "./Components/UserDeposit/UserDeposit";
+import UserWithdraw from "./Components/UserWithdraw/UserWithdraw";
 import Withdraw from "./Components/Withdraw/Withdraw";
 import Withdrawform from "./Components/Withdrawform/Withdrawform";
 import Withdrawfunds from "./Components/Withdrawfunds/Withdrawfunds";
@@ -133,14 +133,7 @@ function AppRoutes() {
 					</ProtectedRoute>
 				}
 			/>
-			<Route
-				path="/promocode"
-				element={
-					<ProtectedRoute>
-						<Promocodepage />
-					</ProtectedRoute>
-				}
-			/>
+
 			<Route
 				path="/support"
 				element={
@@ -158,29 +151,40 @@ function AppRoutes() {
 				}
 			/>
 			<Route
-				path="/rankingdashboard"
+				path="/invite"
 				element={
 					<ProtectedRoute>
-						<Rankingdashboard />
+						<InviteScreen />
+					</ProtectedRoute>
+				}
+			/>
+
+			<Route
+				path="/userdeposit"
+				element={
+					<ProtectedRoute>
+						<UserDeposit />
 					</ProtectedRoute>
 				}
 			/>
 			<Route
-				path="/transactionhistory"
+				path="/userwithdraw"
 				element={
 					<ProtectedRoute>
-						<Transactionhistory />
+						<UserWithdraw />
 					</ProtectedRoute>
 				}
 			/>
+
 			<Route
-				path="/richticket"
+				path="/usercommission"
 				element={
 					<ProtectedRoute>
-						<RichTicket />
+						<UserCommission />
 					</ProtectedRoute>
 				}
 			/>
+
 
 			{/* -------- ADMIN PROTECTED ROUTES -------- */}
 			<Route
@@ -272,23 +276,9 @@ function AppRoutes() {
 					</ProtectedRoute>
 				}
 			/>
-			<Route
-				path="/admin/promocode"
-				element={
-					<ProtectedRoute role="admin">
-						<adminRoutes.AdminPromoCodes />
-					</ProtectedRoute>
-				}
-			/>
 
-			<Route
-				path="/admin/referrals/tree"
-				element={
-					<ProtectedRoute role="admin">
-						<adminRoutes.ReferralTree />
-					</ProtectedRoute>
-				}
-			/>
+
+
 			{/* ✅ add the rest of admin routes here, all wrapped with <ProtectedRoute role="admin"> */}
 			<Route
 				path="/admin/userdetails"
@@ -327,94 +317,6 @@ function AppRoutes() {
 				element={
 					<ProtectedRoute role="admin">
 						<adminRoutes.MonthlyReport />
-					</ProtectedRoute>
-				}
-			/>
-			<Route
-				path="/admin/withdrawals/settings"
-				element={
-					<ProtectedRoute role="admin">
-						<adminRoutes.WithdrawalSettings />
-					</ProtectedRoute>
-				}
-			/>
-			<Route
-				path="/admin/referrals/tree"
-				element={
-					<ProtectedRoute role="admin">
-						<adminRoutes.ReferralTree />
-					</ProtectedRoute>
-				}
-			/>
-			<Route
-				path="/admin/referrals/settings"
-				element={
-					<ProtectedRoute role="admin">
-						<adminRoutes.ReferralSettings />
-					</ProtectedRoute>
-				}
-			/>
-			<Route
-				path="/admin/settings/payment"
-				element={
-					<ProtectedRoute role="admin">
-						<adminRoutes.PaymentSettings />
-					</ProtectedRoute>
-				}
-			/>
-			<Route
-				path="/admin/settings/payment"
-				element={
-					<ProtectedRoute role="admin">
-						<adminRoutes.PaymentSettings />
-					</ProtectedRoute>
-				}
-			/>
-			<Route
-				path="/admin/settings/security"
-				element={
-					<ProtectedRoute role="admin">
-						<adminRoutes.SecuritySettings />
-					</ProtectedRoute>
-				}
-			/>
-			<Route
-				path="/admin/settings/notifications"
-				element={
-					<ProtectedRoute role="admin">
-						<adminRoutes.NotificationSettings />
-					</ProtectedRoute>
-				}
-			/>
-			<Route
-				path="/admin/admins"
-				element={
-					<ProtectedRoute role="admin">
-						<adminRoutes.AdminList />
-					</ProtectedRoute>
-				}
-			/>
-			<Route
-				path="/admin/admins/logs"
-				element={
-					<ProtectedRoute role="admin">
-						<adminRoutes.AdminLogs />
-					</ProtectedRoute>
-				}
-			/>
-			<Route
-				path="/admin/admins/roles"
-				element={
-					<ProtectedRoute role="admin">
-						<adminRoutes.Roles />
-					</ProtectedRoute>
-				}
-			/>
-			<Route
-				path="/admin/admins/richtickett"
-				element={
-					<ProtectedRoute role="admin">
-						<adminRoutes.AdminTicketDashboard />
 					</ProtectedRoute>
 				}
 			/>

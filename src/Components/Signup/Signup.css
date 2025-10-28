@@ -27,11 +27,12 @@ body {
     justify-content: center;
     padding: 15px;
     position: relative;
-    overflow: hidden;
-    background-image: url('../../Assets/Pictures/solar1.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    /* overflow: hidden; */
+    /* background-image: url(http://localhost:3000/static/media/solar1.8dafc7f….jpg); */
+    /* background-size: cover; */
+    /* background-repeat: no-repeat; */
+    /* background-position: center; */
+    background: #ff9800;
 }
 
 /* Form Container */
@@ -286,4 +287,21 @@ input[type=number] {
     padding: 10px 20px;
     cursor: pointer;
     font-weight: bold;
+}
+
+
+/* Error text styling */
+.error-text {
+    color: #ff4444;
+    font-size: 12px;
+    margin-top: 4px;
+    display: block;
+}
+
+
+
+/* Style for required field indicators */
+label::after {
+    content: " *";
+    color: #ff4444;
 }

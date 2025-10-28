@@ -1,51 +1,84 @@
-import { FaArrowLeft, FaHeadset } from "react-icons/fa";
+import { FaArrowLeft, FaHeadset, FaWhatsapp } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "./Support.css";
 
 export default function Support() {
   return (
-    <div className="support-container">
-      {/* Header */}
-      <header className="support-header">
-        <Link to="/setting" className="back-btn">
-          <FaArrowLeft />
-        </Link>
-        <h2>Solar X Service Support</h2>
-      </header>
-
-      {/* Green Urdu Message */}
-      <div className="urdu-green-box">
-        سولر ایکس میں روزانہ کی نیو اپڈیٹس جاننے کے لیے سولر ایکس کا آفیشل گروپ
-        لازمی جوائن کریں
+    <div className="support-container-new">
+      {/* Header with Orange Background */}
+      <div className="support-header-section">
+        <div className="support-header">
+          <Link to="/dashboard" className="support-back-link">
+            <FaArrowLeft className="back-icon" />
+          </Link>
+          <h1 className="support-title-new">Service Management</h1>
+        </div>
       </div>
 
-      {/* Cards Section */}
-      <div className="support-cards">
-        {/* Left Red Card */}
-        <a
-          href="https://chat.whatsapp.com/E3V0WcJKMru954hzfPIGMy?mode=wwt"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="support-card red-card"
-        >
-          <h3>
-            SPECIAL
-            <br />
-            OFFER
-          </h3>
-          <p>روزانہ کی نیو اپڈیٹس جاننے کے لیے آفیشل گروپ لازمی جوائن کریں</p>
-        </a>
+      {/* Content Section */}
+      <div className="support-content">
+        <div className="support-card-new">
+          {/* Welcome Message */}
+          <div className="support-welcome-box">
+            <p className="welcome-text">
+              ہماری سپورٹ ٹیم آپ کی خدمت کے لیے موجود ہے۔ کسی بھی مسئلے یا سوال
+              کے لیے رابطہ کریں۔
+            </p>
+          </div>
 
-        {/* Right Orange Card */}
-        <a
-          href="https://wa.me/923257765123?text=Hello%20Solar%20X%20Support%20Team"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="support-card orange-card"
-        >
-          <FaHeadset className="support-icon" />
-          <p>اگر آپ کو کوئی بھی مسئلہ ہے تو کسٹمر سروس سے رابطہ کریں</p>
-        </a>
+          {/* Support Cards */}
+          <div className="support-cards-new">
+            {/* WhatsApp Support Card */}
+            <a
+              href="https://wa.me/923001234567"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="support-card-item whatsapp-card"
+            >
+              <div className="card-icon">
+                <FaWhatsapp />
+              </div>
+              <h3 className="card-title">WhatsApp Support</h3>
+              <p className="card-description">24/7 واٹس ایپ سپورٹ</p>
+              <p className="card-subtext">فوری مدد کے لیے رابطہ کریں</p>
+            </a>
+
+            {/* Customer Service Card */}
+            <a
+              href="tel:+923001234567"
+              className="support-card-item service-card"
+            >
+              <div className="card-icon">
+                <FaHeadset />
+              </div>
+              <h3 className="card-title">Customer Service</h3>
+              <p className="card-description">کسٹمر سروس سنٹر</p>
+              <p className="card-subtext">براہ راست کال کے لیے</p>
+            </a>
+          </div>
+
+          {/* Additional Info */}
+          <div className="support-info">
+            <h4>How can we help you?</h4>
+            <p>
+              Our support team is available 24/7 to assist you with any
+              questions or issues you may have. Whether you need help with your
+              investments, account management, or technical support, we're here
+              for you.
+            </p>
+            <div className="contact-details">
+              <p>
+                <strong>Email:</strong> support@solarx.com
+              </p>
+              <p>
+                <strong>Phone:</strong> +92 300 1234567
+              </p>
+              <p>
+                <strong>Hours:</strong> 24/7 Available
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

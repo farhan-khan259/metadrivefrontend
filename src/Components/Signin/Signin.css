@@ -29,15 +29,11 @@ body {
     justify-content: center;
     align-items: center;
     padding: 20px;
-    width: 100vw;
+    /* width: 100vw; */
     height: 100vh;
-    background-image: url('../../Assets/Pictures/solar1.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    background: #ff9800;
+
 }
-
-
 
 
 

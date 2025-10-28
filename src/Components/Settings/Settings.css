@@ -1,207 +1,476 @@
 :root {
-    --primary-color: #2945ff;
-    --accent-color: #f9ac1e;
-    --bg-color: #ffffff;
+    --primary-orange: #ff9800;
+    --orange-dark: #e68900;
+    --orange-light: #ffb74d;
+    --orange-gradient: linear-gradient(135deg, #ff9800, #ff5722);
     --card-bg: #ffffff;
-    --text-dark: #000000;
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    --radius: 12px;
+    --text-dark: #333333;
+    --text-light: #666666;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    --radius: 16px;
 }
 
-.settings-container {
-    background: var(--bg-color);
-    color: var(--text-dark);
-    min-height: 100vh;
-    padding-bottom: 70px;
+/* Overlay */
+.settings-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+    animation: fadeIn 0.3s ease;
 }
 
-.settings-header {
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Settings Menu Container */
+.settings-menu-container {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 90%;
+    max-width: 400px;
+    height: 100vh;
+    background: white;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: right 0.3s ease;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.settings-menu-container.open {
+    right: 0;
+}
+
+/* Header */
+.settings-menu-header {
+    background: var(--orange-gradient);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+}
+
+.settings-menu-title {
+    color: white;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.settings-close-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 15px;
-}
-
-.settings-header h2 {
-    font-size: 30px;
-}
-
-.back-icon {
-    font-size: 20px;
+    justify-content: center;
     cursor: pointer;
-    color: #2945ff;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
 }
 
-.header-avatar {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    cursor: pointer;
+.settings-close-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
 }
 
-/* profile popup */
-.profile-popup {
-    background: #ffffff;
-    position: absolute;
-    top: 60px;
-    right: 15px;
-    padding: 15px;
-    border-radius: 12px;
-    box-shadow: var(--shadow);
-    z-index: 999;
+.close-icon {
+    color: white;
+    font-size: 18px;
 }
 
-.profile-popup .grey {
-    color: #888;
-}
-
-.logout-btn {
-    background: #fff;
-    color: #ff4d4d;
-    border: 1px solid #ff4d4d;
-    padding: 8px 16px;
-    font-weight: 600;
-    border-radius: 12px;
-    width: 100%;
-    cursor: pointer;
-}
-
-/* profile card */
-.profile-card {
+/* Profile Section */
+.settings-profile-section {
     background: var(--card-bg);
-    padding: 15px;
-    margin: 10px;
-    border-radius: var(--radius);
+    padding: 25px 20px;
     text-align: center;
-    box-shadow: var(--shadow);
+    border-bottom: 1px solid #f0f0f0;
 }
 
-.avatar-container {
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
+.profile-avatar-container {
+    margin-bottom: 15px;
 }
 
-.user-avatar {
+.settings-user-avatar {
     width: 80px;
     height: 80px;
     border-radius: 50%;
+    border: 3px solid var(--primary-orange);
+    object-fit: cover;
 }
 
-.camera-icon {
-    position: absolute;
-    bottom: 3px;
-    right: 6px;
-    font-size: 12px;
-    background: #000;
-    border-radius: 50%;
-    padding: 5px;
+.profile-info {
+    text-align: center;
 }
 
-.uid {
-    font-weight: bold;
-}
-
-.email {
-    font-size: 12px;
-    color: #bbb;
-}
-
-/* balance cards */
-.balance-row {
-    display: flex;
-    justify-content: space-around;
-    gap: 10px;
-    margin: 10px;
-}
-
-.balance-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 1 1;
+.profile-name {
     font-size: 18px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0 0 5px 0;
+}
+
+.profile-email {
+    font-size: 12px;
+    color: var(--primary-orange);
+    font-weight: 600;
+    margin-top: 10px;
+    background: #fff3e0;
+    padding: 4px 12px;
+    border-radius: 12px;
+}
+
+.profile-uid {
+    font-size: 12px;
+    color: var(--primary-orange);
+    font-weight: 600;
+    margin-top: 10px;
+    background: #fff3e0;
+    padding: 4px 12px;
+    border-radius: 12px;
+
+}
+
+/* Balance Cards */
+.settings-balance-row {
+    display: flex;
+    gap: 12px;
+    padding: 20px;
+    background: #f8f9fa;
+}
+
+.settings-balance-card {
+    flex: 1;
     background: var(--card-bg);
-    padding: 10px;
-    border-radius: 16px;
+    padding: 15px;
+    border-radius: var(--radius);
+    text-align: center;
     box-shadow: var(--shadow);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.settings-balance-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.deposit-card {
+    border-color: #4caf50;
+}
+
+.withdrawal-card {
+    border-color: var(--primary-orange);
 }
 
 .balance-icon {
-    font-size: 20px;
-    margin-bottom: 4px;
-    color: var(--primary-color);
+    font-size: 24px;
+    margin-bottom: 8px;
 }
 
 .balance-title {
-    font-size: 13px;
-    color: #000;
+    font-size: 12px;
+    color: var(--text-light);
     font-weight: 600;
-    margin-bottom: 4px;
+    margin: 0 0 8px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-/* menu list */
-.menu-list {
-    display: flex;
-    flex-direction: column;
-    margin: 0 10px;
+.balance-amount {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-dark);
 }
 
-.menu-list a {
+.deposit-card .balance-amount {
+    color: #4caf50;
+}
+
+.withdrawal-card .balance-amount {
+    color: var(--primary-orange);
+}
+
+/* Menu List */
+.settings-menu-list {
+    flex: 1;
+    padding: 20px;
+    background: #f8f9fa;
+}
+
+.settings-menu-list a {
     text-decoration: none;
-    color: var(--primary-color);
+    color: inherit;
 }
 
-.menu-item {
+.settings-menu-item {
     background: var(--card-bg);
-    border-radius: 10px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
-    padding: 12px;
-    margin-bottom: 8px;
+    padding: 16px;
+    margin-bottom: 10px;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.3s ease;
+    border: 1px solid #f0f0f0;
+    position: relative;
+    overflow: hidden;
 }
 
-.menu-item:hover {
-    background: var(--accent-color);
+.settings-menu-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--primary-orange);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+
+.settings-menu-item:hover {
+    background: #fff8e1;
+    border-color: var(--orange-light);
+    transform: translateX(5px);
+}
+
+.settings-menu-item:hover::before {
+    transform: scaleY(1);
 }
 
 .menu-icon {
-    margin-right: 12px;
-    font-size: 16px;
+    margin-right: 15px;
+    font-size: 18px;
+    color: var(--primary-orange);
+    transition: all 0.3s ease;
+}
+
+.settings-menu-item:hover .menu-icon {
+    transform: scale(1.1);
+    color: var(--orange-dark);
 }
 
 .menu-label {
     flex: 1;
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 15px;
 }
 
 .arrow-icon {
     font-size: 14px;
-    color: #bbb;
+    color: #ccc;
+    transition: all 0.3s ease;
 }
 
-/* responsive */
-@media (max-width:600px) {
-    .settings-header h2 {
-        font-size: 24px;
-    }
-
-    .balance-row {
-        flex-direction: column;
-        gap: 12px;
-    }
+.settings-menu-item:hover .arrow-icon {
+    color: var(--primary-orange);
+    transform: translateX(3px);
 }
 
-/* red logout item */
+/* Logout Item */
 .logout-item {
-    color: #ff4d4d;
+    color: #ff4444;
+    border: 1px solid #ffebee;
 }
 
 .logout-item .menu-icon {
-    color: #ff4d4d;
+    color: #ff4444;
 }
 
 .logout-item:hover {
-    background: #ffe5e5;
+    background: #ffebee;
+    border-color: #ff4444;
+    color: #ff4444;
 }
+
+.logout-item:hover .menu-icon {
+    color: #ff4444;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .settings-menu-container {
+        width: 85%;
+    }
+
+    .settings-menu-header {
+        padding: 18px;
+    }
+
+    .settings-menu-title {
+        font-size: 22px;
+    }
+
+    .settings-profile-section {
+        padding: 20px 15px;
+    }
+
+    .settings-balance-row {
+        padding: 15px;
+        gap: 10px;
+    }
+
+    .settings-balance-card {
+        padding: 12px;
+    }
+
+    .settings-menu-list {
+        padding: 15px;
+    }
+
+    .settings-menu-item {
+        padding: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .settings-menu-container {
+        width: 100%;
+        max-width: none;
+    }
+
+    .settings-menu-header {
+        padding: 16px;
+    }
+
+    .settings-menu-title {
+        font-size: 20px;
+    }
+
+    .settings-close-btn {
+        width: 36px;
+        height: 36px;
+    }
+
+    .close-icon {
+        font-size: 16px;
+    }
+
+    .settings-profile-section {
+        padding: 18px 12px;
+    }
+
+    .settings-user-avatar {
+        width: 70px;
+        height: 70px;
+    }
+
+    .profile-name {
+        font-size: 16px;
+    }
+
+    .settings-balance-row {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .settings-balance-card {
+        padding: 15px;
+    }
+
+    .balance-amount {
+        font-size: 18px;
+    }
+
+    .settings-menu-item {
+        padding: 16px 12px;
+    }
+
+    .menu-label {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 320px) {
+    .settings-menu-header {
+        padding: 14px;
+    }
+
+    .settings-menu-title {
+        font-size: 18px;
+    }
+
+    .settings-profile-section {
+        padding: 15px 10px;
+    }
+
+    .settings-user-avatar {
+        width: 60px;
+        height: 60px;
+    }
+
+    .settings-balance-card {
+        padding: 12px 10px;
+    }
+
+    .settings-menu-list {
+        padding: 12px 10px;
+    }
+
+    .settings-menu-item {
+        padding: 14px 10px;
+        margin-bottom: 8px;
+    }
+
+    .menu-icon {
+        margin-right: 12px;
+        font-size: 16px;
+    }
+}
+
+/* Scrollbar Styling */
+.settings-menu-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.settings-menu-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.settings-menu-container::-webkit-scrollbar-thumb {
+    background: var(--primary-orange);
+    border-radius: 3px;
+}
+
+.settings-menu-container::-webkit-scrollbar-thumb:hover {
+    background: var(--orange-dark);
+}
+
+/* Animation for menu items */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.settings-menu-item {
+    animation: slideInRight 0.3s ease forwards;
+    animation-delay: calc(var(--item-index, 0) * 0.1s);
+}
+
+/* Add this to your Dashboard component to use the new Settings menu */

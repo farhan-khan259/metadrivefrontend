@@ -82,7 +82,7 @@
 
 .camera-icon {
     color: var(--card-bg);
-    font-size: 28px;
+    font-size: 12px;
     position: absolute;
     bottom: 3px;
     right: 5px;

@@ -1,4 +1,3 @@
-// export default Withdrawfunds;
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {
@@ -48,7 +47,7 @@ const Withdrawfunds = () => {
   useEffect(() => {
     const fetchPlan = async () => {
       try {
-        const res = await axios.get(`https://be.solarx0.com/api/plans`, {
+        const res = await axios.get(`https://be.solarx0.com/api/plans/`, {
           params: { id: userId },
         });
         if (res.data.success) {
@@ -65,8 +64,8 @@ const Withdrawfunds = () => {
 
   // ✅ Withdraw handler (deduct instantly from DB & UI)
   const handleSubmit = async () => {
-    if (!amount || Number(amount) < 500) {
-      setErrorMessage("Minimum withdrawal amount is 500 PKR");
+    if (!amount || Number(amount) < 300) {
+      setErrorMessage("Minimum withdrawal amount is 300 PKR");
       setShowError(true);
       return;
     }
@@ -117,99 +116,109 @@ const Withdrawfunds = () => {
 
   return (
     <div className="withdraw-container3">
-      <div className="withdraw-header3">
-        <Link to="/withdraw">
-          <FaArrowLeft className="back-icon3" />
-        </Link>
-        <h2 className="title3">Withdraw Funds</h2>
+      {/* Header with orange background */}
+      <div className="header-section3">
+        <div className="withdraw-header3">
+          <Link to="/withdraw" className="back-link3">
+            <FaArrowLeft />
+          </Link>
+          <h2 className="title3">Withdraw Funds</h2>
+        </div>
       </div>
 
-      {/* ✅ Exact DB balance */}
-      <div className="balance-card3">
-        <span>Available Balance</span>
-        <h1 className="balance-amount3">{userBalance.toFixed(2)} PKR</h1>
-      </div>
-
-      <div className="card3">
-        <h3 className="step-title3">
-          <FaWallet className="step-icon3" /> Step 1: Withdrawal Account Status
-        </h3>
-        <div className="success-status3">
-          <FaCheckCircle className="success-icon3" />
-          <span>Account Bound Successfully</span>
+      <div className="content-section3">
+        {/* ✅ Exact DB balance */}
+        <div className="balance-card3">
+          <span className="balance-label3">Available Balance</span>
+          <h1 className="balance-amount3">
+            {userBalance.toLocaleString()} PKR
+          </h1>
         </div>
 
-        <div className="account-info3">
-          <p>
-            <strong>{bankName}</strong>
+        <div className="card3">
+          <h3 className="step-title3">
+            <FaWallet className="step-icon3" /> Step 1: Withdrawal Account
+            Status
+          </h3>
+          <div className="success-status3">
+            <FaCheckCircle className="success-icon3" />
+            <span>Account Bound Successfully</span>
+          </div>
+
+          <div className="account-info3">
+            <p>
+              <strong>{bankName}</strong>
+            </p>
+            <p>Account Name: {accountName}</p>
+            <p>Account Number: {accountNumber}</p>
+            <small className="note3">
+              <FaLock className="lock-icon3" /> Account details are secured and
+              can only be changed by Admin.
+            </small>
+          </div>
+        </div>
+
+        {/* 24/7 Withdrawal Service */}
+        <div className="card3 service-card3">
+          <h3 className="step-title3">
+            <FaRegClock className="step-icon3" />
+            Withdrawal Service 10:00 AM – 5:00 PM
+          </h3>
+          <p className="available-btn3">Withdrawals Available Anytime</p>
+          <p className="service-note3">
+            Your withdrawal will be credited to your account within{" "}
+            <span className="highlight-orange3">6-12 hours.</span>
           </p>
-          <p>Account Name: {accountName}</p>
-          <p>Account Number: {accountNumber}</p>
-          <small className="note3">
-            <FaLock className="lock-icon3" /> Account details are secured and
-            can only be changed by Admin.
-          </small>
         </div>
-      </div>
 
-      {/* 24/7 Withdrawal Service */}
-      <div className="card3 green-card3">
-        <h3 className="step-title3">
-          <FaRegClock className="step-icon3" />
-          Withdrawal Service 10:00 AM – 8:00 PM
-        </h3>
-        <p className="available-btn3">Withdrawals Available Anytime</p>
-        <p className="service-note3">
-          Your withdrawal will be credited to your account within{" "}
-          <span className="highlight-orange">6-12 hours.</span>
-        </p>
-      </div>
+        {/* Step 2 */}
+        <div className="card3">
+          <h3 className="step-title3">
+            <FaWallet className="step-icon3" /> Step 2: Enter Withdrawal Amount
+          </h3>
 
-      {/* Step 2 */}
-      <div className="card3">
-        <h3 className="step-title3">
-          <FaWallet className="step-icon3" /> Step 2: Enter Withdrawal Amount
-        </h3>
+          <input
+            className="amount-input3"
+            type="number"
+            placeholder="Enter amount (Min 300)"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            min="300"
+          />
 
-        <input
-          className="amount-input3"
-          type="number"
-          placeholder="Enter amount (Min 500)"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          min="500"
-        />
+          <button
+            className="submit-btn3"
+            onClick={handleSubmit}
+            disabled={loading}
+          >
+            {loading ? "Processing..." : "Submit Withdrawal Request"}
+          </button>
+        </div>
 
-        <button
-          className="submit-btn3"
-          onClick={handleSubmit}
-          disabled={loading}
-        >
-          {loading ? "Processing..." : "Submit Withdrawal Request"}
-        </button>
-      </div>
-
-      {/* Success Popup */}
-      {showSuccess && (
-        <div className="deposit-success-overlay">
-          <div className="deposit-success-box">
-            <h2>✅ Withdraw Request Submitted</h2>
-            <p>Your withdrawal request has been submitted successfully.</p>
-            <button onClick={() => setShowSuccess(false)}>Close</button>
+        {/* Success Popup */}
+        {showSuccess && (
+          <div className="popup-overlay3">
+            <div className="popup-box3 success-popup3">
+              <div className="popup-icon3">✅</div>
+              <h2>Withdraw Request Submitted</h2>
+              <p>Your withdrawal request has been submitted successfully.</p>
+              <button onClick={() => setShowSuccess(false)}>Close</button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Error Popup */}
-      {showError && (
-        <div className="deposit-success-overlay">
-          <div className="deposit-success-box">
-            <h2>❌ Withdrawal Failed</h2>
-            <p>{errorMessage}</p>
-            <button onClick={() => setShowError(false)}>Close</button>
+        {/* Error Popup */}
+        {showError && (
+          <div className="popup-overlay3">
+            <div className="popup-box3 error-popup3">
+              <div className="popup-icon3">❌</div>
+              <h2>Withdrawal Failed</h2>
+              <p>{errorMessage}</p>
+              <button onClick={() => setShowError(false)}>Close</button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

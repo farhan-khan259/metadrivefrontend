@@ -4,26 +4,22 @@ import { FiUploadCloud } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import "./Deposit.css";
 
-import logojazzcash from "../../Assets/Pictures/jazzcash.png";
-import logoeasypaisaa from "../../Assets/Pictures/unnamed-removebg-preview.png";
-
 export default function Deposit() {
-  const [selectedMethod, setSelectedMethod] = useState("Easypaisa(C2C)");
   const [customAmount, setCustomAmount] = useState("");
   const [image, setImage] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  // ✅ Unified popup state
+  // Popup state
   const [popupMessage, setPopupMessage] = useState("");
-  const [popupType, setPopupType] = useState("success"); // "success" | "error"
+  const [popupType, setPopupType] = useState("success");
   const [showPopup, setShowPopup] = useState(false);
 
   const userString = localStorage.getItem("user");
-  const user = JSON.parse(userString);
+  const user = userString ? JSON.parse(userString) : null;
   const userId = user?._id;
 
-  const numberRef = useRef(null);
+  const accountNoRef = useRef(null);
 
   useEffect(() => {
     const user = localStorage.getItem("user");
@@ -32,31 +28,11 @@ export default function Deposit() {
     }
   }, []);
 
-  const methods = [
-    { name: "Easypaisa(C2C)", bonus: "3%" },
-    { name: "JazzCash(C2C)", bonus: "3%" },
-  ];
-
-  const images = {
-    "Easypaisa(C2C)": logoeasypaisaa,
-    "JazzCash(C2C)": logojazzcash,
+  const bankDetails = {
+    bankName: "Easypaisa",
+    accountHolder: "Kashif Ali",
+    accountNo: "03248008331",
   };
-
-  const accounts = {
-    "Easypaisa(C2C)": {
-      number: "03377458802",
-      name: "Tanveer Abbas",
-    },
-    "JazzCash(C2C)": {
-      number: "03241984642",
-      name: "Muhammad Asghar",
-    },
-  };
-
-  // ✅ Bonus calculation
-  const amountToDisplay = customAmount
-    ? (parseFloat(customAmount) + parseFloat(customAmount) * 0.03).toFixed(0)
-    : "00";
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -67,16 +43,20 @@ export default function Deposit() {
   };
 
   const copyToClipboard = () => {
-    const numberText = numberRef.current?.childNodes[0]?.nodeValue?.trim();
+    const numberText = accountNoRef.current?.textContent?.trim();
     if (numberText) {
       navigator.clipboard.writeText(numberText);
+      setPopupMessage("Account number copied to clipboard!");
+      setPopupType("success");
+      setShowPopup(true);
+      setTimeout(() => setShowPopup(false), 2000);
     }
   };
 
   const handleSubmit = async () => {
-    if (!customAmount || parseFloat(customAmount) < 500) {
+    if (!customAmount || parseFloat(customAmount) < 1000) {
       setPopupType("error");
-      setPopupMessage("❌ Minimum deposit amount is Rs. 500");
+      setPopupMessage("❌ Minimum deposit amount is Rs. 1000");
       setShowPopup(true);
       return;
     }
@@ -88,13 +68,20 @@ export default function Deposit() {
       return;
     }
 
+    if (!userId) {
+      setPopupType("error");
+      setPopupMessage("❌ User not found. Please login again.");
+      setShowPopup(true);
+      return;
+    }
+
     setIsLoading(true);
 
     try {
       const formData = new FormData();
       formData.append("user_id", userId);
-      formData.append("amount", amountToDisplay);
-      formData.append("payment_method", selectedMethod);
+      formData.append("amount", customAmount);
+      formData.append("payment_method", "Easypaisa");
       formData.append("screenshot", imageFile);
 
       const response = await fetch("https://be.solarx0.com/api/deposit", {
@@ -109,7 +96,7 @@ export default function Deposit() {
         setPopupMessage("✅ Deposit request submitted successfully!");
         setShowPopup(true);
 
-        // reset form
+        // Reset form
         setCustomAmount("");
         setImage(null);
         setImageFile(null);
@@ -130,150 +117,138 @@ export default function Deposit() {
 
   return (
     <>
-      <div className="deposit-form">
-        <div className="header">
-          <button className="back-btnnn">
-            <div>
-              <Link to="/dashboard">
-                <FaArrowLeft />
-              </Link>
-            </div>
-          </button>
-          <h2>Deposit Funds</h2>
-        </div>
-
-        <div className="methods">
-          {methods.map((m) => (
-            <div
-              key={m.name}
-              className={`method ${selectedMethod === m.name ? "active" : ""}`}
-              onClick={() => setSelectedMethod(m.name)}
-            >
-              {m.name}
-              <span className="badgedeposit">+{m.bonus} Bonus</span>
-            </div>
-          ))}
-        </div>
-
-        <input
-          type="number"
-          className="custom-input"
-          placeholder="Rs Min 500 - Max Unlimited"
-          value={customAmount}
-          onChange={(e) => setCustomAmount(e.target.value)}
-          min="500"
-          max="50000"
-          step="1"
-        />
-      </div>
-
-      <div
-        className={`payment-container ${
-          selectedMethod.includes("Easy")
-            ? "easypaisa-active"
-            : "jazzcash-active"
-        }`}
-      >
-        <div className="amount-box2">
-          <div className="amount-text2">
-            <p>
-              AMOUNT OF PAYMENT <span style={{ color: "red" }}>+ 3%</span>
-            </p>
-
-            <h1>{amountToDisplay}</h1>
-            <p className="warning">
-              The payment amount must be consistent with the order amount.
-            </p>
-          </div>
-          <div>
-            <img
-              className="logoeasypaisaa1"
-              src={images[selectedMethod]}
-              alt=""
-            />
-            <p className="easypaisa-label">
-              Only Support {selectedMethod.split("(")[0]} Wallet
-            </p>
+      <div className="deposit-page">
+        {/* Header with orange background */}
+        <div className="deposit-header-section">
+          <div className="deposit-header">
+            <Link to="/dashboard" className="back-arrowdeposit">
+              <FaArrowLeft />
+            </Link>
+            <h2 className="deposit-title">Deposit Funds</h2>
+            <div className="header-spacer"></div>
           </div>
         </div>
 
-        <div className="steps-box">
-          {/* Step 1 */}
-          <p>
-            <strong>Step 1:</strong> Copy Receive Wallet Account
-          </p>
-
-          <div className="wallet-card">
-            <div className="wallet-info">
-              <p className="wallet-title">Account Holder Name</p>
-              <p className="wallet-name">{accounts[selectedMethod].name}</p>
-              <div className="divider"></div>
-              <p className="wallet-title">Account Number</p>
-              <div className="number-row">
-                <span ref={numberRef}>{accounts[selectedMethod].number}</span>
-                <span className="copy-icon" onClick={copyToClipboard}>
-                  📋
-                </span>
+        {/* Main Content */}
+        <div className="deposit-content">
+          <div className="deposit-card">
+            {/* Bank Details Section */}
+            <div className="details-section">
+              <div className="detail-row">
+                <label className="detail-label">Payment Method:</label>
+                <div className="detail-value bank-name">
+                  {bankDetails.bankName}
+                </div>
               </div>
+
+              <div className="detail-row">
+                <label className="detail-label">Account Holder:</label>
+                <div className="detail-value">{bankDetails.accountHolder}</div>
+              </div>
+
+              <div className="detail-row">
+                <label className="detail-label">Account No:</label>
+                <div className="detail-value copyable">
+                  <span ref={accountNoRef}>{bankDetails.accountNo}</span>
+                  <button className="copy-btndeposit" onClick={copyToClipboard}>
+                    📋 Copy
+                  </button>
+                </div>
+              </div>
+
+              {/* Deposit Amount */}
+              <div className="input-row">
+                <label className="input-label">Deposit Amount:</label>
+                <input
+                  type="number"
+                  className="amount-input"
+                  placeholder="Rs Min 1000 - Max Unlimited"
+                  value={customAmount}
+                  onChange={(e) => setCustomAmount(e.target.value)}
+                  min="1000"
+                />
+              </div>
+
+              {/* Upload Section */}
+              <div className="upload-section">
+                <label className="upload-label">Upload Payment Receipt</label>
+                <div className="upload-area">
+                  <label htmlFor="receiptUpload" className="upload-box">
+                    {image ? (
+                      <div className="image-preview">
+                        <img
+                          src={image}
+                          alt="Receipt"
+                          className="preview-img"
+                        />
+                        <button
+                          className="remove-image"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setImage(null);
+                            setImageFile(null);
+                          }}
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="upload-placeholder">
+                        <FiUploadCloud className="upload-icon" />
+                        <span className="upload-text">
+                          Tap to upload receipt
+                        </span>
+                        <span className="upload-subtext">
+                          PNG, JPG up to 5MB
+                        </span>
+                      </div>
+                    )}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      id="receiptUpload"
+                      onChange={handleImageUpload}
+                      hidden
+                    />
+                  </label>
+                </div>
+              </div>
+
+              {/* Continue Button */}
+              <button
+                className={`continue-btn ${isLoading ? "loading" : ""}`}
+                onClick={handleSubmit}
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <div className="spinner"></div>
+                    Processing...
+                  </>
+                ) : (
+                  "Submit Deposit Request"
+                )}
+              </button>
             </div>
-
-            <img
-              src={images[selectedMethod]}
-              className="wallet-logo"
-              alt="wallet"
-            />
           </div>
-
-          <p className="tip">
-            Tip: Each recharge must get new online account, otherwise money
-            can't reach
-          </p>
-
-          <p>
-            <strong>Step 2:</strong> Open
-            <span className="highlight">
-              {selectedMethod.split("(")[0]}
-            </span>{" "}
-            APP To Complete Transfer and Upload Recipt
-          </p>
-
-          <div className="easypaisa-logo">
-            <label htmlFor="imageUpload" className="upload-box">
-              {image ? (
-                <img src={image} alt="Uploaded" className="preview-image" />
-              ) : (
-                <FiUploadCloud className="upload-icon" />
-              )}
-              <input
-                type="file"
-                accept="image/*"
-                id="imageUpload"
-                onChange={handleImageUpload}
-                hidden
-              />
-            </label>
-          </div>
-          <button
-            className="submit-btndep"
-            onClick={handleSubmit}
-            disabled={isLoading}
-          >
-            {isLoading ? "Processing..." : "Submit"}
-          </button>
         </div>
       </div>
 
-      {/* ✅ Unified Popup */}
+      {/* Popup */}
       {showPopup && (
-        <div className="deposit-success-overlay">
-          <div className={`deposit-success-box ${popupType}`}>
-            <h2>
-              {popupType === "success"
-                ? "✅ Deposit Completed"
-                : "⚠️ Deposit Failed"}
-            </h2>
+        <div className="popup-overlay">
+          <div className={`popup ${popupType}`}>
+            <div className="popup-icon">
+              {popupType === "success" ? "✅" : "❌"}
+            </div>
+            <h3>{popupType === "success" ? "Success" : "Error"}</h3>
             <p>{popupMessage}</p>
-            <button onClick={() => setShowPopup(false)}>Close</button>
+            <button
+              className="popup-close-btn"
+              onClick={() => setShowPopup(false)}
+            >
+              Close
+            </button>
           </div>
         </div>
       )}

@@ -13,8 +13,8 @@
 //   const [popupMessage, setPopupMessage] = useState("");
 
 //   // ✅ Hardcoded Admin
-//   const adminEmail = "sajid@solarx0.com";
-//   const adminPassword = "admin0099xyz";
+//   const adminEmail = "admin@gmail.com";
+//   const adminPassword = "admin786";
 
 //   const navigate = useNavigate();
 
@@ -38,7 +38,7 @@
 
 //     // ✅ Otherwise use backend API
 //     try {
-//       const res = await fetch("https://be.solarx0.com/api/login", {
+//       const res = await fetch("http://localhost:3005/api/login", {
 //         method: "POST",
 //         headers: { "Content-Type": "application/json" },
 //         body: JSON.stringify({ email, password }),
@@ -219,11 +219,7 @@ export default function Signin() {
     <div className="login-page">
       <div className="login-box">
         <img src={logo} alt="Solar X Logo" className="bot-icon" />
-        <h2 className="title">WELCOME BACK!</h2>
-        <p className="subtitle">
-          خوش امدید آپ کا اکاؤنٹ سولر ایکس کمپنی میں رجسٹر ہو گیا ہے اپنے اکاؤنٹ
-          کو لاگ ان کرو اور اج سے ہی اپنی ارننگ شروع کرو
-        </p>
+        {/* <h2 className="title">WELCOME BACK!</h2> */}
 
         <form onSubmit={handleSubmit}>
           <label>Email</label>

@@ -9,8 +9,6 @@ import {
   FaFileAlt,
   FaMoneyCheckAlt,
   FaTachometerAlt,
-  FaTags,
-  FaTicketAlt,
   FaTimes,
   FaUsers,
   FaWallet,
@@ -60,21 +58,21 @@ const Sidebar = () => {
             <NavLink to="/admin/transactions" onClick={() => setOpen(false)}>
               <FaExchangeAlt /> <span>All Transactions</span>
             </NavLink>
-            <NavLink to="/admin/promocode" onClick={() => setOpen(false)}>
+            {/* <NavLink to="/admin/promocode" onClick={() => setOpen(false)}>
               <FaTags /> <span>Promo Code</span>
-            </NavLink>
+            </NavLink> */}
             <NavLink
               to="/admin/cms/announcements"
               onClick={() => setOpen(false)}
             >
               <FaFileAlt /> <span>Announcements</span>
             </NavLink>
-            <NavLink
+            {/* <NavLink
               to="/admin/admins/richtickett"
               onClick={() => setOpen(false)}
             >
               <FaTicketAlt /> <span>Rich Ticket</span>
-            </NavLink>
+            </NavLink> */}
 
             {/* Reports dropdown */}
             <div className="dropdown-section">

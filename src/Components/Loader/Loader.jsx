@@ -1,4 +1,4 @@
-import logo from "../../Assets/Pictures/Solarxlogo-removebg-preview.png";
+import logo from "../../Assets/Pictures/solarxlogoadmin.png";
 import "./Loader.css";
 
 const Loader = () => {

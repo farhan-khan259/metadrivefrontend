@@ -1,14 +1,14 @@
-import { useState, useRef } from "react";
+import axios from "axios";
+import { useRef, useState } from "react";
 import {
   FaArrowLeft,
+  FaCamera,
   FaEdit,
   FaKey,
   FaSave,
   FaUser,
-  FaCamera,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import profileimg from "../../Assets/Pictures/profileelonmusk.jpeg";
 import "./Profile.css";
 
@@ -153,7 +153,7 @@ export default function Profile() {
     <div className="profile-container7p">
       {/* Header */}
       <div className="profile-header-wrapper7p">
-        <Link to="/setting" className="back-linkpro7p">
+        <Link to="/dashboard" className="back-linkpro7p">
           <FaArrowLeft />
         </Link>
         <h2 className="profile-page-heading7p">Profile Settings</h2>
