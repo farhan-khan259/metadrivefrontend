@@ -235,7 +235,8 @@
     display: flex;
     font-weight: 900;
     gap: 5px;
-    /* margin-bottom: 10px; */
+    transform: translateY(27px);
+    /* margin-top: 13px; */
 }
 
 /* invest button stamp style */
