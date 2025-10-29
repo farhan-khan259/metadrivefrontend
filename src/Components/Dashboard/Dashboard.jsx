@@ -256,7 +256,7 @@ export default function Dashboard() {
 
     return [
       {
-        title: "SOLARX INVESTMENT (3D)",
+        title: "SOLARX PAKISTAN (3D)",
         days: 3,
         min: 1000,
         max: 2000,
@@ -266,7 +266,7 @@ export default function Dashboard() {
         locked: false,
       },
       {
-        title: "SOLARX INVESTMENT (7D)",
+        title: "REON ENERGY (7D)",
         days: 7,
         min: 1000,
         max: 4000,
@@ -276,7 +276,7 @@ export default function Dashboard() {
         locked: false,
       },
       {
-        title: "SOLARX INVESTMENT (12D)",
+        title: "SKY ELECTRIC (12D)",
         days: 12,
         min: 2000,
         max: 10000,
@@ -286,7 +286,7 @@ export default function Dashboard() {
         locked: false,
       },
       {
-        title: "SOLARX INVESTMENT (15D)",
+        title: "NIZAM ENERGY (15D)",
         days: 15,
         min: 3000,
         max: 20000,
@@ -296,7 +296,7 @@ export default function Dashboard() {
         locked: true,
       },
       {
-        title: "SOLARX INVESTMENT (22D)",
+        title: "ZONERGY (22D)",
         days: 22,
         min: 5000,
         max: 25000,
@@ -306,7 +306,7 @@ export default function Dashboard() {
         locked: true,
       },
       {
-        title: "SOLARX INVESTMENT (30D)",
+        title: "GREEN POWER (30D)",
         days: 30,
         min: 1000,
         max: 50000,
@@ -316,7 +316,7 @@ export default function Dashboard() {
         locked: false,
       },
       {
-        title: "SOLARX INVESTMENT (42D)",
+        title: "ALBARIO SOLARX (42D)",
         days: 42,
         min: 15000,
         max: 70000,
@@ -326,7 +326,7 @@ export default function Dashboard() {
         locked: true,
       },
       {
-        title: "SOLARX INVESTMENT (60D)",
+        title: "PAK OMAN INVESTMENT COMPANY (60D)",
         days: 60,
         min: 20000,
         max: 100000,
