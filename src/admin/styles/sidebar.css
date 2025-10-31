@@ -47,13 +47,11 @@
 
 
 .sidebar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: absolute;
-    padding: 15px;
-    width: 100%;
     background: #141421;
+    display: flex;
+    padding: 15px;
+    position: absolute;
+    width: 100%;
 }
 
 .logo {
@@ -69,10 +67,9 @@
 }
 
 .sidebar-menu {
-
     display: flex;
     flex-direction: column;
-    margin-top: 60px;
+    margin-top: 92px;
 }
 
 .sidebar-menu a {
