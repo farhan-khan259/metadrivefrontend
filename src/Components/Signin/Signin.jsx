@@ -12,33 +12,15 @@
 //   const [popupTitle, setPopupTitle] = useState("");
 //   const [popupMessage, setPopupMessage] = useState("");
 
-//   // ✅ Hardcoded Admin
-//   const adminEmail = "admin@gmail.com";
-//   const adminPassword = "admin786";
-
 //   const navigate = useNavigate();
 
 //   const handleSubmit = async (e) => {
 //     e.preventDefault();
 //     setLoading(true);
 
-//     // ✅ Check hardcoded admin credentials first
-//     if (email === adminEmail && password === adminPassword) {
-//       const adminUser = { email: adminEmail, role: "admin" };
-
-//       // Store admin user + role in localStorage
-//       localStorage.setItem("user", JSON.stringify(adminUser));
-//       localStorage.setItem("role", "admin");
-
-//       sessionStorage.setItem("justLoggedIn", "true");
-//       navigate("/admin");
-//       setLoading(false);
-//       return;
-//     }
-
-//     // ✅ Otherwise use backend API
 //     try {
-//       const res = await fetch("http://localhost:3005/api/login", {
+//       // ✅ Login via secure backend route
+//       const res = await fetch(`${process.env.REACT_APP_API_URL}/api/login`, {
 //         method: "POST",
 //         headers: { "Content-Type": "application/json" },
 //         body: JSON.stringify({ email, password }),
@@ -48,7 +30,7 @@
 //       const data = await res.json();
 //       console.log(data);
 
-//       if (!res.ok) {
+//       if (!res.ok || !data.user) {
 //         setPopupTitle("Login Failed");
 //         setPopupMessage(data.message || "Invalid email or password.");
 //         setShowPopup(true);
@@ -56,26 +38,26 @@
 //         return;
 //       }
 
-//       // Save user info
+//       // ✅ Save user info securely
 //       localStorage.setItem("user", JSON.stringify(data.user));
-//       localStorage.setItem("userPlan", JSON.stringify(data.userPlanlength));
 //       localStorage.setItem("role", data.user?.role || "user");
+//       localStorage.setItem(
+//         "userPlan",
+//         JSON.stringify(data.userPlanlength || [])
+//       );
+//       if (data.token) localStorage.setItem("token", data.token);
 
-//       // Save JWT token if provided
-//       if (data.token) {
-//         localStorage.setItem("token", data.token);
-//       }
-
-//       // ✅ Set flag so Dashboard knows it’s a fresh login
+//       // ✅ Session flag for first load
 //       sessionStorage.setItem("justLoggedIn", "true");
 
-//       // Explicitly check role and redirect
-//       if (data.user && data.user.role === "admin") {
+//       // ✅ Navigate by role
+//       if (data.user.role === "admin") {
 //         navigate("/admin");
 //       } else {
 //         navigate("/dashboard");
 //       }
 //     } catch (error) {
+//       console.error("Login Error:", error);
 //       setPopupTitle("Server Error");
 //       setPopupMessage("Could not connect to server. Try again later.");
 //       setShowPopup(true);
@@ -88,8 +70,7 @@
 //     <div className="login-page">
 //       <div className="login-box">
 //         <img src={logo} alt="Solar X Logo" className="bot-icon" />
-//         <h2 className="title">WELCOME BACK!</h2>
-//         <p className="subtitle">Sign in to Solar X</p>
+//         {/* <h2 className="title">WELCOME BACK!</h2> */}
 
 //         <form onSubmit={handleSubmit}>
 //           <label>Email</label>
@@ -148,8 +129,8 @@
 // }
 
 import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../../Assets/Pictures/Solarxlogo.jpeg";
 import "./Signin.css";
 
 export default function Signin() {
@@ -168,7 +149,6 @@ export default function Signin() {
     setLoading(true);
 
     try {
-      // ✅ Login via secure backend route
       const res = await fetch(`${process.env.REACT_APP_API_URL}/api/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -177,7 +157,6 @@ export default function Signin() {
       });
 
       const data = await res.json();
-      console.log(data);
 
       if (!res.ok || !data.user) {
         setPopupTitle("Login Failed");
@@ -187,7 +166,6 @@ export default function Signin() {
         return;
       }
 
-      // ✅ Save user info securely
       localStorage.setItem("user", JSON.stringify(data.user));
       localStorage.setItem("role", data.user?.role || "user");
       localStorage.setItem(
@@ -196,15 +174,10 @@ export default function Signin() {
       );
       if (data.token) localStorage.setItem("token", data.token);
 
-      // ✅ Session flag for first load
       sessionStorage.setItem("justLoggedIn", "true");
 
-      // ✅ Navigate by role
-      if (data.user.role === "admin") {
-        navigate("/admin");
-      } else {
-        navigate("/dashboard");
-      }
+      if (data.user.role === "admin") navigate("/admin");
+      else navigate("/dashboard");
     } catch (error) {
       console.error("Login Error:", error);
       setPopupTitle("Server Error");
@@ -216,51 +189,59 @@ export default function Signin() {
   };
 
   return (
-    <div className="login-page">
-      <div className="login-box">
-        <img src={logo} alt="Solar X Logo" className="bot-icon" />
-        {/* <h2 className="title">WELCOME BACK!</h2> */}
+    <div className="signin-container">
+      <div className="signin-card">
+        <div className="signin-header">
+          <h2>
+            SOLAR <span>X</span>
+          </h2>
+          <p>Sign in to your account</p>
+        </div>
 
         <form onSubmit={handleSubmit}>
-          <label>Email</label>
-          <div className="input-icon-box">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+          <div className="form-group">
+            <label>Email</label>
+            <div className="input-box">
+              <input
+                type="email"
+                placeholder="example@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
           </div>
 
-          <label>Password</label>
-          <div className="input-icon-box">
-            <input
-              type={passwordVisible ? "text" : "password"}
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <span
-              className="eye-icon"
-              onClick={() => setPasswordVisible(!passwordVisible)}
-            >
-              {passwordVisible ? "🙈" : "👁️"}
-            </span>
+          <div className="form-group">
+            <label>Password</label>
+            <div className="input-box password-box">
+              <input
+                type={passwordVisible ? "text" : "password"}
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <span
+                className="toggle-password-icon"
+                onClick={() => setPasswordVisible(!passwordVisible)}
+              >
+                {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
           </div>
 
-          <p className="forget">
-            <Link to="/forgetpassword"> forget password?</Link>
-          </p>
+          <div className="forgot-password">
+            <Link to="/forgetpassword">Forgot Password?</Link>
+          </div>
 
-          <button type="submit" className="login-btn" disabled={loading}>
+          <button type="submit" className="signin-btn" disabled={loading}>
             {loading ? "Signing In..." : "Sign In"}
           </button>
 
-          <p className="footer-text">
-            Don’t have an account? <Link to="/signup">Sign up</Link>
-          </p>
+          <Link to="/signup" className="create-account-btn">
+            Create Account
+          </Link>
         </form>
       </div>
 

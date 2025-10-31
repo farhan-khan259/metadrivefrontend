@@ -633,7 +633,7 @@ export default function Dashboard() {
               <div className="sx-invested-people">
                 <div className="sx-invested-header">
                   <span className="sx-invested-icon"></span>
-                  ACTIVE INVESTORS
+                   Activate Your Plan
                 </div>
                 <strong className="sx-invested-count">
                   {getSubscribersFor(p).toLocaleString()}

@@ -231,7 +231,7 @@
 }
 
 .sx-invested-people {
-    color: #7b2cff;
+    color: #ff0000;
     display: flex;
     font-weight: 900;
     gap: 5px;
@@ -376,7 +376,8 @@
 
 .sx-calc-value {
     font-weight: 900;
-    margin-top: 6px
+    margin-top: 6px;
+    color: #ff9800;
 }
 
 .sx-modal-error {
@@ -943,5 +944,18 @@
 }
 
 .sx-popular-badge {
+    display: none;
+}
+
+
+.sx-popularity-badge {
+    display: none;
+}
+
+.sx-popularity-note {
+    display: none;
+}
+
+.sx-invested-count {
     display: none;
 }

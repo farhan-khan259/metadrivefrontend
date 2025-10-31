@@ -199,6 +199,7 @@
     font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
+    color: #ff9b38;
 }
 
 .status.pending {

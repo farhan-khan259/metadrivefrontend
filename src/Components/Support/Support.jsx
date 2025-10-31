@@ -68,10 +68,10 @@ export default function Support() {
             </p>
             <div className="contact-details">
               <p>
-                <strong>Email:</strong> support@solarx.com
+                <strong>Email:</strong> solarxofficial0@gmail.com
               </p>
               <p>
-                <strong>Phone:</strong> +92 300 1234567
+                <strong>Phone:</strong> +92 323 9704664
               </p>
               <p>
                 <strong>Hours:</strong> 24/7 Available
