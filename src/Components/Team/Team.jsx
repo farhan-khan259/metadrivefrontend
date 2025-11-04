@@ -718,7 +718,7 @@ const TeamDetailsScreen = ({ teamData }) => {
               <div className="member-card" key={index}>
                 <div className="member-header">
                   <h4>Level: 1</h4>
-                  <span className="commission-rate">6%</span>
+                  <span className="commission-rateteam">6%</span>
                 </div>
                 <div className="member-info">
                   <div className="info-row">
@@ -761,7 +761,7 @@ const TeamDetailsScreen = ({ teamData }) => {
               <div className="member-card" key={index}>
                 <div className="member-header">
                   <h4>Level: 2</h4>
-                  <span className="commission-rate">3.1%</span>
+                  <span className="commission-rateteam">3.1%</span>
                 </div>
                 <div className="member-info">
                   <div className="info-row">
@@ -810,7 +810,7 @@ const TeamDetailsScreen = ({ teamData }) => {
               <div className="member-card" key={index}>
                 <div className="member-header">
                   <h4>Level: 3</h4>
-                  <span className="commission-rate">1.5%</span>
+                  <span className="commission-rateteam">1.5%</span>
                 </div>
                 <div className="member-info">
                   <div className="info-row">

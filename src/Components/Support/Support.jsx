@@ -38,9 +38,13 @@ export default function Support() {
               <div className="card-icon">
                 <FaWhatsapp />
               </div>
-              <h3 className="card-title">WhatsApp Support</h3>
-              <p className="card-description">24/7 واٹس ایپ سپورٹ</p>
-              <p className="card-subtext">فوری مدد کے لیے رابطہ کریں</p>
+              <h3 className="card-title">WhatsApp Group</h3>
+              <p className="card-description">
+                Join our WhatsApp group for daily updates and announcements
+              </p>
+              <p className="card-subtext">
+                ڈیلی اپڈیٹس، آفرز اور سپورٹ کے لیے گروپ میں شامل ہوں
+              </p>
             </a>
 
             {/* Customer Service Card */}

@@ -14,6 +14,7 @@ import Deposit from "./Components/Deposit/Deposit";
 import Forgetpassword from "./Components/Forgetpassword/Forgetpassword";
 import Investmentplans from "./Components/Investmentplans/Investmentplans";
 import InviteScreen from "./Components/InviteScreen/InviteScreen";
+import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy";
 import Profile from "./Components/Profile/Profile";
 import Profilecard from "./Components/Profilecard/Profilecard";
 import Settings from "./Components/Settings/Settings";
@@ -130,6 +131,15 @@ function AppRoutes() {
 				element={
 					<ProtectedRoute>
 						<Settings />
+					</ProtectedRoute>
+				}
+			/>
+
+			<Route
+				path="/privacypolicy"
+				element={
+					<ProtectedRoute>
+						<PrivacyPolicy />
 					</ProtectedRoute>
 				}
 			/>

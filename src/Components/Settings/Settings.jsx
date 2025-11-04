@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   FaChevronRight,
+  FaFileContract,
   FaHandHoldingUsd,
   FaInfoCircle,
   FaLifeRing,
@@ -130,6 +131,9 @@ export default function Settings({ isOpen, onClose, onOpenProfile }) {
           </Link>
           <Link to="/support" onClick={onClose}>
             <MenuItem icon={<FaLifeRing />} label="Technical Support" />
+          </Link>
+          <Link to="/privacypolicy" onClick={onClose}>
+            <MenuItem icon={<FaFileContract />} label="Privacy Policy" />
           </Link>
           <Link to="/ourinfo" onClick={onClose}>
             <MenuItem icon={<FaInfoCircle />} label="About Solar X" />
