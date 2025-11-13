@@ -14,7 +14,6 @@ import Deposit from "./Components/Deposit/Deposit";
 import Forgetpassword from "./Components/Forgetpassword/Forgetpassword";
 import Investmentplans from "./Components/Investmentplans/Investmentplans";
 import InviteScreen from "./Components/InviteScreen/InviteScreen";
-import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy";
 import Profile from "./Components/Profile/Profile";
 import Profilecard from "./Components/Profilecard/Profilecard";
 import Settings from "./Components/Settings/Settings";
@@ -31,7 +30,9 @@ import Withdrawfunds from "./Components/Withdrawfunds/Withdrawfunds";
 
 // ---- ADMIN PANEL COMPONENTS ----
 import adminRoutes from "./admin/adminRoutes";
+import EarningsSummary from "./Components/EarningsSummary/EarningsSummary";
 import OurInfo from "./Components/OurInfo/OurInfo";
+import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy";
 
 function AppRoutes() {
 	const location = useLocation();
@@ -136,19 +137,18 @@ function AppRoutes() {
 			/>
 
 			<Route
-				path="/privacypolicy"
-				element={
-					<ProtectedRoute>
-						<PrivacyPolicy />
-					</ProtectedRoute>
-				}
-			/>
-
-			<Route
 				path="/support"
 				element={
 					<ProtectedRoute>
 						<Support />
+					</ProtectedRoute>
+				}
+			/>
+			<Route
+				path="/privacypolicy"
+				element={
+					<ProtectedRoute>
+						<PrivacyPolicy />
 					</ProtectedRoute>
 				}
 			/>
@@ -165,6 +165,15 @@ function AppRoutes() {
 				element={
 					<ProtectedRoute>
 						<InviteScreen />
+					</ProtectedRoute>
+				}
+			/>
+
+			<Route
+				path="/earningsummary"
+				element={
+					<ProtectedRoute>
+						<EarningsSummary />
 					</ProtectedRoute>
 				}
 			/>
