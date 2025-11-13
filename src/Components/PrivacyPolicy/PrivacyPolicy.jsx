@@ -23,7 +23,7 @@ export default function PrivacyPolicy() {
           </p>
 
           <p className="privacy-intro">
-            At <strong className="solarx-highlight">Solar X</strong>, we are
+            At <strong className="solarx-highlight">MetaDrive</strong>, we are
             committed to protecting your privacy. This Privacy Policy outlines
             how we collect, use, share, and safeguard your information when you
             use our services, including our website and solar energy solutions.
@@ -100,7 +100,7 @@ export default function PrivacyPolicy() {
               </li>
               <li>
                 <strong className="solarx-highlight">Legal Obligations:</strong>{" "}
-                If required by law or to protect Solar X or others.
+                If required by law or to protect MetaDrive or others.
               </li>
             </ul>
           </div>
@@ -195,7 +195,7 @@ export default function PrivacyPolicy() {
               If you have any questions about this Privacy Policy, please
               contact us at <strong>[Insert Contact Information]</strong>.
             </p> */}
-            <p className="thankyou">Thank you for choosing Solar X!</p>
+            <p className="thankyou">Thank you for choosing MetaDrive!</p>
           </div>
         </div>
       </div>

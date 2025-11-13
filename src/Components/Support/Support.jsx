@@ -72,7 +72,7 @@ export default function Support() {
             </p>
             <div className="contact-details">
               <p>
-                <strong>Email:</strong> solarxofficial0@gmail.com
+                <strong>Email:</strong> metadriveofficial0@gmail.com
               </p>
               <p>
                 <strong>Phone:</strong> +92 323 9704664

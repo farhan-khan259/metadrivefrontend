@@ -11,7 +11,7 @@ export default function OurInfo() {
           <Link to="/dashboard" className="ourinfo-back-link">
             <FaArrowLeft className="back-icon" />
           </Link>
-          <h1 className="ourinfo-title-new">About Solar X</h1>
+          <h1 className="ourinfo-title-new">About MetaDrive</h1>
         </div>
       </div>
 

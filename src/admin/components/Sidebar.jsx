@@ -43,7 +43,7 @@ const Sidebar = () => {
       <div className={`sidebar-overlay ${open ? "show" : ""}`}>
         <div className="sidebar">
           <div className="sidebar-header">
-            <h2 className="logo">Solarx0</h2>
+            <h2 className="logo">MetaDrive</h2>
             <FaTimes className="close-btn" onClick={() => setOpen(false)} />
           </div>
 

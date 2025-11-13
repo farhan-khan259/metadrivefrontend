@@ -1,7 +1,8 @@
 .loader-wrapper {
     position: fixed;
     inset: 0;
-    /* background-color: #f8f6fc; */
+    background-color: #E9EDE9;
+    /* Warm Gray */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -9,18 +10,14 @@
     z-index: 9999;
 }
 
-.logo {
-    height: 200px;
-    width: 200px;
-    border-radius: 12px;
-}
 
 
 .curved-spinner {
     width: 60px;
     height: 60px;
     border: 4px solid transparent;
-    border-top: 4px solid #f9ac1e;
+    border-top: 4px solid #1DB954;
+    /* Spotify Green */
     border-radius: 50%;
     animation: rotate 1s linear infinite;
     margin-bottom: 20px;
@@ -39,5 +36,6 @@
 .loader-wrapper p {
     font-size: 16px;
     font-weight: 500;
-    color: #444;
+    color: #264653;
+    /* Charcoal */
 }

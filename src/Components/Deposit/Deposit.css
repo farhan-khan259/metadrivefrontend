@@ -1,47 +1,81 @@
+/* src/components/Deposit/Deposit.css */
+
 :root {
-    --primary-orange: #ff9800;
-    --primary-blue: #ff5722;
-    --accent-orange: #ffb24d;
-    --background: #fff8f0;
-    --card-bg: #ffffff;
-    --text-dark: #333333;
-    --text-light: #666666;
-    --border-color: #e0e0e0;
-    --success-color: #4caf50;
-    --error-color: #f44336;
-    --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    --primary: #00D4AA;
+    --primary-dark: #00B894;
+    --primary-light: #80FFE5;
+    --secondary: #6C63FF;
+    --accent: #FF6B6B;
+    --warning: #FFD166;
+    --success: #1DB954;
+    --dark: #2D3748;
+    --darker: #1A202C;
+    --light: #F7FAFC;
+    --gray: #A0AEC0;
+    --card-bg: #FFFFFF;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.12);
+    --gradient-primary: linear-gradient(135deg, #00D4AA 0%, #6C63FF 100%);
+    --gradient-secondary: linear-gradient(135deg, #FF6B6B 0%, #FFD166 100%);
+    --gradient-success: linear-gradient(135deg, #1DB954 0%, #00D4AA 100%);
+    --border-radius: 20px;
+    --border-radius-sm: 12px;
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--background);
-    color: var(--text-dark);
-    min-height: 100vh;
-}
-
-/* Deposit Page Layout */
 .deposit-page {
-    max-width: 500px;
-    margin: 0 auto;
-    background: var(--background);
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    background: linear-gradient(135deg, #F7FAFC 0%, #EDF2F7 100%);
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    position: relative;
+    overflow-x: hidden;
 }
 
-/* Header Section with Orange Background */
+/* Animated background elements */
+.deposit-page::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 10% 20%, rgba(108, 99, 255, 0.05) 0%, transparent 20%),
+        radial-gradient(circle at 90% 30%, rgba(0, 212, 170, 0.05) 0%, transparent 20%),
+        radial-gradient(circle at 50% 80%, rgba(255, 107, 107, 0.05) 0%, transparent 20%);
+    z-index: -1;
+}
+
+/* Header Section with Gradient Background */
 .deposit-header-section {
-    background: linear-gradient(135deg, #ff9800, #ff5722);
-    padding: 20px 15px;
-    border-radius: 0 0 20px 20px;
-    box-shadow: 0 4px 20px rgba(255, 152, 0, 0.3);
-    margin-bottom: 20px;
+    background: var(--gradient-primary);
+    padding: 25px 20px;
+    border-radius: 0 0 30px 30px;
+    box-shadow: 0 10px 40px rgba(0, 212, 170, 0.3);
+    margin-bottom: 25px;
+    position: relative;
+    overflow: hidden;
+}
+
+.deposit-header-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.deposit-header-section::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 150px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
 }
 
 .deposit-header {
@@ -49,101 +83,123 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    z-index: 2;
 }
 
 .back-arrowdeposit {
     display: flex;
     align-items: center;
     justify-content: center;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
     color: white;
     text-decoration: none;
     font-size: 20px;
     transition: all 0.3s ease;
-    padding: 8px;
-    background: rgba(255, 255, 255, 0.2);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
     backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
 }
 
 .back-arrowdeposit:hover {
     background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px) scale(1.05);
 }
 
 .deposit-title {
-    font-size: 22px;
+    font-size: 28px;
     font-weight: 800;
     color: white;
     margin: 0;
     text-align: center;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    letter-spacing: -0.5px;
     flex: 1;
 }
 
 .header-spacer {
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
 }
 
 /* Main Content */
 .deposit-content {
-    padding: 0 15px 20px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+    padding: 0 20px 30px;
+    max-width: 500px;
+    margin: 0 auto;
+    width: 100%;
 }
 
 .deposit-card {
     background: var(--card-bg);
-    border-radius: 20px;
-    padding: 25px;
+    border-radius: var(--border-radius);
+    padding: 30px;
     box-shadow: var(--shadow);
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #e0e0e0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.deposit-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-primary);
 }
 
 /* Details Section */
 .details-section {
-    background: var(--card-bg);
-    flex: 1;
     display: flex;
     flex-direction: column;
+    gap: 25px;
 }
 
 /* Detail Rows */
 .detail-row {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    gap: 8px;
 }
 
 .detail-label {
     font-size: 14px;
     font-weight: 700;
-    color: var(--text-light);
-    margin-bottom: 8px;
+    color: var(--gray);
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.detail-label::before {
+    content: '•';
+    color: var(--primary);
+    font-size: 18px;
 }
 
 .detail-value {
     font-size: 16px;
-    font-weight: 600;
-    color: var(--text-dark);
-    padding: 14px;
-    background: var(--background);
-    border-radius: 12px;
-    border: 2px solid var(--border-color);
+    font-weight: 700;
+    color: var(--dark);
+    padding: 16px;
+    background: rgba(0, 212, 170, 0.05);
+    border-radius: var(--border-radius-sm);
+    border: 2px solid rgba(0, 212, 170, 0.1);
     transition: all 0.3s ease;
 }
 
 .detail-value.bank-name {
-    color: var(--primary-orange);
+    color: var(--primary);
+    background: rgba(0, 212, 170, 0.1);
+    border-color: rgba(0, 212, 170, 0.2);
     font-weight: 800;
-    border-color: var(--primary-orange);
-    background: rgba(255, 152, 0, 0.05);
 }
 
 /* Copyable Account Number */
@@ -151,66 +207,92 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 14px;
+    padding: 14px 16px;
 }
 
 .copy-btndeposit {
-    background: linear-gradient(135deg, var(--primary-orange), var(--primary-blue));
-    color: white;
+    /* background: var(--gradient-primary); */
+    color: #616ff7;
     border: none;
-    padding: 8px 12px;
-    border-radius: 8px;
-    font-size: 12px;
+    margin-left: 10px;
+    padding: 10px 16px;
+    border-radius: var(--border-radius-sm);
+    font-size: 13px;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
     flex-shrink: 0;
-    box-shadow: 0 2px 8px rgba(255, 152, 0, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 212, 170, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.copy-btndeposit::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.copy-btndeposit:hover::before {
+    left: 100%;
 }
 
 .copy-btndeposit:hover {
-    background: linear-gradient(135deg, var(--primary-blue), var(--primary-orange));
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(255, 152, 0, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 212, 170, 0.4);
 }
 
 /* Input Rows */
 .input-row {
     display: flex;
     flex-direction: column;
-    margin-bottom: 25px;
+    gap: 8px;
 }
 
 .input-label {
     font-size: 14px;
     font-weight: 700;
-    color: var(--text-light);
-    margin-bottom: 8px;
+    color: var(--gray);
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.input-label::before {
+    content: '💰';
+    font-size: 16px;
 }
 
 .amount-input {
     padding: 16px;
     font-size: 16px;
-    border: 2px solid var(--border-color);
-    border-radius: 12px;
+    border: 2px solid rgba(0, 212, 170, 0.2);
+    border-radius: var(--border-radius-sm);
     background: var(--card-bg);
     transition: all 0.3s ease;
     font-weight: 600;
+    color: var(--dark);
 }
 
 .amount-input:focus {
     outline: none;
-    border-color: var(--primary-orange);
-    box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.1);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.1);
+    transform: translateY(-1px);
 }
 
 .amount-input::placeholder {
-    color: #999;
+    color: var(--gray);
     font-weight: 500;
 }
 
@@ -226,31 +308,42 @@ body {
 
 /* Upload Section */
 .upload-section {
-    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .upload-label {
-    display: block;
     font-size: 14px;
     font-weight: 700;
-    color: var(--text-light);
-    margin-bottom: 12px;
+    color: var(--gray);
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.upload-label::before {
+    content: '📁';
+    font-size: 16px;
 }
 
 .upload-area {
-    border: 3px dashed var(--border-color);
-    border-radius: 16px;
+    border: 3px dashed rgba(0, 212, 170, 0.3);
+    border-radius: var(--border-radius);
     padding: 30px 20px;
-    background: var(--background);
+    background: rgba(0, 212, 170, 0.02);
     transition: all 0.3s ease;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 
 .upload-area:hover {
-    border-color: var(--primary-orange);
-    background: rgba(255, 152, 0, 0.02);
+    border-color: var(--primary);
+    background: rgba(0, 212, 170, 0.05);
+    transform: translateY(-2px);
 }
 
 .upload-box {
@@ -261,57 +354,74 @@ body {
     cursor: pointer;
     text-decoration: none;
     color: inherit;
-    min-height: 140px;
+    min-height: 160px;
+    position: relative;
+    z-index: 2;
 }
 
 .upload-placeholder {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 15px;
+    text-align: center;
 }
 
 .upload-icon {
-    font-size: 48px;
-    color: var(--primary-orange);
+    font-size: 52px;
+    color: var(--primary);
     opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.upload-area:hover .upload-icon {
+    transform: scale(1.1);
+    opacity: 1;
 }
 
 .upload-text {
     font-size: 16px;
     font-weight: 700;
-    color: var(--text-dark);
+    color: var(--dark);
 }
 
 .upload-subtext {
-    font-size: 12px;
-    color: var(--text-light);
+    font-size: 13px;
+    color: var(--gray);
+    font-weight: 500;
 }
 
 /* Image Preview */
 .image-preview {
     position: relative;
     width: 100%;
-    height: 140px;
-    border-radius: 12px;
+    height: 160px;
+    border-radius: var(--border-radius-sm);
     overflow: hidden;
-    border: 2px solid var(--primary-orange);
+    border: 3px solid var(--primary);
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+}
+
+.image-preview:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow-hover);
 }
 
 .preview-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 12px;
+    border-radius: var(--border-radius-sm);
 }
 
 .remove-image {
     position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 28px;
-    height: 28px;
-    background: var(--error-color);
+    top: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    background: var(--accent);
     color: white;
     border: none;
     border-radius: 50%;
@@ -321,21 +431,24 @@ body {
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+    z-index: 3;
 }
 
 .remove-image:hover {
     transform: scale(1.1);
-    background: #d32f2f;
+    background: #ff5252;
+    box-shadow: 0 6px 18px rgba(255, 107, 107, 0.4);
 }
 
 /* Continue Button */
 .continue-btn {
     width: 100%;
-    padding: 18px;
-    background: linear-gradient(135deg, var(--primary-orange), var(--primary-blue));
+    padding: 20px;
+    background: var(--gradient-primary);
     color: white;
     border: none;
-    border-radius: 14px;
+    border-radius: var(--border-radius-sm);
     font-size: 17px;
     font-weight: 800;
     cursor: pointer;
@@ -343,35 +456,51 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    box-shadow: 0 6px 20px rgba(255, 152, 0, 0.3);
-    margin-top: auto;
+    gap: 12px;
+    box-shadow: 0 8px 25px rgba(0, 212, 170, 0.4);
+    position: relative;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.continue-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.continue-btn:hover::before {
+    left: 100%;
 }
 
 .continue-btn:hover:not(:disabled) {
-    background: linear-gradient(135deg, var(--primary-blue), var(--primary-orange));
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(255, 152, 0, 0.4);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 212, 170, 0.5);
 }
 
 .continue-btn:active {
-    transform: translateY(0);
+    transform: translateY(-1px);
 }
 
 .continue-btn:disabled {
-    background: var(--text-light);
+    background: var(--gray);
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
 }
 
 .continue-btn.loading {
-    background: linear-gradient(135deg, var(--text-light), #888);
+    background: var(--gray);
 }
 
 .spinner {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     border: 2px solid transparent;
     border-top: 2px solid white;
     border-radius: 50%;
@@ -396,30 +525,45 @@ body {
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
     padding: 20px;
-    backdrop-filter: blur(4px);
+    animation: overlayFadeIn 0.3s ease;
+}
+
+@keyframes overlayFadeIn {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0);
+    }
+
+    to {
+        opacity: 1;
+        backdrop-filter: blur(8px);
+    }
 }
 
 .popup {
     background: var(--card-bg);
-    border-radius: 20px;
-    padding: 30px;
+    border-radius: var(--border-radius);
+    padding: 35px 30px;
     text-align: center;
-    max-width: 320px;
+    max-width: 350px;
     width: 100%;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    animation: popIn 0.3s ease-out;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+    animation: popIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     border-top: 6px solid;
+    position: relative;
+    overflow: hidden;
 }
 
 @keyframes popIn {
     from {
         opacity: 0;
-        transform: scale(0.9) translateY(10px);
+        transform: scale(0.8) translateY(20px);
     }
 
     to {
@@ -428,74 +572,162 @@ body {
     }
 }
 
+.popup::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 120px;
+    height: 120px;
+    background: rgba(0, 212, 170, 0.05);
+    border-radius: 50%;
+}
+
 .popup-icon {
-    font-size: 48px;
-    margin-bottom: 15px;
+    font-size: 56px;
+    margin-bottom: 20px;
+    display: block;
+    animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-10px);
+    }
+
+    60% {
+        transform: translateY(-5px);
+    }
 }
 
 .popup h3 {
-    margin-bottom: 12px;
-    font-size: 20px;
+    margin-bottom: 15px;
+    font-size: 22px;
     font-weight: 800;
-    color: var(--text-dark);
+    color: var(--dark);
+    position: relative;
+    z-index: 2;
 }
 
 .popup p {
-    margin-bottom: 25px;
-    color: var(--text-dark);
-    line-height: 1.5;
+    margin-bottom: 30px;
+    color: var(--dark);
+    line-height: 1.6;
     font-size: 15px;
+    font-weight: 500;
+    position: relative;
+    z-index: 2;
 }
 
 .popup.success {
-    border-color: var(--success-color);
+    border-color: var(--success);
 }
 
 .popup.error {
-    border-color: var(--error-color);
+    border-color: var(--accent);
 }
 
 .popup-close-btn {
-    padding: 12px 30px;
-    background: linear-gradient(135deg, var(--primary-orange), var(--primary-blue));
+    padding: 14px 32px;
+    background: var(--gradient-primary);
     color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: var(--border-radius-sm);
     font-weight: 700;
+    font-size: 15px;
     cursor: pointer;
     transition: all 0.3s ease;
     width: 100%;
-    box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+    box-shadow: 0 6px 20px rgba(0, 212, 170, 0.3);
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.popup-close-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.popup-close-btn:hover::before {
+    left: 100%;
 }
 
 .popup-close-btn:hover {
-    background: linear-gradient(135deg, var(--primary-blue), var(--primary-orange));
-    transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 212, 170, 0.4);
 }
 
 /* Responsive Design */
+@media (max-width: 768px) {
+    .deposit-header-section {
+        padding: 20px 15px;
+        border-radius: 0 0 20px 20px;
+    }
+
+    .deposit-content {
+        padding: 0 15px 20px;
+    }
+
+    .deposit-card {
+        padding: 25px 20px;
+    }
+
+    .deposit-title {
+        font-size: 24px;
+    }
+
+    .back-arrowdeposit {
+        width: 44px;
+        height: 44px;
+    }
+
+    .header-spacer {
+        width: 44px;
+        height: 44px;
+    }
+}
+
 @media (max-width: 480px) {
+    .deposit-header-section {
+        padding: 18px 12px;
+    }
+
     .deposit-content {
         padding: 0 12px 20px;
     }
 
     .deposit-card {
-        padding: 20px;
+        padding: 20px 15px;
     }
 
     .deposit-title {
-        font-size: 20px;
+        font-size: 22px;
     }
 
     .detail-value,
     .amount-input {
         font-size: 15px;
-        padding: 12px;
+        padding: 14px;
     }
 
     .continue-btn {
-        padding: 16px;
+        padding: 18px;
         font-size: 16px;
     }
 
@@ -503,13 +735,24 @@ body {
         padding: 25px 15px;
     }
 
-    .popup {
-        padding: 25px;
+    .upload-box {
+        min-height: 140px;
     }
 
-    .deposit-header-section {
-        padding: 20px 12px;
-        border-radius: 0 0 15px 15px;
+    .image-preview {
+        height: 140px;
+    }
+
+    .popup {
+        padding: 30px 25px;
+    }
+
+    .popup-icon {
+        font-size: 48px;
+    }
+
+    .popup h3 {
+        font-size: 20px;
     }
 }
 
@@ -519,10 +762,64 @@ body {
     }
 
     .deposit-card {
-        padding: 15px;
+        padding: 18px 12px;
     }
 
     .deposit-title {
+        font-size: 20px;
+    }
+
+    .back-arrowdeposit {
+        width: 40px;
+        height: 40px;
         font-size: 18px;
     }
+
+    .header-spacer {
+        width: 40px;
+        height: 40px;
+    }
+
+    .copy-btndeposit {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+}
+
+/* Success animation for form submission */
+@keyframes successPulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.02);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.deposit-card.success-animation {
+    animation: successPulse 0.6s ease;
+}
+
+/* Custom scrollbar */
+.deposit-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.deposit-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.deposit-content::-webkit-scrollbar-thumb {
+    background: var(--gradient-primary);
+    border-radius: 3px;
+}
+
+.deposit-content::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
 }
