@@ -28,7 +28,7 @@
     font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
     position: relative;
     overflow-x: hidden;
-    direction: rtl;
+    direction: ltr;
 }
 
 /* Animated background elements */
@@ -183,7 +183,7 @@
     line-height: 1.7;
     margin: 20px 0;
     color: var(--dark);
-    text-align: right;
+    text-align: left;
     position: relative;
     z-index: 2;
     animation: fadeInUp 0.6s ease 0.1s forwards;
@@ -191,7 +191,7 @@
     transform: translateY(20px);
 }
 
-.solarx-highlight {
+.metadrive-highlight {
     color: var(--primary);
     font-weight: 800;
     background: rgba(0, 212, 170, 0.1);
@@ -203,7 +203,7 @@
 /* Section Styles */
 .section {
     margin: 30px 0;
-    text-align: right;
+    text-align: left;
     position: relative;
     z-index: 2;
     animation: fadeInUp 0.6s ease forwards;
@@ -227,12 +227,20 @@
     animation-delay: 0.5s;
 }
 
+.section:nth-child(5) {
+    animation-delay: 0.6s;
+}
+
+.section:nth-child(6) {
+    animation-delay: 0.7s;
+}
+
 .section-title {
     color: var(--primary);
     font-size: 20px;
     font-weight: 800;
     margin-bottom: 20px;
-    text-align: right;
+    text-align: left;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -241,14 +249,14 @@
 }
 
 .section-title::before {
-    content: '☀️';
+    content: '🚀';
     font-size: 18px;
 }
 
 /* List Styles */
 .numbered-list,
 .bullet-list {
-    text-align: right;
+    text-align: left;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -260,8 +268,8 @@
     line-height: 1.6;
     color: var(--dark);
     font-size: 15px;
-    text-align: right;
-    padding: 12px 40px 12px 0;
+    text-align: left;
+    padding: 12px 0 12px 40px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.03);
     transition: all 0.3s ease;
     position: relative;
@@ -271,7 +279,7 @@
 .bullet-list li::before {
     content: '';
     position: absolute;
-    right: -10px;
+    left: -10px;
     top: 50%;
     transform: translateY(-50%);
     width: 4px;
@@ -289,7 +297,7 @@
 .numbered-list li:hover,
 .bullet-list li:hover {
     background: rgba(0, 212, 170, 0.03);
-    padding: 12px 15px 12px 40px;
+    padding: 12px 40px 12px 15px;
     margin: 0 -15px;
     border-radius: var(--border-radius-sm);
 }
@@ -310,7 +318,7 @@
     color: var(--primary);
     font-weight: 800;
     position: absolute;
-    right: 0;
+    left: 0;
     top: 12px;
     background: rgba(0, 212, 170, 0.1);
     width: 28px;
@@ -333,7 +341,7 @@
     color: var(--primary);
     font-weight: 800;
     position: absolute;
-    right: 0;
+    left: 0;
     top: 12px;
     background: rgba(0, 212, 170, 0.1);
     width: 24px;
@@ -346,40 +354,58 @@
     border: 1px solid rgba(0, 212, 170, 0.2);
 }
 
-/* CTA Section */
-.ourinfo-cta-new {
-    margin-top: 40px;
-    background: linear-gradient(135deg, rgba(0, 212, 170, 0.05), rgba(108, 99, 255, 0.05));
-    padding: 30px;
+/* Notice Box */
+.notice-box {
+    background: linear-gradient(135deg, #00D4AA 0%, #6C63FF 100%);
+    color: white;
+    padding: 25px;
     border-radius: var(--border-radius);
-    border: 2px solid rgba(0, 212, 170, 0.2);
+    margin-top: 30px;
     text-align: center;
-    backdrop-filter: blur(10px);
     position: relative;
     overflow: hidden;
-    animation: fadeInUp 0.6s ease 0.6s forwards;
+    backdrop-filter: blur(10px);
+    animation: fadeInUp 0.6s ease 0.8s forwards;
     opacity: 0;
     transform: translateY(20px);
 }
 
-.ourinfo-cta-new::before {
+.notice-box::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     height: 4px;
-    background: var(--gradient-primary);
+    background: rgba(255, 255, 255, 0.3);
 }
 
-.ourinfo-cta-new p {
-    margin: 0;
-    font-size: 16px;
-    line-height: 1.6;
-    color: var(--dark);
-    font-weight: 600;
+.notice-box h4 {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    font-weight: 700;
     position: relative;
     z-index: 2;
+}
+
+.notice-box p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    position: relative;
+    z-index: 2;
+    opacity: 0.95;
+}
+
+/* Checkmark list items */
+.bullet-list li:contains("✅") {
+    padding-left: 45px;
+}
+
+.bullet-list li:contains("✅")::before {
+    content: '✅';
+    background: rgba(29, 185, 84, 0.1);
+    border: 1px solid rgba(29, 185, 84, 0.2);
 }
 
 /* Loading State */
@@ -449,7 +475,7 @@
     .numbered-list li,
     .bullet-list li {
         font-size: 14px;
-        padding: 10px 35px 10px 0;
+        padding: 10px 0 10px 35px;
         margin-bottom: 12px;
     }
 
@@ -469,8 +495,16 @@
         font-size: 15px;
     }
 
-    .ourinfo-cta-new {
-        padding: 25px 20px;
+    .notice-box {
+        padding: 20px;
+    }
+
+    .notice-box h4 {
+        font-size: 17px;
+    }
+
+    .notice-box p {
+        font-size: 14px;
     }
 }
 
@@ -504,7 +538,7 @@
     .numbered-list li,
     .bullet-list li {
         font-size: 14px;
-        padding: 8px 30px 8px 0;
+        padding: 8px 0 8px 30px;
         margin-bottom: 10px;
     }
 
@@ -522,7 +556,7 @@
 
     .numbered-list li:hover,
     .bullet-list li:hover {
-        padding: 8px 10px 8px 30px;
+        padding: 8px 30px 8px 10px;
         margin: 0 -10px;
     }
 
@@ -530,12 +564,16 @@
         font-size: 14px;
     }
 
-    .ourinfo-cta-new {
-        padding: 20px 15px;
+    .notice-box {
+        padding: 18px 15px;
     }
 
-    .ourinfo-cta-new p {
-        font-size: 15px;
+    .notice-box h4 {
+        font-size: 16px;
+    }
+
+    .notice-box p {
+        font-size: 13px;
     }
 }
 
@@ -565,7 +603,7 @@
     .numbered-list li,
     .bullet-list li {
         font-size: 13px;
-        padding: 6px 25px 6px 0;
+        padding: 6px 0 6px 25px;
     }
 
     .numbered-list li:before {
@@ -580,8 +618,8 @@
         font-size: 12px;
     }
 
-    .ourinfo-cta-new {
-        padding: 18px 12px;
+    .notice-box {
+        padding: 15px 12px;
     }
 }
 

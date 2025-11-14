@@ -749,7 +749,6 @@
 //     </div>
 //   );
 // }
-
 import axios from "axios";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { FaChartLine, FaEye, FaEyeSlash, FaWhatsapp } from "react-icons/fa";
@@ -761,14 +760,14 @@ import {
 } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
 import profileImg from "../../Assets/Pictures/download.jpeg";
-import placeholderPlanImg1 from "../../Assets/Pictures/newplan1.jpeg";
-import placeholderPlanImg2 from "../../Assets/Pictures/newplan2.jpeg";
-import placeholderPlanImg3 from "../../Assets/Pictures/newplan3.jpeg";
-import placeholderPlanImg4 from "../../Assets/Pictures/newplan4.jpeg";
-import placeholderPlanImg5 from "../../Assets/Pictures/newplan5.jpeg";
-import placeholderPlanImg6 from "../../Assets/Pictures/newplan6.jpeg";
-import placeholderPlanImg7 from "../../Assets/Pictures/newplan7.jpeg";
-import placeholderPlanImg8 from "../../Assets/Pictures/newplan8.jpeg";
+import placeholderPlanImg1 from "../../Assets/Pictures/plan1.jpeg";
+import placeholderPlanImg2 from "../../Assets/Pictures/plan2.jpeg";
+import placeholderPlanImg3 from "../../Assets/Pictures/plan3.jpeg";
+import placeholderPlanImg4 from "../../Assets/Pictures/plan4.jpeg";
+import placeholderPlanImg5 from "../../Assets/Pictures/plan5.jpeg";
+import placeholderPlanImg6 from "../../Assets/Pictures/plan6.jpeg";
+import placeholderPlanImg7 from "../../Assets/Pictures/plan7.jpeg";
+import placeholderPlanImg8 from "../../Assets/Pictures/plan8.jpeg";
 import Settings from "../Settings/Settings";
 import "./Dashboard.css";
 
@@ -941,6 +940,23 @@ export default function Dashboard() {
 
   const [showBalance, setShowBalance] = useState(true);
 
+  // Announcements
+  // const [announcements, setAnnouncements] = useState([]);
+  // const [showAnnouncements, setShowAnnouncements] = useState(false);
+  // useEffect(() => {
+  //   const fetchAnnouncements = async () => {
+  //     try {
+  //       const res = await axios.post(
+  //         "https://be.solarx0.com/api/announcements1"
+  //       );
+  //       if (res.status === 200) setAnnouncements(res.data.data || []);
+  //     } catch (err) {
+  //       console.error("Error announcements:", err);
+  //     }
+  //   };
+  //   fetchAnnouncements();
+  // }, []);
+
   // Subscribers counts
   const [subscribersCounts, setSubscribersCounts] = useState([]);
   useEffect(() => {
@@ -993,7 +1009,7 @@ export default function Dashboard() {
 
     return [
       {
-        title: "METADRIVE PAKISTAN (3D)",
+        title: "Meta Drive🚘",
         days: 3,
         min: 1000,
         max: 2000,
@@ -1003,7 +1019,7 @@ export default function Dashboard() {
         locked: false,
       },
       {
-        title: "REON ENERGY (7D)",
+        title: "Meta Messenger/Community",
         days: 7,
         min: 1000,
         max: 4000,
@@ -1013,7 +1029,7 @@ export default function Dashboard() {
         locked: false,
       },
       {
-        title: "SKY ELECTRIC (12D)",
+        title: "Meta WhatsApp/Team",
         days: 12,
         min: 2000,
         max: 10000,
@@ -1023,7 +1039,7 @@ export default function Dashboard() {
         locked: false,
       },
       {
-        title: "NIZAM ENERGY (15D)",
+        title: "Meta Instagram/Social studies",
         days: 15,
         min: 3000,
         max: 20000,
@@ -1033,7 +1049,7 @@ export default function Dashboard() {
         locked: true,
       },
       {
-        title: "ZONERGY (22D)",
+        title: "Meta Facebook/Social media",
         days: 22,
         min: 5000,
         max: 25000,
@@ -1043,7 +1059,7 @@ export default function Dashboard() {
         locked: true,
       },
       {
-        title: "GREEN POWER (30D)",
+        title: "Meta Oculus/Products",
         days: 30,
         min: 1000,
         max: 50000,
@@ -1053,7 +1069,7 @@ export default function Dashboard() {
         locked: false,
       },
       {
-        title: "ALBARIO METADRIVE (42D)",
+        title: "Meta Workplace/Team's",
         days: 42,
         min: 15000,
         max: 70000,
@@ -1063,7 +1079,7 @@ export default function Dashboard() {
         locked: true,
       },
       {
-        title: "PAK OMAN INVESTMENT COMPANY (60D)",
+        title: "Meta Portal/LCD",
         days: 60,
         min: 20000,
         max: 100000,
@@ -1212,14 +1228,14 @@ export default function Dashboard() {
               alt="avatar"
               className="sx-avatar"
             />
-            <a
+            {/* <a
               href={whatsappGroupLink}
               target="_blank"
               rel="noopener noreferrer"
               className="sx-whatsapp-btn"
             >
               <FaWhatsapp />
-            </a>
+            </a> */}
           </div>
           <div className="sx-welcome-text">
             <div className="sx-welcome-main">Welcome Back!</div>

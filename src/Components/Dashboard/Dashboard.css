@@ -371,7 +371,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
-    padding: 0 20px 30px;
+    padding: 0 20px 85px;
     max-width: 1400px;
     margin: 0 auto;
 }
@@ -443,14 +443,14 @@ body {
     font-weight: 800;
     font-size: 18px;
     color: var(--dark);
-    margin-bottom: 12px;
+    margin-bottom: 6px;
     line-height: 1.3;
 }
 
 .sx-plan-range {
     font-weight: 700;
     color: var(--primary);
-    margin-bottom: 15px;
+    margin-bottom: 8px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -468,7 +468,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     padding: 12px 0;
     border-top: 1px solid rgba(0, 0, 0, 0.05);
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -543,7 +543,7 @@ body {
 
 /* Bottom Navigation */
 .sx-bottom-nav {
-    /* position: fixed; */
+    position: fixed;
     left: 20px;
     right: 20px;
     bottom: 20px;
@@ -828,7 +828,7 @@ body {
     }
 
     .sx-welcome-name {
-        font-size: 18px;
+        font-size: 16px;
     }
 
     .desktop-text {
@@ -864,7 +864,7 @@ body {
     }
 
     .sx-plans-list {
-        padding: 0 15px 20px;
+        padding: 0 15px 75px;
     }
 
     .sx-balance-card {

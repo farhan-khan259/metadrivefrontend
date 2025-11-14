@@ -591,3 +591,109 @@
         font-size: 17px;
     }
 }
+
+
+/* Add these styles to your EarningsSummary.css file */
+
+/* Plan Expire Commission Section */
+.plan-expire-section2 {
+    background: rgba(255, 107, 107, 0.05);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    border: 2px solid rgba(255, 107, 107, 0.1);
+    margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+    animation-delay: 0.7s;
+}
+
+.plan-expire-header2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.plan-expire-header2 h3 {
+    color: var(--accent);
+    font-size: 18px;
+    font-weight: 800;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.plan-expire-levels2 {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.plan-level-item2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: var(--border-radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.plan-level-item2:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: translateX(5px);
+}
+
+.plan-level-label2 {
+    font-weight: 600;
+    color: var(--dark);
+    font-size: 14px;
+}
+
+.plan-level-value2 {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 14px;
+    background: rgba(255, 107, 107, 0.1);
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 107, 107, 0.2);
+}
+
+/* Update animation delays for the sections that come after */
+.additional-info-section2 {
+    animation-delay: 0.8s;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .plan-expire-section2 {
+        padding: 20px;
+    }
+
+    .plan-level-item2 {
+        padding: 10px 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .plan-expire-section2 {
+        padding: 18px 15px;
+    }
+
+    .plan-expire-header2 h3 {
+        font-size: 17px;
+    }
+
+    .plan-level-item2 {
+        padding: 8px 10px;
+    }
+
+    .plan-level-label2,
+    .plan-level-value2 {
+        font-size: 13px;
+    }
+}

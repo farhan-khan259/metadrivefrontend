@@ -19,112 +19,165 @@ export default function OurInfo() {
       <div className="ourinfo-content">
         <div className="ourinfo-card">
           <p className="ourinfo-text-new">
-            <strong className="solarx-highlight">"سولر ایکس"</strong> ایک سرمایہ
-            کاری کا پلیٹ فارم ہے جو سولر انرجی پروجیکٹس پر توجہ مرکوز کرتا ہے۔
+            <strong className="metadrive-highlight">"MetaDrive"</strong> is a
+            revolutionary investment platform that focuses on digital asset
+            management and team-based earning opportunities in the modern
+            digital economy.
           </p>
 
           <div className="section">
             <h3 className="section-title">
-              سولر سرمایہ کاری کے پلیٹ فارم کی عمومی خصوصیات:
+              Key Features of MetaDrive Platform:
             </h3>
             <ol className="numbered-list">
               <li>
-                <strong className="solarx-highlight">
-                  سرمایہ کاری کے مواقع
+                <strong className="metadrive-highlight">
+                  Digital Investment Opportunities
                 </strong>
-                : یہ پلیٹ فارم افراد کو سولر انرجی پروجیکٹس میں سرمایہ کاری کرنے
-                کی اجازت دیتے ہیں، جیسے سولر فارم یا سولر پینل کی تنصیب۔ سرمایہ
-                کاروں کو پیدا ہونے والی توانائی کی بنیاد پر منافع مل سکتا ہے۔
+                : Our platform allows individuals to invest in digital asset
+                management with transparent returns and secure transaction
+                processing.
               </li>
               <li>
-                <strong className="solarx-highlight">کروڈ فنڈنگ</strong>: بہت سے
-                سولر سرمایہ کاری کے پلیٹ فارم کروڈ فنڈنگ ماڈل کا استعمال کرتے
-                ہیں، جہاں متعدد سرمایہ کار چھوٹی رقمیں مل کر ایک بڑے پروجیکٹ کی
-                فنڈنگ کرتے ہیں۔
+                <strong className="metadrive-highlight">
+                  Team Commission System
+                </strong>
+                : MetaDrive offers a multi-level commission structure where you
+                can earn from your direct referrals and extended team network
+                across three levels.
               </li>
               <li>
-                <strong className="solarx-highlight">پائیداری پر توجہ</strong>:
-                سولر انرجی میں سرمایہ کاری کرنا قابل تجدید توانائی کو فروغ دینے
-                اور کاربن کے اثرات کو کم کرنے میں مدد کرتا ہے، جو ماحولیاتی طور
-                پر باخبر سرمایہ کاروں کے لیے دلچسپ ہے۔
+                <strong className="metadrive-highlight">
+                  Focus on Financial Growth
+                </strong>
+                : We provide opportunities for both active and passive income
+                generation through our structured investment plans and
+                team-building incentives.
               </li>
               <li>
-                <strong className="solarx-highlight">سرمایہ پر منافع</strong>:
-                سرمایہ کار توانائی کی فروخت، حکومت کی مراعات، یا پروجیکٹس سے
-                منافع کی تقسیم کے ذریعے منافع حاصل کر سکتے ہیں۔
+                <strong className="metadrive-highlight">
+                  Return on Investment
+                </strong>
+                : Investors can earn profits through our carefully designed
+                investment plans with competitive returns and bonus structures.
               </li>
               <li>
-                <strong className="solarx-highlight">شفافیت</strong>: معتبر پلیٹ
-                فارم اکثر پروجیکٹس کے بارے میں تفصیلی معلومات فراہم کرتے ہیں،
-                بشمول متوقع منافع، خطرات، اور ٹائم لائنز۔
+                <strong className="metadrive-highlight">Transparency</strong>:
+                Our platform provides detailed information about investment
+                plans, expected returns, risks, and timelines to ensure complete
+                transparency.
               </li>
             </ol>
           </div>
 
           <div className="section">
             <h3 className="section-title">
-              سولر انرجی میں سرمایہ کاری کے فوائد:
+              Benefits of Investing with MetaDrive:
             </h3>
             <ul className="bullet-list">
               <li>
-                <strong className="solarx-highlight">مثبت ماحولیاتی اثر</strong>
-                : قابل تجدید توانائی میں شراکت دینا ماحولیاتی تبدیلی کے خلاف
-                مددگار ثابت ہوتا ہے۔
+                <strong className="metadrive-highlight">
+                  Multiple Income Streams
+                </strong>
+                : Earn through direct investments, team commissions, and special
+                bonuses.
               </li>
               <li>
-                <strong className="solarx-highlight">منافع کا امکان</strong>:
-                جیسے جیسے صاف توانائی کی طلب بڑھتی ہے، سولر پروجیکٹس میں سرمایہ
-                کاری مالی طور پر فائدہ مند ہو سکتی ہے۔
+                <strong className="metadrive-highlight">
+                  Growth Potential
+                </strong>
+                : As the digital economy expands, MetaDrive positions you to
+                benefit from emerging opportunities in digital asset management.
               </li>
               <li>
-                <strong className="solarx-highlight">تنوع</strong>: سولر میں
-                سرمایہ کاری آپ کے سرمایہ کاری کے پورٹ فولیو کو متنوع بنا سکتی
-                ہے۔
+                <strong className="metadrive-highlight">
+                  Team Building Rewards
+                </strong>
+                : Build your network and earn commissions from Level 1 (6%),
+                Level 2 (3.1%), and Level 3 (1.5%) team members.
+              </li>
+              <li>
+                <strong className="metadrive-highlight">
+                  Flexible Investment Options
+                </strong>
+                : Choose from various investment plans that suit your financial
+                goals and risk appetite.
               </li>
             </ul>
           </div>
 
           <div className="section">
-            <h3 className="section-title">غور کرنے کے لیے خطرات:</h3>
+            <h3 className="section-title">Commission Structure:</h3>
             <ul className="bullet-list">
               <li>
-                <strong className="solarx-highlight">
-                  مارکیٹ کی اتار چڑھاؤ
+                <strong className="metadrive-highlight">Level 1 Team</strong>:
+                Earn 6% commission from your direct referrals
+              </li>
+              <li>
+                <strong className="metadrive-highlight">Level 2 Team</strong>:
+                Earn 3.1% commission from your indirect team members
+              </li>
+              <li>
+                <strong className="metadrive-highlight">Level 3 Team</strong>:
+                Earn 1.5% commission from your extended network
+              </li>
+              <li>
+                <strong className="metadrive-highlight">
+                  Bonus Incentives
                 </strong>
-                : قابل تجدید توانائی کی مارکیٹ میں اتار چڑھاؤ ہو سکتا ہے، اور
-                منافع کی ضمانت نہیں ہوتی۔
-              </li>
-              <li>
-                <strong className="solarx-highlight">قانونی تبدیلیاں</strong>:
-                حکومت کی پالیسیوں یا مراعات میں تبدیلیاں پروجیکٹ کی منافع پر اثر
-                انداز ہو سکتی ہیں۔
-              </li>
-              <li>
-                <strong className="solarx-highlight">پروجیکٹ کے خطرات</strong>:
-                مخصوص پروجیکٹس کو تاخیر یا تکنیکی مسائل جیسے چیلنجز کا سامنا
-                کرنا پڑ سکتا ہے۔
+                : Additional 3% extra commission on every 200k team deposit
+                across all three levels
               </li>
             </ul>
           </div>
 
           <div className="section">
-            <h3 className="section-title">شروع کرنے کا طریقہ:</h3>
+            <h3 className="section-title">Getting Started:</h3>
             <ol className="numbered-list">
               <li>
-                <strong className="solarx-highlight">تحقیق کریں</strong>: معتبر
-                سولر سرمایہ کاری کے پلیٹ فارم تلاش کریں اور جائزے پڑھیں۔
+                <strong className="metadrive-highlight">Create Account</strong>:
+                Sign up and complete your profile to start your investment
+                journey.
               </li>
               <li>
-                <strong className="solarx-highlight">شرائط کو سمجھیں</strong>:
-                یہ یقینی بنائیں کہ آپ سرمایہ کاری کی شرائط، خطرات، اور ممکنہ
-                منافع کو سمجھتے ہیں۔
+                <strong className="metadrive-highlight">
+                  Choose Investment Plan
+                </strong>
+                : Select from our range of investment plans that match your
+                financial objectives.
               </li>
               <li>
-                <strong className="solarx-highlight">چھوٹے سے شروع کریں</strong>
-                : اگر آپ سرمایہ کاری میں نئے ہیں تو، عمل کو سمجھنے کے لیے چھوٹی
-                رقم سے شروع کرنے پر غور کریں۔
+                <strong className="metadrive-highlight">Build Your Team</strong>
+                : Share your referral code and start building your team to
+                maximize earning potential.
+              </li>
+              <li>
+                <strong className="metadrive-highlight">Monitor Growth</strong>:
+                Track your investments, team performance, and commissions
+                through our comprehensive dashboard.
               </li>
             </ol>
+          </div>
+
+          <div className="section">
+            <h3 className="section-title">Why Choose MetaDrive?</h3>
+            <ul className="bullet-list">
+              <li>✅ Secure and transparent platform operations</li>
+              <li>✅ Multiple earning opportunities</li>
+              <li>✅ Comprehensive team commission structure</li>
+              <li>✅ Regular withdrawals and instant processing</li>
+              <li>✅ 24/7 customer support</li>
+              <li>✅ User-friendly interface and mobile accessibility</li>
+            </ul>
+          </div>
+
+          <div className="notice-box">
+            <h4>📢 Important Notice</h4>
+            <p>
+              Start your financial journey with MetaDrive today and unlock the
+              potential of digital asset management with our proven investment
+              strategies and team-based earning model.
+            </p>
           </div>
         </div>
       </div>

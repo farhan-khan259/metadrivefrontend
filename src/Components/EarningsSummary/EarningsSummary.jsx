@@ -239,6 +239,27 @@ export default function EarningsSummary() {
             </div>
           </div>
 
+          {/* Plan Expire Commission Section */}
+          <div className="plan-expire-section2">
+            <div className="plan-expire-header2">
+              <h3>Plan Expire Commission</h3>
+            </div>
+            <div className="plan-expire-levels2">
+              <div className="plan-level-item2">
+                <span className="plan-level-label2">Level 1:</span>
+                <span className="plan-level-value2">4%</span>
+              </div>
+              <div className="plan-level-item2">
+                <span className="plan-level-label2">Level 2:</span>
+                <span className="plan-level-value2">2.5%</span>
+              </div>
+              <div className="plan-level-item2">
+                <span className="plan-level-label2">Level 3:</span>
+                <span className="plan-level-value2">1.5%</span>
+              </div>
+            </div>
+          </div>
+
           {/* Additional Info Section */}
           <div className="additional-info-section">
             <h3 className="breakdown-title">Additional Information</h3>

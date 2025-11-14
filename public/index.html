@@ -2,20 +2,20 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="../src/Assets/Pictures/Solarxlogo.jpeg" />
+
+    <!-- FAVICON (correct way in React) -->
+    <link rel="icon" href="%PUBLIC_URL%/metadrivelogo.jpeg" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/metadrivelogo.jpeg" />
+
     <meta name="theme-color" content="#000000" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <meta
       name="description"
-      content="At SolarX, we are revolutionizing the energy landscape in Pakistan by harnessing the power of the sun! ☀ Our platform is designed to connect investors with innovative solar energy projects, ensuring that everyone can benefit from sustainable energy solutions. 🌍💡
-
-By investing in SolarX, you are not just putting your money into a project; you are becoming a part of a movement that aims to restore and enhance energy resources across the nation. 🇵🇰✨ We carefully select companies that are committed to developing cutting-edge solar technologies, allowing our users to earn profits while contributing to a greener future. 📈🌱
-
-Our mission is to empower individuals and businesses alike, providing them with the opportunity to invest in renewable energy and enjoy attractive returns. 💰💚 With SolarX, you can be confident that your investment is making a positive impact, helping to reduce carbon footprints and promote sustainable practices in Pakistan. 🌿🌞"
-    />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      content="MetaDrive is a next-generation digital earning platform that blends the power of meta-technology with a dynamic car-themed investment ecosystem. 🚗⚡
+It offers smart digital asset plans, automated rewards, and a structured team-commission system designed for long-term financial growth.
+Users can earn through investments, referrals, and multi-level bonuses — all within a secure, transparent environment.
+With fast withdrawals, real-time tracking, and a modern interface, MetaDrive empowers everyone to build income in the evolving digital economy."
     />
 
     <link
@@ -24,41 +24,18 @@ Our mission is to empower individuals and businesses alike, providing them with 
     />
 
     <link
-      rel="apple-touch-icon"
-      href="../src/Assets/Pictures/Solarxlogo.jpeg"
-    />
-    <link
       href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap"
       rel="stylesheet"
     />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="../src/Assets/Pictures/Solarxlogo.jpeg" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
     <title>MetaDrive Official App</title>
   </head>
+
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
   </body>
 </html>

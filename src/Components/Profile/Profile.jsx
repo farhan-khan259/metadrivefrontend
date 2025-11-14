@@ -316,7 +316,7 @@ import {
   FaUser,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import profileimg from "../../Assets/Pictures/profileelonmusk.jpeg";
+import profileimg from "../../Assets/Pictures/download.jpg";
 import "./Profile.css";
 
 export default function Profile() {

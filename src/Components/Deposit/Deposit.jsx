@@ -255,7 +255,6 @@
 //     </>
 //   );
 // }
-
 import { useEffect, useRef, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { FiUploadCloud } from "react-icons/fi";
@@ -287,9 +286,9 @@ export default function Deposit() {
   }, []);
 
   const bankDetails = {
-    bankName: "Easypaisa",
-    accountHolder: "Kashif Ali",
-    accountNo: "03248008331",
+    bankName: "Mazeen Bank",
+    accountHolder: "Muhammed Abbas",
+    accountNo: "00300113272752",
   };
 
   const handleImageUpload = (e) => {
@@ -375,51 +374,62 @@ export default function Deposit() {
 
   return (
     <>
-      <div className="deposit-page">
+      <div className="depositmain-page">
         {/* Header with orange background */}
-        <div className="deposit-header-section">
-          <div className="deposit-header">
-            <Link to="/dashboard" className="back-arrowdeposit">
+        <div className="depositmain-header-section">
+          <div className="depositmain-header">
+            <Link to="/dashboard" className="depositmain-back-arrow">
               <FaArrowLeft />
             </Link>
-            <h2 className="deposit-title">Deposit Funds</h2>
-            <div className="header-spacer"></div>
+            <h2 className="depositmain-title">Deposit Funds</h2>
+            <div className="depositmain-header-spacer"></div>
           </div>
         </div>
 
         {/* Main Content */}
-        <div className="deposit-content">
-          <div className="deposit-card">
+        <div className="depositmain-content">
+          <div className="depositmain-card">
             {/* Bank Details Section */}
-            <div className="details-section">
-              <div className="detail-row">
-                <label className="detail-label">Payment Method:</label>
-                <div className="detail-value bank-name">
+            <div className="depositmain-details-section">
+              <div className="depositmain-detail-row">
+                <label className="depositmain-detail-label">
+                  Payment Method:
+                </label>
+                <div className="depositmain-detail-value depositmain-bank-name">
                   {bankDetails.bankName}
                 </div>
               </div>
 
-              <div className="detail-row">
-                <label className="detail-label">Account Holder:</label>
-                <div className="detail-value">{bankDetails.accountHolder}</div>
+              <div className="depositmain-detail-row">
+                <label className="depositmain-detail-label">
+                  Account Holder:
+                </label>
+                <div className="depositmain-detail-value">
+                  {bankDetails.accountHolder}
+                </div>
               </div>
 
-              <div className="detail-row">
-                <label className="detail-label">Account No:</label>
-                <div className="detail-value copyable">
+              <div className="depositmain-detail-row">
+                <label className="depositmain-detail-label">Account No:</label>
+                <div className="depositmain-detail-value depositmain-copyable">
                   <span ref={accountNoRef}>{bankDetails.accountNo}</span>
-                  <button className="copy-btndeposit" onClick={copyToClipboard}>
+                  <button
+                    className="depositmain-copy-btn"
+                    onClick={copyToClipboard}
+                  >
                     📋 Copy
                   </button>
                 </div>
               </div>
 
               {/* Deposit Amount */}
-              <div className="input-row">
-                <label className="input-label">Deposit Amount:</label>
+              <div className="depositmain-input-row">
+                <label className="depositmain-input-label">
+                  Deposit Amount:
+                </label>
                 <input
                   type="number"
-                  className="amount-input"
+                  className="depositmain-amount-input"
                   placeholder="Rs Min 1000 - Max Unlimited"
                   value={customAmount}
                   onChange={(e) => setCustomAmount(e.target.value)}
@@ -428,19 +438,24 @@ export default function Deposit() {
               </div>
 
               {/* Upload Section */}
-              <div className="upload-section">
-                <label className="upload-label">Upload Payment Receipt</label>
-                <div className="upload-area">
-                  <label htmlFor="receiptUpload" className="upload-box">
+              <div className="depositmain-upload-section">
+                <label className="depositmain-upload-label">
+                  Upload Payment Receipt
+                </label>
+                <div className="depositmain-upload-area">
+                  <label
+                    htmlFor="receiptUpload"
+                    className="depositmain-upload-box"
+                  >
                     {image ? (
-                      <div className="image-preview">
+                      <div className="depositmain-image-preview">
                         <img
                           src={image}
                           alt="Receipt"
-                          className="preview-img"
+                          className="depositmain-preview-img"
                         />
                         <button
-                          className="remove-image"
+                          className="depositmain-remove-image"
                           onClick={(e) => {
                             e.preventDefault();
                             setImage(null);
@@ -451,12 +466,12 @@ export default function Deposit() {
                         </button>
                       </div>
                     ) : (
-                      <div className="upload-placeholder">
-                        <FiUploadCloud className="upload-icon" />
-                        <span className="upload-text">
+                      <div className="depositmain-upload-placeholder">
+                        <FiUploadCloud className="depositmain-upload-icon" />
+                        <span className="depositmain-upload-text">
                           Tap to upload receipt
                         </span>
-                        <span className="upload-subtext">
+                        <span className="depositmain-upload-subtext">
                           PNG, JPG up to 5MB
                         </span>
                       </div>
@@ -474,13 +489,15 @@ export default function Deposit() {
 
               {/* Continue Button */}
               <button
-                className={`continue-btn ${isLoading ? "loading" : ""}`}
+                className={`depositmain-continue-btn ${
+                  isLoading ? "depositmain-loading" : ""
+                }`}
                 onClick={handleSubmit}
                 disabled={isLoading}
               >
                 {isLoading ? (
                   <>
-                    <div className="spinner"></div>
+                    <div className="depositmain-spinner"></div>
                     Processing...
                   </>
                 ) : (
@@ -494,15 +511,15 @@ export default function Deposit() {
 
       {/* Popup */}
       {showPopup && (
-        <div className="popup-overlay">
-          <div className={`popup ${popupType}`}>
-            <div className="popup-icon">
+        <div className="depositmain-popup-overlay">
+          <div className={`depositmain-popup ${popupType}`}>
+            <div className="depositmain-popup-icon">
               {popupType === "success" ? "✅" : "❌"}
             </div>
             <h3>{popupType === "success" ? "Success" : "Error"}</h3>
             <p>{popupMessage}</p>
             <button
-              className="popup-close-btn"
+              className="depositmain-popup-close-btn"
               onClick={() => setShowPopup(false)}
             >
               Close
