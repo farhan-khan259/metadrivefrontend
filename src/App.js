@@ -12,7 +12,6 @@ import Activeplans from "./Components/Activeplans/Activeplans";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import Deposit from "./Components/Deposit/Deposit";
 import Forgetpassword from "./Components/Forgetpassword/Forgetpassword";
-import Investmentplans from "./Components/Investmentplans/Investmentplans";
 import InviteScreen from "./Components/InviteScreen/InviteScreen";
 import Profile from "./Components/Profile/Profile";
 import Profilecard from "./Components/Profilecard/Profilecard";
@@ -103,14 +102,7 @@ function AppRoutes() {
 					</ProtectedRoute>
 				}
 			/>
-			<Route
-				path="/plans"
-				element={
-					<ProtectedRoute>
-						<Investmentplans />
-					</ProtectedRoute>
-				}
-			/>
+
 			<Route
 				path="/activeplans"
 				element={
