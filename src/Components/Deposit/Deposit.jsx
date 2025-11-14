@@ -255,6 +255,7 @@
 //     </>
 //   );
 // }
+
 import { useEffect, useRef, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { FiUploadCloud } from "react-icons/fi";
@@ -350,7 +351,7 @@ export default function Deposit() {
 
       if (response.ok) {
         setPopupType("success");
-        setPopupMessage("✅ Deposit request submitted successfully!");
+        setPopupMessage(" Deposit order successfully Initiated ✅");
         setShowPopup(true);
 
         // Reset form
@@ -514,15 +515,28 @@ export default function Deposit() {
         <div className="depositmain-popup-overlay">
           <div className={`depositmain-popup ${popupType}`}>
             <div className="depositmain-popup-icon">
-              {popupType === "success" ? "✅" : "❌"}
+              {popupType === "success" ? "🎉" : "⚠️"}
             </div>
-            <h3>{popupType === "success" ? "Success" : "Error"}</h3>
-            <p>{popupMessage}</p>
+            <h3>
+              {popupType === "success"
+                ? "Request Submitted Successfully!"
+                : "Action Required"}
+            </h3>
+            <p>
+              {popupType === "success"
+                ? "Your deposit request has been received and is under review. You will be notified once approved."
+                : popupMessage}
+            </p>
+            <div className="depositmain-popup-note">
+              {popupType === "success"
+                ? "⏳ Processing time: 5-15 minutes"
+                : "Please check the details and try again"}
+            </div>
             <button
               className="depositmain-popup-close-btn"
               onClick={() => setShowPopup(false)}
             >
-              Close
+              {popupType === "success" ? "Got It" : "Try Again"}
             </button>
           </div>
         </div>

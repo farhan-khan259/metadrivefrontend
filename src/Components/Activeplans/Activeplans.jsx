@@ -301,7 +301,8 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft, FaChartLine } from "react-icons/fa";
+import { FiHome, FiPieChart, FiUsers } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import "./Activeplans.css";
 
@@ -615,6 +616,21 @@ export default function Activeplans() {
           )}
         </div>
       </div>
+      {/* Bottom Navigation */}
+      <footer className="sx-bottom-nav">
+        <Link to="/dashboard" className="sx-nav-btn">
+          <FiHome className="sx-nav-icon" />
+        </Link>
+        <Link to="/activeplans" className="sx-nav-btn active">
+          <FiPieChart className="sx-nav-icon" />
+        </Link>
+        <Link to="/team" className="sx-nav-btn">
+          <FiUsers className="sx-nav-icon" />
+        </Link>
+        <Link to="/earningsummary" className="sx-nav-btn">
+          <FaChartLine className="sx-nav-icon" />
+        </Link>
+      </footer>
     </div>
   );
 }

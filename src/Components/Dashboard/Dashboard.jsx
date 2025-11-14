@@ -749,6 +749,7 @@
 //     </div>
 //   );
 // }
+
 import axios from "axios";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { FaChartLine, FaEye, FaEyeSlash, FaWhatsapp } from "react-icons/fa";
@@ -759,7 +760,7 @@ import {
   RiMoneyDollarCircleLine,
 } from "react-icons/ri";
 import { Link, useNavigate } from "react-router-dom";
-import profileImg from "../../Assets/Pictures/download.jpeg";
+import logoimagemetadrive from "../../Assets/Pictures/metadrivelogo.jpeg";
 import placeholderPlanImg1 from "../../Assets/Pictures/plan1.jpeg";
 import placeholderPlanImg2 from "../../Assets/Pictures/plan2.jpeg";
 import placeholderPlanImg3 from "../../Assets/Pictures/plan3.jpeg";
@@ -940,23 +941,6 @@ export default function Dashboard() {
 
   const [showBalance, setShowBalance] = useState(true);
 
-  // Announcements
-  // const [announcements, setAnnouncements] = useState([]);
-  // const [showAnnouncements, setShowAnnouncements] = useState(false);
-  // useEffect(() => {
-  //   const fetchAnnouncements = async () => {
-  //     try {
-  //       const res = await axios.post(
-  //         "https://be.solarx0.com/api/announcements1"
-  //       );
-  //       if (res.status === 200) setAnnouncements(res.data.data || []);
-  //     } catch (err) {
-  //       console.error("Error announcements:", err);
-  //     }
-  //   };
-  //   fetchAnnouncements();
-  // }, []);
-
   // Subscribers counts
   const [subscribersCounts, setSubscribersCounts] = useState([]);
   useEffect(() => {
@@ -1036,7 +1020,7 @@ export default function Dashboard() {
         percent: 3.9,
         img: placeholderPlanImg3,
         invested: investedCounts[2] || 25,
-        locked: false,
+        locked: true,
       },
       {
         title: "Meta Instagram/Social studies",
@@ -1197,7 +1181,8 @@ export default function Dashboard() {
     return found?.subscribers ?? plan.invested ?? 0;
   };
 
-  const whatsappGroupLink = "https://chat.whatsapp.com/GQoVtPyb7elHuKugtp6ioD";
+  const whatsappGroupLink =
+    "https://chat.whatsapp.com/CfSWPF8X6yL4XiHSQyxxwg?mode=wwt";
 
   const formatLastUpdate = () => {
     if (!lastUpdate) return "Today";
@@ -1216,31 +1201,16 @@ export default function Dashboard() {
   return (
     <div className="sx-dashboard-root">
       {/* TOP: Welcome header */}
+
       <div className="sx-header">
         <div className="sx-header-left">
-          <div className="profileandicon">
-            <img
-              src={
-                user?.profilepicture
-                  ? `https://be.solarx0.com${user.profilepicture}`
-                  : profileImg
-              }
-              alt="avatar"
-              className="sx-avatar"
-            />
-            {/* <a
-              href={whatsappGroupLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="sx-whatsapp-btn"
-            >
-              <FaWhatsapp />
-            </a> */}
+          <div className="sx-logo-container">
+            <img src={logoimagemetadrive} alt="MetaDrive" className="sx-logo" />
           </div>
           <div className="sx-welcome-text">
-            <div className="sx-welcome-main">Welcome Back!</div>
+            <div className="sx-welcome-main">Meta Drive</div>
             <div className="sx-welcome-name">
-              {user?.fullName || user?.name || "User"}
+              Welcome back, {user?.fullName || user?.name || "User"}
             </div>
           </div>
         </div>
@@ -1249,68 +1219,6 @@ export default function Dashboard() {
           <div className="sx-nav-btn" onClick={() => setShowSettings(true)}>
             <FiMenu className="sx-nav-icon" />
           </div>
-
-          {/* <button
-            className={`sx-bell-btn ${
-              announcements.length > 0 ? "has-notifications" : ""
-            }`}
-            onClick={() => setShowAnnouncements(!showAnnouncements)}
-          >
-            <FiBell />
-          </button>
-
-          {showAnnouncements && (
-            <div className="announcement-popup">
-              <div className="announcement-popup-header">
-                <h4>📢 Announcements</h4>
-                <button
-                  className="announcement-close"
-                  onClick={() => setShowAnnouncements(false)}
-                >
-                  ✕
-                </button>
-              </div>
-              <div className="announcement-list">
-                {announcements.length > 0 ? (
-                  announcements.map((item, index) => {
-                    const priority =
-                      index === 0 ? "high" : index < 3 ? "medium" : "low";
-                    const timestamp = new Date().toLocaleTimeString("en-US", {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    });
-                    return (
-                      <div
-                        key={item._id}
-                        className={`announcement-item priority-${priority}`}
-                      >
-                        <div className="announcement-content">
-                          <div className="announcement-message">
-                            {item.message}
-                          </div>
-                          <div className="announcement-meta">
-                            <span className="announcement-time">
-                              {timestamp}
-                            </span>
-                            <span className="announcement-status">UPDATE</span>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })
-                ) : (
-                  <div className="announcement-item no-announcements">
-                    <div className="announcement-content">
-                      <div className="no-announcements-icon">📭</div>
-                      <p>No new announcements</p>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-        </div>
-      </div> */}
         </div>
       </div>
 
@@ -1407,7 +1315,8 @@ export default function Dashboard() {
               <div className="sx-invested-people">
                 <div className="sx-invested-header">
                   <span className="sx-invested-icon"></span>
-                  Activate Your Plan
+                  Activate Your Product
+                  <span className="sx-days-badge">{p.days} days</span>
                 </div>
                 <strong className="sx-invested-count">
                   {getSubscribersFor(p).toLocaleString()}
@@ -1419,7 +1328,7 @@ export default function Dashboard() {
                   onClick={() => !p.locked && openInvestModal(p)}
                   disabled={p.locked}
                 >
-                  {p.locked ? "LOCKED 🔐" : "INVEST NOW"}
+                  {p.locked ? "TEMPORARY OFF  🔐" : "INVEST NOW"}
                 </button>
               </div>
             </div>

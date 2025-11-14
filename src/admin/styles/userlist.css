@@ -10,42 +10,6 @@
     margin: auto;
 }
 
-
-
-
-.action-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-left: 50px;
-    justify-content: center;
-}
-
-.action-btn.login {
-    background-color: #6f42c1;
-    color: white;
-}
-
-.action-btn.login:hover {
-    background-color: #5a32a3;
-}
-
-
-.deposit-proof-thumb {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.deposit-proof-thumb:hover {
-    transform: scale(1.1);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-
 .userlist-container h2 {
     margin-bottom: 20px;
     font-size: 24px;
@@ -98,6 +62,7 @@
     padding: 12px 15px;
     text-align: left;
     font-size: 14px;
+    vertical-align: middle;
 }
 
 .userlist-table tbody tr {
@@ -112,35 +77,24 @@
     background: #fafafa;
 }
 
-/* ===== Role Badges ===== */
-.role-badge {
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
-    color: white;
-    display: inline-block;
-    text-align: center;
-}
-
-.role-badge.admin {
-    background: #ff9800;
-}
-
-.role-badge.user {
-    background: #2196f3;
-}
-
 /* ===== Action Buttons ===== */
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    align-items: center;
+}
+
 .action-btn {
     border: none;
     padding: 6px 10px;
-    margin: 0 3px;
     border-radius: 4px;
     cursor: pointer;
     color: white;
     font-size: 13px;
     transition: transform 0.2s ease, opacity 0.3s ease;
+    white-space: nowrap;
 }
 
 .action-btn.view {
@@ -155,9 +109,73 @@
     background: #f44336;
 }
 
+.action-btn.approve {
+    background-color: #28a745;
+    color: white;
+}
+
+.action-btn.approve:hover {
+    background-color: #218838;
+}
+
+.action-btn.reject {
+    background-color: #dc3545;
+    color: white;
+}
+
+.action-btn.reject:hover {
+    background-color: #c82333;
+}
+
+.action-btn.login {
+    background-color: #6f42c1;
+    color: white;
+}
+
+.action-btn.login:hover {
+    background-color: #5a32a3;
+}
+
 .action-btn:hover {
     opacity: 0.9;
     transform: scale(1.05);
+}
+
+/* ===== Role Badges ===== */
+.role-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.role-badge.admin {
+    background: #ff9800;
+}
+
+.role-badge.user {
+    background: #2196f3;
+}
+
+/* ===== Deposit Proof Image ===== */
+.deposit-proof-thumb {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.deposit-proof-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* ===== Pagination ===== */
@@ -276,7 +294,7 @@
     .userlist-table tr,
     .userlist-table td {
         display: block;
-
+        width: 100%;
     }
 
     .userlist-table tr {
@@ -285,6 +303,7 @@
         border-radius: 8px;
         padding: 10px;
         background: #fff;
+        display: block;
     }
 
     .userlist-table td {
@@ -293,6 +312,11 @@
         position: relative;
         font-size: 13px;
         border-bottom: 1px solid #eee;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .userlist-table td:last-child {
@@ -301,61 +325,106 @@
 
     .userlist-table td::before {
         content: attr(data-label);
-        position: absolute;
-        left: 10px;
         font-weight: 600;
         color: #333;
+        margin-right: auto;
+        text-align: left;
+        padding-right: 10px;
+    }
+
+    .action-buttons {
+        justify-content: flex-end;
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .action-btn {
+        flex: 1;
+        min-width: 70px;
+        text-align: center;
     }
 
     .pagination {
         justify-content: center;
     }
+
+    .deposit-proof-thumb {
+        width: 50px;
+        height: 50px;
+    }
 }
 
-
-.action-buttons {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
+/* ===== Additional Alignment Fixes ===== */
+.userlist-table td .action-buttons {
+    justify-content: flex-start;
 }
 
-.action-btn {
-    border: none;
-    padding: 6px 10px;
-    border-radius: 6px;
+/* Center align text in specific columns */
+.userlist-table td[data-label="Amount"],
+.userlist-table td[data-label="Requested"],
+.userlist-table td[data-label="Fee"],
+.userlist-table td[data-label="Net Amount"] {
+    text-align: right;
+    font-family: 'Courier New', monospace;
     font-weight: 600;
-    cursor: pointer;
-    transition: 0.2s ease;
 }
 
-.action-btn.approve {
-    background-color: #28a745;
-    color: white;
+/* Status badges alignment */
+.userlist-table td[data-label="Status"] {
+    text-align: center;
 }
 
-.action-btn.approve:hover {
-    background-color: #218838;
+/* Date columns */
+.userlist-table td[data-label="Date"] {
+    white-space: nowrap;
 }
 
-.action-btn.reject {
-    background-color: #dc3545;
-    color: white;
+/* ID columns with ellipsis for long IDs */
+.userlist-table td[data-label="ID"] {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.action-btn.reject:hover {
-    background-color: #c82333;
+/* Email and text columns */
+.userlist-table td[data-label="Email"],
+.userlist-table td[data-label="Holder Name"],
+.userlist-table td[data-label="Account Number"] {
+    word-break: break-word;
+    min-width: 120px;
 }
 
-.role-badge.admin {
-    background: #28a745;
-    color: white;
-    padding: 4px 8px;
-    border-radius: 6px;
+/* Ensure table cells don't overflow */
+.userlist-table th,
+.userlist-table td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
 }
 
-.role-badge.user {
-    background: #dc3545;
-    color: white;
-    padding: 4px 8px;
-    border-radius: 6px;
+/* Specific alignment for action columns */
+.userlist-table td[data-label="Actions"] {
+    min-width: 150px;
+}
+
+/* Mobile specific fixes */
+@media (max-width: 480px) {
+    .userlist-container {
+        padding: 10px;
+    }
+
+    .userlist-table td {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+
+    .action-btn {
+        padding: 4px 8px;
+        font-size: 11px;
+    }
+
+    .action-buttons {
+        gap: 4px;
+    }
 }

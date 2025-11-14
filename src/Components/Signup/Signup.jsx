@@ -768,7 +768,6 @@
 //     </div>
 //   );
 // }
-
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -1004,19 +1003,8 @@ export default function Signup() {
               )}
             </div>
 
-            <button
-              type="submit"
-              className={`signup-btn ${loading ? "loading" : ""}`}
-              disabled={loading}
-            >
-              {loading ? (
-                <>
-                  <div className="btn-spinner"></div>
-                  Creating Account...
-                </>
-              ) : (
-                "Sign Up & Begin Earning"
-              )}
+            <button type="submit" className="signup-btn" disabled={loading}>
+              {loading ? "Creating Account..." : "Sign Up & Begin Earning"}
             </button>
 
             <div className="login-redirect">
@@ -1031,12 +1019,18 @@ export default function Signup() {
 
       {showPopup && (
         <div className="popup-overlay">
-          <div className="popup-box">
+          <div className="popup-box error-popup">
             <div className="popup-icon">⚠️</div>
-            <h3>{popupTitle}</h3>
+            <h3>Action Required</h3>
             <p>{popupMessage}</p>
-            <button onClick={() => setShowPopup(false)} className="popup-btn">
-              Close
+            <div className="popup-note">
+              Please check all fields and try again
+            </div>
+            <button
+              onClick={() => setShowPopup(false)}
+              className="popup-btn error-btn"
+            >
+              Try Again
             </button>
           </div>
         </div>
@@ -1045,12 +1039,13 @@ export default function Signup() {
       {showSuccess && (
         <div className="popup-overlay">
           <div className="popup-box success-popup">
-            <div className="popup-icon">✅</div>
-            <h3>Account Created Successfully!</h3>
+            <div className="popup-icon">🎉</div>
+            <h3>Welcome to Meta Drive!</h3>
             <p>
-              Your account has been created successfully! Redirecting to
-              login...
+              Your account has been created successfully! You're now part of our
+              investment community and ready to start your journey.
             </p>
+            <div className="popup-note">⏳ Redirecting to login page...</div>
             <button
               onClick={() => {
                 setShowSuccess(false);
@@ -1058,7 +1053,7 @@ export default function Signup() {
               }}
               className="popup-btn success-btn"
             >
-              Go to Login
+              Start Earning Now
             </button>
           </div>
         </div>

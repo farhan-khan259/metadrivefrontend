@@ -30,7 +30,7 @@ export default function Support() {
           <div className="support-cards-new">
             {/* WhatsApp Support Card */}
             <a
-              href="https://chat.whatsapp.com/GQoVtPyb7elHuKugtp6ioD?mode=wwt"
+              href="https://chat.whatsapp.com/CfSWPF8X6yL4XiHSQyxxwg?mode=wwt"
               target="_blank"
               rel="noopener noreferrer"
               className="support-card-item whatsapp-card"
@@ -49,7 +49,7 @@ export default function Support() {
 
             {/* Customer Service Card */}
             <a
-              href="https://wa.me/923239704664"
+              href="https://wa.me/923249275092"
               className="support-card-item service-card"
             >
               <div className="card-icon">
@@ -72,10 +72,10 @@ export default function Support() {
             </p>
             <div className="contact-details">
               <p>
-                <strong>Email:</strong> metadriveofficial0@gmail.com
+                <strong>Email:</strong> metadrive31@gmail.com
               </p>
               <p>
-                <strong>Phone:</strong> +92 323 9704664
+                <strong>Phone:</strong> +92 324 9275092
               </p>
               <p>
                 <strong>Hours:</strong> 24/7 Available

@@ -259,7 +259,7 @@
 // }
 
 import { useState } from "react";
-import { FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import "./Signin.css";
 
@@ -372,19 +372,8 @@ export default function Signin() {
               </Link>
             </div>
 
-            <button
-              type="submit"
-              className={`signin-btn ${loading ? "loading" : ""}`}
-              disabled={loading}
-            >
-              {loading ? (
-                <>
-                  <div className="btn-spinner"></div>
-                  Signing In...
-                </>
-              ) : (
-                "Sign In"
-              )}
+            <button type="submit" className="signin-btn" disabled={loading}>
+              {loading ? "Signing In..." : "Sign In"}
             </button>
 
             <div className="signup-redirect">
@@ -399,12 +388,18 @@ export default function Signin() {
 
       {showPopup && (
         <div className="popup-overlay">
-          <div className="popup-box">
+          <div className="popup-box error-popup">
             <div className="popup-icon">⚠️</div>
-            <h3>{popupTitle}</h3>
+            <h3>Login Failed</h3>
             <p>{popupMessage}</p>
-            <button onClick={() => setShowPopup(false)} className="popup-btn">
-              Close
+            <div className="popup-note">
+              Please check your credentials and try again
+            </div>
+            <button
+              onClick={() => setShowPopup(false)}
+              className="popup-btn error-btn"
+            >
+              Try Again
             </button>
           </div>
         </div>

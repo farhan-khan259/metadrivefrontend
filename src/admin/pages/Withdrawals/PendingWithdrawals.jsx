@@ -56,12 +56,14 @@
 //   };
 
 //   // ✅ Admin Login to User Account
-//   const handleLoginAsUser = async (userId) => {
+//   const handleLoginAsUser = async (user) => {
 //     if (!window.confirm("Login to this user's account?")) return;
 
 //     try {
 //       localStorage.removeItem("user");
 //       localStorage.removeItem("token");
+
+//       const userId = user?._id || user; // Make sure it's the actual ID
 
 //       const response = await axios.post(
 //         `https://be.solarx0.com/api/adminLoginUserAccount`,
@@ -70,6 +72,7 @@
 
 //       if (response.status === 200) {
 //         alert("Logging in as user...");
+//         // Save full user data instead of just ID (important for plans)
 //         localStorage.setItem("user", JSON.stringify({ _id: userId }));
 //         window.location.href = "/dashboard"; // Redirect to user's dashboard
 //       }
@@ -114,7 +117,6 @@
 //                 <tr key={d._id}>
 //                   <td data-label="ID">{d._id}</td>
 //                   <td data-label="User ID">
-//                     {" "}
 //                     {d.user_id?.randomCode || d.user_id?._id || "N/A"}
 //                   </td>
 //                   <td data-label="Method">{d.payment_method}</td>
@@ -273,7 +275,9 @@ export default function PendingWithdrawals() {
                 <th>ID</th>
                 <th>User ID</th>
                 <th>Method</th>
-                <th>Amount</th>
+                <th>Requested</th>
+                <th>Fee</th>
+                <th>Net Amount</th>
                 <th>Date</th>
                 <th>Account Number</th>
                 <th>Holder Name</th>
@@ -288,8 +292,22 @@ export default function PendingWithdrawals() {
                     {d.user_id?.randomCode || d.user_id?._id || "N/A"}
                   </td>
                   <td data-label="Method">{d.payment_method}</td>
-                  <td data-label="Amount">
+                  <td data-label="Requested">
                     PKR {d.withdrawalsAmount?.toLocaleString()}
+                  </td>
+                  <td data-label="Fee">
+                    -PKR{" "}
+                    {d.withdrawalFee?.toLocaleString() ||
+                      Math.round(d.withdrawalsAmount * 0.03)?.toLocaleString()}
+                  </td>
+                  <td data-label="Net Amount">
+                    <strong>
+                      PKR{" "}
+                      {d.netWithdrawal?.toLocaleString() ||
+                        Math.round(
+                          d.withdrawalsAmount * 0.97
+                        )?.toLocaleString()}
+                    </strong>
                   </td>
                   <td data-label="Date">
                     {new Date(d.createdAt).toLocaleDateString()}
