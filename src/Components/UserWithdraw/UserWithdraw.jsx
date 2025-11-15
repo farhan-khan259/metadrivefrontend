@@ -181,6 +181,20 @@ export default function UserWithdraw() {
     return true;
   });
 
+  // Calculate fee and net amount for each transaction
+  const calculateTransactionDetails = (transaction) => {
+    const requestedAmount = transaction.withdrawalsAmount || 0;
+    const feePercentage = 3; // 3% fee
+    const feeAmount = (requestedAmount * feePercentage) / 100;
+    const netAmount = requestedAmount - feeAmount;
+
+    return {
+      requested: requestedAmount,
+      fee: feeAmount,
+      netAmount: netAmount,
+    };
+  };
+
   return (
     <div className="withdrawal-history-container">
       {/* Header with Orange Background */}
@@ -224,43 +238,66 @@ export default function UserWithdraw() {
               <p>No withdrawal transactions available.</p>
             </div>
           ) : (
-            transactionList.map((item, index) => (
-              <div key={index} className="transaction-card-withdrawal">
-                <h3>Withdrawal With {item.payment_method}</h3>
-                <div className="transaction-details">
-                  <div className="detail-row">
-                    <span className="label">Amount:</span>
-                    <span className="value">{item.withdrawalsAmount} PKR</span>
-                  </div>
-                  <div className="detail-row">
-                    <span className="label">Status:</span>
-                    <span className={`status ${item.withdrawalStatus}`}>
-                      {item.withdrawalStatus}
-                    </span>
-                  </div>
-                  <div className="detail-row">
-                    <span className="label">Date:</span>
-                    <span className="value">
-                      {new Date(item.createdAt).toLocaleString()}
-                    </span>
-                  </div>
-                  {item.transactionId && (
+            transactionList.map((item, index) => {
+              const { requested, fee, netAmount } =
+                calculateTransactionDetails(item);
+
+              return (
+                <div key={index} className="transaction-card-withdrawal">
+                  <h3>Withdrawal With {item.payment_method}</h3>
+                  <div className="transaction-details">
+                    {/* Amount Details Row */}
+                    <div className="amount-details-row">
+                      <div className="amount-item">
+                        <span className="amount-label">Requested:</span>
+                        <span className="amount-value requested">
+                          {requested.toLocaleString()} PKR
+                        </span>
+                      </div>
+                      <div className="amount-item">
+                        <span className="amount-label">Fee:</span>
+                        <span className="amount-value fee">
+                          -{fee.toLocaleString()} PKR
+                        </span>
+                      </div>
+                      <div className="amount-item">
+                        <span className="amount-label">Net Amount:</span>
+                        <span className="amount-value net-amount">
+                          {netAmount.toLocaleString()} PKR
+                        </span>
+                      </div>
+                    </div>
+
                     <div className="detail-row">
-                      <span className="label">Transaction ID:</span>
-                      <span className="value highlight">
-                        {item.transactionId}
+                      <span className="label">Status:</span>
+                      <span className={`status ${item.withdrawalStatus}`}>
+                        {item.withdrawalStatus}
                       </span>
                     </div>
-                  )}
-                  {item.accountNumber && (
                     <div className="detail-row">
-                      <span className="label">Account Number:</span>
-                      <span className="value">{item.accountNumber}</span>
+                      <span className="label">Date:</span>
+                      <span className="value">
+                        {new Date(item.createdAt).toLocaleString()}
+                      </span>
                     </div>
-                  )}
+                    {item.transactionId && (
+                      <div className="detail-row">
+                        <span className="label">Transaction ID:</span>
+                        <span className="value highlight">
+                          {item.transactionId}
+                        </span>
+                      </div>
+                    )}
+                    {item.accountNumber && (
+                      <div className="detail-row">
+                        <span className="label">Account Number:</span>
+                        <span className="value">{item.accountNumber}</span>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))
+              );
+            })
           )}
         </div>
       </div>

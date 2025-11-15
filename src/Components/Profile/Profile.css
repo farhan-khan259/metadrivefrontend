@@ -167,50 +167,10 @@
 	box-shadow: var(--shadow-hover);
 }
 
-.profile-avatar-wrapper {
-	position: relative;
-	display: inline-block;
-	margin-bottom: 20px;
-}
 
-.profile-avatar7p {
-	width: 120px;
-	height: 120px;
-	border-radius: 50%;
-	object-fit: cover;
-	border: 4px solid var(--primary);
-	box-shadow: 0 10px 30px rgba(0, 212, 170, 0.3);
-	transition: all 0.3s ease;
-	cursor: pointer;
-	position: relative;
-}
 
-.profile-avatar7p:hover {
-	transform: scale(1.05);
-	box-shadow: 0 15px 40px rgba(0, 212, 170, 0.4);
-	border-color: var(--secondary);
-}
 
-.camera-icon {
-	position: absolute;
-	bottom: 8px;
-	right: 8px;
-	background: var(--gradient-primary);
-	color: white;
-	border-radius: 50%;
-	padding: 10px;
-	font-size: 16px;
-	cursor: pointer;
-	box-shadow: 0 4px 15px rgba(0, 212, 170, 0.4);
-	transition: all 0.3s ease;
-	border: 2px solid white;
-	z-index: 3;
-}
 
-.camera-icon:hover {
-	transform: scale(1.1) rotate(15deg);
-	box-shadow: 0 6px 20px rgba(0, 212, 170, 0.5);
-}
 
 .profile-info7p h3 {
 	margin: 0 0 8px 0;
@@ -572,5 +532,171 @@
 	.camera-icon {
 		padding: 8px;
 		font-size: 14px;
+	}
+}
+
+/* User Info Grid Styles */
+.user-info-grid7p {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 20px;
+	width: 100%;
+}
+
+.info-card7p {
+	background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.9) 100%);
+	border-radius: var(--border-radius);
+	padding: 25px 20px;
+	text-align: center;
+	border: 1px solid rgba(0, 212, 170, 0.1);
+	backdrop-filter: blur(10px);
+	transition: all 0.3s ease;
+	position: relative;
+	overflow: hidden;
+}
+
+.info-card7p::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 4px;
+	background: var(--gradient-primary);
+	transform: scaleX(0);
+	transition: transform 0.3s ease;
+}
+
+.info-card7p:hover::before {
+	transform: scaleX(1);
+}
+
+.info-card7p:hover {
+	transform: translateY(-5px);
+	box-shadow: var(--shadow-hover);
+	border-color: rgba(0, 212, 170, 0.2);
+}
+
+.info-icon7p {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto 15px;
+	font-size: 24px;
+	color: white;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+	transition: all 0.3s ease;
+}
+
+.info-card7p:hover .info-icon7p {
+	transform: scale(1.1) rotate(5deg);
+}
+
+.user-icon {
+	background: var(--gradient-primary);
+}
+
+.upliner-icon {
+	background: var(--gradient-secondary);
+}
+
+.id-icon {
+	background: var(--gradient-success);
+}
+
+.team-icon {
+	background: linear-gradient(135deg, #6C63FF 0%, #FF6B6B 100%);
+}
+
+.info-content7p label {
+	display: block;
+	font-size: 12px;
+	font-weight: 700;
+	color: var(--gray);
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	margin-bottom: 8px;
+}
+
+.info-content7p h3 {
+	margin: 0;
+	color: var(--dark);
+	font-size: 18px;
+	font-weight: 800;
+	background: var(--gradient-primary);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	line-height: 1.3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+	.user-info-grid7p {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 15px;
+	}
+
+	.info-card7p {
+		padding: 20px 15px;
+	}
+
+	.info-icon7p {
+		width: 50px;
+		height: 50px;
+		font-size: 20px;
+	}
+
+	.info-content7p h3 {
+		font-size: 16px;
+	}
+}
+
+@media (max-width: 480px) {
+	.user-info-grid7p {
+		grid-template-columns: 1fr;
+		gap: 12px;
+	}
+
+	.info-card7p {
+		padding: 18px 12px;
+	}
+}
+
+
+
+/* Add these to your existing Profile.css */
+
+.deposit-icon {
+	background: linear-gradient(135deg, #FF6B6B 0%, #FFD166 100%);
+}
+
+.commission-icon {
+	background: linear-gradient(135deg, #1DB954 0%, #00D4AA 100%);
+}
+
+/* Ensure the grid layout works for 6 items */
+.user-info-grid7p {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 20px;
+	width: 100%;
+}
+
+/* Responsive adjustments for 6 cards */
+@media (max-width: 768px) {
+	.user-info-grid7p {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 15px;
+	}
+}
+
+@media (max-width: 480px) {
+	.user-info-grid7p {
+		grid-template-columns: 1fr;
+		gap: 12px;
 	}
 }

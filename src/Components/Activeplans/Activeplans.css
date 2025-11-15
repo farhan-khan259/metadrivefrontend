@@ -662,7 +662,7 @@
     }
 
     .detail-row .value {
-        text-align: left;
+        text-align: center;
         width: 100%;
         font-size: 14px;
     }

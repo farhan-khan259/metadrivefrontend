@@ -304,10 +304,6 @@ export default function Deposit() {
     const numberText = accountNoRef.current?.textContent?.trim();
     if (numberText) {
       navigator.clipboard.writeText(numberText);
-      setPopupMessage("Account number copied to clipboard!");
-      setPopupType("success");
-      setShowPopup(true);
-      setTimeout(() => setShowPopup(false), 2000);
     }
   };
 

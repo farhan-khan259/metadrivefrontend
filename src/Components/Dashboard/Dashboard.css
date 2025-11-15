@@ -348,8 +348,9 @@ body {
 }
 
 .sx-sub {
-    color: var(--gray);
-    font-size: 15px;
+    color: var(--dark);
+    font-size: 17px;
+    font-weight: 600;
     margin-bottom: 12px;
 }
 
@@ -899,6 +900,12 @@ body {
         gap: 10px;
     } */
 
+
+    .sx-plans-header h3 {
+        font-size: 21px;
+
+    }
+
     .sx-modal-body {
         display: flex;
         flex-direction: column;
@@ -1001,9 +1008,7 @@ body {
 }
 
 
-.sx-sub {
-    display: none;
-}
+
 
 .sx-update-indicator {
     display: none;

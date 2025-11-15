@@ -996,7 +996,7 @@ export default function Dashboard() {
         title: "Meta Drive🚘",
         days: 3,
         min: 1000,
-        max: 2000,
+        max: 3000,
         percent: 3.6,
         img: placeholderPlanImg1,
         invested: investedCounts[0] || 25,
@@ -1005,9 +1005,9 @@ export default function Dashboard() {
       {
         title: "Meta Messenger/Community",
         days: 7,
-        min: 1000,
-        max: 4000,
-        percent: 3.7,
+        min: 4000,
+        max: 15000,
+        percent: 3.5,
         img: placeholderPlanImg2,
         invested: investedCounts[1] || 25,
         locked: false,
@@ -1015,9 +1015,9 @@ export default function Dashboard() {
       {
         title: "Meta WhatsApp/Team",
         days: 12,
-        min: 2000,
-        max: 10000,
-        percent: 3.9,
+        min: 5000,
+        max: 30000,
+        percent: 3.8,
         img: placeholderPlanImg3,
         invested: investedCounts[2] || 25,
         locked: true,
@@ -1025,9 +1025,9 @@ export default function Dashboard() {
       {
         title: "Meta Instagram/Social studies",
         days: 15,
-        min: 3000,
-        max: 20000,
-        percent: 4.1,
+        min: 10000,
+        max: 50000,
+        percent: 4,
         img: placeholderPlanImg4,
         invested: investedCounts[3] || 25,
         locked: true,
@@ -1035,8 +1035,8 @@ export default function Dashboard() {
       {
         title: "Meta Facebook/Social media",
         days: 22,
-        min: 5000,
-        max: 25000,
+        min: 10000,
+        max: 30000,
         percent: 4.2,
         img: placeholderPlanImg5,
         invested: investedCounts[4] || 25,
@@ -1045,8 +1045,8 @@ export default function Dashboard() {
       {
         title: "Meta Oculus/Products",
         days: 30,
-        min: 1000,
-        max: 50000,
+        min: 20000,
+        max: 150000,
         percent: 4.5,
         img: placeholderPlanImg6,
         invested: investedCounts[5] || 10,
@@ -1055,8 +1055,8 @@ export default function Dashboard() {
       {
         title: "Meta Workplace/Team's",
         days: 42,
-        min: 15000,
-        max: 70000,
+        min: 25000,
+        max: 200000,
         percent: 5,
         img: placeholderPlanImg7,
         invested: investedCounts[6] || 10,
@@ -1065,9 +1065,9 @@ export default function Dashboard() {
       {
         title: "Meta Portal/LCD",
         days: 60,
-        min: 20000,
-        max: 100000,
-        percent: 5.5,
+        min: 30000,
+        max: 300000,
+        percent: 6,
         img: placeholderPlanImg8,
         invested: investedCounts[7] || 10,
         locked: false,
@@ -1285,10 +1285,8 @@ export default function Dashboard() {
 
       {/* Investment Plans Heading */}
       <div className="sx-plans-header">
-        <h3>INVESTMENT PLANS</h3>
-        <p className="sx-sub">
-          Choose the plan that suits your investment goals!
-        </p>
+        <h3>INVESTMENT DIFFERENT PRODUCTS</h3>
+        <p className="sx-sub">You can buy any product you want🔥</p>
         <div className="sx-update-indicator">
           📊 Investor counts updated daily • Last update: {formatLastUpdate()}
         </div>

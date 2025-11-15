@@ -24,7 +24,7 @@
 
 .withdraw-container {
     min-height: 100vh;
-    background: linear-gradient(135deg, #F7FAFC 0%, #EDF2F7 100%);
+    background: linear-gradient(135deg, #F8FAFC 0%, #E8F2F7 100%);
     font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
     position: relative;
     overflow-x: hidden;
@@ -47,7 +47,7 @@
 
 /* Header Section with Gradient Background */
 .header-section {
-    background: var(--gradient-primary);
+    background: linear-gradient(135deg, #00D4AA 0%, #5A54FF 100%);
     padding: 25px 20px;
     border-radius: 0 0 30px 30px;
     box-shadow: 0 10px 40px rgba(0, 212, 170, 0.3);
@@ -156,7 +156,7 @@
 }
 
 .balance-card-withdraw:hover {
-    transform: translateY(-8px);
+    transform: translateY(-3px);
     box-shadow: var(--shadow-hover);
 }
 
@@ -650,4 +650,24 @@
 
 .account-info {
     display: none;
+}
+
+
+.security-badge {
+    background: rgba(0, 212, 170, 0.08);
+    border: 1px solid rgba(0, 212, 170, 0.2);
+    border-radius: var(--border-radius-sm);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--primary);
+    margin: 10px 0;
+}
+
+.security-icon {
+    font-size: 16px;
 }

@@ -293,12 +293,12 @@ const Withdrawform = () => {
 
     // Validation
     if (!bankName) {
-      setError("Please select a bank or wallet");
+      setError("Please select your financial institution");
       return;
     }
 
     if (!accountName.trim()) {
-      setError("Please enter account holder name");
+      setError("Please enter the account holder name");
       return;
     }
 
@@ -362,13 +362,13 @@ const Withdrawform = () => {
           <Link to="/withdraw" className="back-link2">
             <FaArrowLeft />
           </Link>
-          <h1 className="wdrawfund">Bind Withdrawal Account</h1>
+          <h1 className="wdrawfund">Account Verification</h1>
         </div>
       </div>
 
       <div className="content-section2">
         <div className="balance-box2">
-          <p>Available Balance</p>
+          <p>Current Balance</p>
           <h2>{balance.toLocaleString()} PKR</h2>
         </div>
 
@@ -377,10 +377,10 @@ const Withdrawform = () => {
             <div className="success-icon2">
               <FaCheckCircle />
             </div>
-            <h2>Account Successfully Bound!</h2>
+            <h2>Verification Complete!</h2>
             <p>
-              Your withdrawal account has been successfully linked to your
-              profile.
+              Your account has been successfully verified and is ready for
+              transactions.
             </p>
             <div className="account-details2">
               <p>
@@ -395,7 +395,7 @@ const Withdrawform = () => {
             </div>
             <div className="success-actions2">
               <Link to="/withdrawfunds" className="btn-primary2">
-                Proceed to Withdrawal
+                Continue to Withdrawal
               </Link>
               <Link to="/dashboard" className="btn-secondary2">
                 Back to Dashboard
@@ -404,9 +404,14 @@ const Withdrawform = () => {
           </div>
         ) : (
           <div className="step-section2">
+            <div className="security-notice2">
+              <FaShieldAlt className="security-icon2" />
+              <span>
+                Your information is protected with bank-level security
+              </span>
+            </div>
             <h2>
-              <span className="step-number2">Step 1:</span> Withdrawal Account
-              Status
+              <span className="step-number2">Step 1:</span> Account Verification
             </h2>
 
             <div className="status-box2">
@@ -414,29 +419,29 @@ const Withdrawform = () => {
                 <FaShieldAlt />
               </div>
               <h3 className="status-title2">
-                <FaLock className="lock-icon2" /> Account Not Bound
+                <FaLock className="lock-icon2" /> Verification Required
               </h3>
               <p className="status-2">
-                You must bind your withdrawal account before applying for a
-                withdrawal.
+                Complete account verification to enable withdrawal
+                functionality.
               </p>
 
               <form className="form-box2" onSubmit={handleSubmit}>
                 <h4 className="form-heading2">
-                  <MdAccountBalance className="icon2" /> Bank Account Details
+                  <MdAccountBalance className="icon2" /> Account Information
                 </h4>
 
                 {error && <div className="error-message2">{error}</div>}
 
                 <div className="form-group2">
-                  <label>Bank / Wallet Name</label>
+                  <label>Financial Institution</label>
                   <select
                     className="bank-select2"
                     value={bankName}
                     onChange={(e) => setBankName(e.target.value)}
                     required
                   >
-                    <option value="">Select Your Bank or Wallet</option>
+                    <option value="">Select Bank or Wallet</option>
                     <optgroup label="Banks">
                       <option>Habib Bank Limited (HBL)</option>
                       <option>Meezan Bank</option>
@@ -458,7 +463,7 @@ const Withdrawform = () => {
                 </div>
 
                 <div className="form-group2">
-                  <label>Account Holder Name</label>
+                  <label>Account Holder </label>
                   <input
                     type="text"
                     placeholder="Full name as per bank account"
@@ -485,7 +490,7 @@ const Withdrawform = () => {
                     className="bind-btn2"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? "Processing..." : "Bind Now"}
+                    {isSubmitting ? "Verifying..." : "Verify Account"}
                   </button>
                   <Link to="/withdraw" className="cancel-btn2">
                     Cancel

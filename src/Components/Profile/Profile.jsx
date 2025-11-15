@@ -306,21 +306,15 @@
 // }
 
 import axios from "axios";
-import { useRef, useState } from "react";
-import {
-  FaArrowLeft,
-  FaCamera,
-  FaEdit,
-  FaKey,
-  FaSave,
-  FaUser,
-} from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { FaArrowLeft, FaEdit, FaKey, FaSave, FaUser } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import profileimg from "../../Assets/Pictures/download.jpg";
 import "./Profile.css";
 
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("account");
+  const [teamData, setTeamData] = useState(null);
+  const [uplinerName, setUplinerName] = useState("Loading...");
   const [isEditing, setIsEditing] = useState(false);
   const [isEditingPassword, setIsEditingPassword] = useState(false);
   const navigate = useNavigate();
@@ -345,44 +339,97 @@ export default function Profile() {
     confirmPassword: "",
   });
 
-  // ✅ Profile picture upload
-  const fileInputRef = useRef(null);
-
-  const handleProfilePicClick = () => {
-    fileInputRef.current.click();
-  };
-
-  const handleProfilePicChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const formDataUpload = new FormData();
-    formDataUpload.append("profilepicture", file);
-    formDataUpload.append("userId", userId);
+  // Function to get upliner name by referral code
+  const getUplinerName = async (referralCode) => {
+    if (!referralCode) return "No Upliner";
 
     try {
       const response = await axios.post(
-        "https://be.solarx0.com/api/account",
-        formDataUpload,
+        "https://be.solarx0.com/api/getUserByReferral",
         {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+          referralCode: referralCode,
         }
       );
 
       if (response.data.success) {
-        alert("Profile picture updated!");
-        localStorage.setItem("user", JSON.stringify(response.data.user));
-        setUser(response.data.user);
+        return response.data.user.fullName;
       } else {
-        alert(response.data.message || "Upload failed!");
+        return "No Upliner";
       }
-    } catch (err) {
-      console.error(err);
-      alert("Error uploading profile picture");
+    } catch (error) {
+      console.error("Error fetching upliner:", error);
+      return "No Upliner";
     }
   };
+
+  // Fetch team data and upliner name
+  useEffect(() => {
+    const fetchTeamDataAndUpliner = async () => {
+      if (!userId) {
+        console.log("No userId available");
+        return;
+      }
+
+      try {
+        // Fetch team data - using the same endpoint as Team component
+        const response = await axios.post("https://be.solarx0.com/team", {
+          userId: userId,
+        });
+
+        if (response.data.success) {
+          setTeamData(response.data);
+          console.log("Team data loaded:", response.data);
+
+          // Get upliner name from user's referredBy field
+          const userReferralCode = user?.referredBy;
+          if (userReferralCode) {
+            const upliner = await getUplinerName(userReferralCode);
+            setUplinerName(upliner);
+          } else {
+            setUplinerName("No Upliner");
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setUplinerName("No Upliner");
+      }
+    };
+
+    fetchTeamDataAndUpliner();
+  }, [userId, user?.referredBy]);
+
+  // Calculate total team size - same calculation as Team component
+  const getTotalTeamSize = () => {
+    if (!teamData) return 0;
+
+    // Exact same calculation as in TeamDataScreen component
+    return (
+      (teamData.directReferrals?.stats?.totalUsers || 0) +
+      (teamData.indirectReferrals?.stats?.totalUsers || 0) +
+      (teamData.extendedReferrals?.stats?.totalUsers || 0)
+    );
+  };
+
+  // Get additional stats for more info cards
+  const getAdditionalStats = () => {
+    if (!teamData) return { totalDeposit: 0, totalCommission: 0 };
+
+    const totalTeamDeposit =
+      (teamData.directReferrals?.stats?.totalTeamDeposit || 0) +
+      (teamData.indirectReferrals?.stats?.totalTeamDeposit || 0) +
+      (teamData.extendedReferrals?.stats?.totalTeamDeposit || 0);
+
+    const totalTeamCommission = Math.floor(
+      teamData.commissionSummary?.grandTotalCommission || 0
+    );
+
+    return {
+      totalDeposit: totalTeamDeposit,
+      totalCommission: totalTeamCommission,
+    };
+  };
+
+  const additionalStats = getAdditionalStats();
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -459,7 +506,6 @@ export default function Profile() {
 
   // ✅ FIXED: Reliable back navigation
   const handleBackClick = () => {
-    // Always navigate to dashboard for consistency
     navigate("/dashboard");
   };
 
@@ -467,7 +513,6 @@ export default function Profile() {
     <div className="profile-container7p">
       {/* Header */}
       <div className="profile-header-wrapper7p">
-        {/* Fixed back link */}
         <button
           className="back-linkpro7p"
           onClick={handleBackClick}
@@ -478,34 +523,69 @@ export default function Profile() {
         <h2 className="profile-page-heading7p">Profile Settings</h2>
       </div>
 
-      {/* User Info */}
+      {/* User Info Header */}
       <div className="profile-header7p">
-        <div className="profile-avatar-wrapper">
-          <img
-            src={
-              user?.profilepicture
-                ? `https://be.solarx0.com${user.profilepicture}`
-                : profileimg
-            }
-            alt="Profile"
-            className="profile-avatar7p"
-            onClick={handleProfilePicClick}
-            style={{ cursor: "pointer" }}
-          />
-          <div className="camera-icon" onClick={handleProfilePicClick}>
-            <FaCamera />
+        <div className="user-info-grid7p">
+          <div className="info-card7p">
+            <div className="info-icon7p user-icon">
+              <FaUser />
+            </div>
+            <div className="info-content7p">
+              <label>Username</label>
+              <h3>{formData.Name || "Loading..."}</h3>
+            </div>
           </div>
-        </div>
-        <input
-          type="file"
-          ref={fileInputRef}
-          style={{ display: "none" }}
-          accept="image/*"
-          onChange={handleProfilePicChange}
-        />
-        <div className="profile-info7p">
-          <h3>{formData.Name}</h3>
-          <p>{formData.email}</p>
+
+          <div className="info-card7p">
+            <div className="info-icon7p upliner-icon">
+              <FaUser />
+            </div>
+            <div className="info-content7p">
+              <label>Upliner</label>
+              <h3>{uplinerName}</h3>
+            </div>
+          </div>
+
+          <div className="info-card7p">
+            <div className="info-icon7p id-icon">
+              <FaKey />
+            </div>
+            <div className="info-content7p">
+              <label>User ID</label>
+              <h3>{user?.randomCode || "N/A"}</h3>
+            </div>
+          </div>
+
+          <div className="info-card7p">
+            <div className="info-icon7p team-icon">
+              <FaUser />
+            </div>
+            <div className="info-content7p">
+              <label>Team Size</label>
+              <h3>{getTotalTeamSize().toLocaleString()}</h3>
+            </div>
+          </div>
+
+          {/* Additional Stats Cards */}
+          <div className="info-card7p">
+            <div className="info-icon7p deposit-icon">
+              <FaKey />
+            </div>
+            <div className="info-content7p">
+              <label>Team Deposit</label>
+              <h3>PKR {additionalStats.totalDeposit.toLocaleString()}</h3>
+            </div>
+          </div>
+
+          <div className="info-card7p">
+            <div className="info-icon7p commission-icon">
+              <FaKey />
+            </div>
+            <div className="info-content7p">
+              <label>Team Commission</label>
+              <h3>PKR {additionalStats.totalCommission.toLocaleString()}</h3>
+            </div>
+          </div>
         </div>
       </div>
 

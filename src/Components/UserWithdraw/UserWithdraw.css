@@ -663,3 +663,144 @@
         transform: translateY(-10px);
     }
 }
+
+
+/* Amount Details Row */
+.amount-details-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: rgba(0, 212, 170, 0.03);
+    border-radius: var(--border-radius-sm);
+    border: 1px solid rgba(0, 212, 170, 0.1);
+}
+
+.amount-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 12px;
+    background: var(--card-bg);
+    border-radius: var(--border-radius-sm);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.amount-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-primary);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.amount-item:hover::before {
+    transform: scaleX(1);
+}
+
+.amount-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.amount-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.amount-label::before {
+    content: '•';
+    color: var(--primary);
+    font-size: 14px;
+}
+
+.amount-value {
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.amount-value.requested {
+    color: var(--primary);
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.amount-value.fee {
+    color: var(--accent);
+    background: var(--gradient-secondary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.amount-value.net-amount {
+    color: var(--success);
+    background: var(--gradient-success);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Responsive Design for Amount Details */
+@media (max-width: 768px) {
+    .amount-details-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 15px;
+    }
+
+    .amount-item {
+        padding: 15px 12px;
+    }
+
+    .amount-value {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .amount-details-row {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .amount-item {
+        padding: 12px 10px;
+    }
+
+    .amount-label {
+        font-size: 11px;
+    }
+
+    .amount-value {
+        font-size: 14px;
+    }
+}
+
+/* Update transaction card spacing */
+.transaction-card-withdrawal .transaction-details {
+    gap: 0;
+}
+
+.transaction-card-withdrawal .detail-row {
+    margin-top: 12px;
+}

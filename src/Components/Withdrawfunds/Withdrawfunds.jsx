@@ -591,7 +591,7 @@ const Withdrawfunds = () => {
           <Link to="/withdraw" className="back-button">
             <FaArrowLeft />
           </Link>
-          <h1 className="withdraw-title">Withdraw Funds</h1>
+          <h1 className="withdraw-title">Funds Withdrawal</h1>
         </div>
       </div>
 
@@ -643,10 +643,10 @@ const Withdrawfunds = () => {
           </div>
           <div className="service-info">
             <p>
-              Processing Time: <strong>6-12 hours</strong>
+              Processing Time: <strong>Time 24 hours to 48</strong>
             </p>
             <p>
-              Service Hours: <strong>09:00 AM – 07:00 PM</strong>
+              Service Hours: <strong>10:30 AM – 4:45 PM</strong>
             </p>
           </div>
         </div>

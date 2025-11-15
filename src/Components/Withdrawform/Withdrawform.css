@@ -47,7 +47,7 @@
 
 /* Header Section with Gradient Background */
 .header-section2 {
-    background: var(--gradient-primary);
+    background: linear-gradient(135deg, #00D4AA 0%, #5B54F8 100%);
     padding: 25px 20px;
     border-radius: 0 0 30px 30px;
     box-shadow: 0 10px 40px rgba(0, 212, 170, 0.3);
@@ -783,4 +783,23 @@
 .btn-secondary2:focus {
     outline: 2px solid var(--primary);
     outline-offset: 2px;
+}
+
+.security-notice2 {
+    background: rgba(0, 212, 170, 0.08);
+    border: 1px solid rgba(0, 212, 170, 0.2);
+    border-radius: var(--border-radius-sm);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+.security-icon2 {
+    font-size: 16px;
 }

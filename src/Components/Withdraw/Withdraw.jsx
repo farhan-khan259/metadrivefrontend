@@ -219,7 +219,7 @@ const Withdraw = () => {
   if (loading) {
     return (
       <div className="withdraw-container">
-        <div className="loading">Checking your account status...</div>
+        <div className="loading">Verifying account status...</div>
       </div>
     );
   }
@@ -232,15 +232,19 @@ const Withdraw = () => {
           <Link className="back-linkwd" to="/dashboard">
             <FaArrowLeft />
           </Link>
-          <span>Withdraw Funds</span>
+          <span>Funds Withdrawal</span>
         </div>
       </div>
 
       <div className="content-section">
         {/* ✅ Show balance straight from DB */}
         <div className="balance-card-withdraw">
+          <div className="security-badge">
+            <FaLock className="security-icon" />
+            <span>Secure Transaction Enabled</span>
+          </div>
           <div>
-            <span className="balance-label">Available Balance</span>
+            <span className="balance-label">Current Balance</span>
             <div className="balance-amount">
               {userBalance.toLocaleString()} PKR
             </div>
@@ -248,34 +252,34 @@ const Withdraw = () => {
         </div>
 
         <div className="step-card">
-          <div className="step-title">Step 1: Withdrawal Account Status</div>
+          <div className="step-title">Account Verification Required</div>
 
           {hasBoundAccount ? (
             <div className="status">
               <FaCheckCircle className="status-icon success" />
-              <div className="status-text">Account Bound Successfully</div>
+              <div className="status-text">Account Verified & Ready</div>
               <div className="account-info"></div>
               <button className="bind-btn" onClick={handleNavigateToWithdraw}>
-                <FaWallet className="btn-icon" /> Proceed to Withdraw
+                <FaWallet className="btn-icon" />
+                Initiate Withdrawal
               </button>
             </div>
           ) : (
             <div className="status">
               <FaLock className="status-icon locked" />
-              <div className="status-text">Account Not Bound</div>
+              <div className="status-text">Account Verification Required</div>
               <div className="status-subtext">
-                You must bind your withdrawal account before applying for a
-                withdrawal.
+                Complete account verification to enable withdrawal
+                functionality.
               </div>
               <button className="bind-btn">
                 <Link to="/withdrawform">
-                  <FaWallet className="btn-icon" /> Bind Account Now
+                  <FaWallet className="btn-icon" /> Verify Account
                 </Link>
               </button>
             </div>
           )}
         </div>
-
         {error && <div className="error-message">{error}</div>}
       </div>
     </div>

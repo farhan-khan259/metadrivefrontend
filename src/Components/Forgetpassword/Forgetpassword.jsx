@@ -251,7 +251,7 @@
 // }
 
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Forgetpassword.css";
 
@@ -265,9 +265,33 @@ export default function Forgetpassword() {
   const [popupTitle, setPopupTitle] = useState("");
   const [popupMessage, setPopupMessage] = useState("");
   const [showPopup, setShowPopup] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(0); // Timer in seconds
+  const [canResend, setCanResend] = useState(false);
 
   const navigate = useNavigate();
 
+  // Timer effect
+  useEffect(() => {
+    if (timeLeft > 0) {
+      const timer = setTimeout(() => {
+        setTimeLeft(timeLeft - 1);
+      }, 1000);
+      return () => clearTimeout(timer);
+    } else if (timeLeft === 0 && step === 2) {
+      setCanResend(true);
+    }
+  }, [timeLeft, step]);
+
+  // Format time as MM:SS
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes.toString().padStart(2, "0")}:${remainingSeconds
+      .toString()
+      .padStart(2, "0")}`;
+  };
+
+  // Request OTP
   // Request OTP
   const handleRequestOTP = async () => {
     if (!email.trim()) {
@@ -279,16 +303,16 @@ export default function Forgetpassword() {
 
     setLoading(true);
     try {
-      const res = await axios.post(
-        "https://be.solarx0.com/api/forgetpassword",
-        {
-          email: email.trim().toLowerCase(),
-        }
-      );
+      // Remove the 'res' variable assignment
+      await axios.post("https://be.solarx0.com/api/forgetpassword", {
+        email: email.trim().toLowerCase(),
+      });
 
       setStep(2);
+      setTimeLeft(60); // Start 1-minute timer
+      setCanResend(false);
       setPopupTitle("OTP Sent");
-      setPopupMessage(res.data.message || "OTP sent to your email.");
+      setPopupMessage("OTP sent to your email.");
       setShowPopup(true);
     } catch (err) {
       setPopupTitle("Request Failed");
@@ -298,6 +322,7 @@ export default function Forgetpassword() {
     setLoading(false);
   };
 
+  // Reset Password
   // Reset Password
   const handleResetPassword = async (e) => {
     e.preventDefault();
@@ -325,7 +350,8 @@ export default function Forgetpassword() {
 
     setLoading(true);
     try {
-      const res = await axios.post("https://be.solarx0.com/api/resetpassword", {
+      // Remove the 'res' variable assignment
+      await axios.post("https://be.solarx0.com/api/resetpassword", {
         email: email.trim().toLowerCase(),
         resetcode: resetCode.trim(),
         password,
@@ -339,6 +365,31 @@ export default function Forgetpassword() {
       setTimeout(() => navigate("/"), 1500);
     } catch (err) {
       setPopupTitle("Reset Failed");
+      setPopupMessage(err.response?.data?.message || "Something went wrong.");
+      setShowPopup(true);
+    }
+    setLoading(false);
+  };
+
+  // Resend OTP
+  // Resend OTP
+  const handleResendOTP = async () => {
+    if (!canResend) return;
+
+    setLoading(true);
+    try {
+      // Remove the 'res' variable assignment
+      await axios.post("https://be.solarx0.com/api/forgetpassword", {
+        email: email.trim().toLowerCase(),
+      });
+
+      setTimeLeft(60); // Reset to 1 minute
+      setCanResend(false);
+      setPopupTitle("OTP Resent");
+      setPopupMessage("New OTP has been sent to your email.");
+      setShowPopup(true);
+    } catch (err) {
+      setPopupTitle("Resend Failed");
       setPopupMessage(err.response?.data?.message || "Something went wrong.");
       setShowPopup(true);
     }
@@ -417,6 +468,29 @@ export default function Forgetpassword() {
                     className="form-input"
                   />
                   <label className="input-label">OTP Code</label>
+                  {/* Timer Display */}
+                  {timeLeft > 0 && (
+                    <div className="otp-timer red-timer">
+                      {formatTime(timeLeft)}
+                    </div>
+                  )}
+                </div>
+                {/* Resend OTP Link */}
+                <div className="resend-otp-section">
+                  {canResend ? (
+                    <button
+                      type="button"
+                      onClick={handleResendOTP}
+                      disabled={loading}
+                      className="resend-otp-btn"
+                    >
+                      Resend OTP
+                    </button>
+                  ) : (
+                    <span className="resend-text">
+                      Didn't receive code? Resend in {formatTime(timeLeft)}
+                    </span>
+                  )}
                 </div>
               </div>
 
