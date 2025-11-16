@@ -232,7 +232,7 @@ export default function Settings({ isOpen, onClose }) {
 
         <div className="settings-menu-list">
           <Link to="/profile" onClick={onClose}>
-            <MenuItem icon={<FaUser />} label="Profile Setting" />
+            <MenuItem icon={<FaUser />} label="My Profile Setup" />
           </Link>
           <Link to="/userdeposit" onClick={onClose}>
             <MenuItem icon={<FaMoneyBillAlt />} label="Deposit History" />

@@ -696,7 +696,7 @@
 
 @media (max-width: 480px) {
 	.user-info-grid7p {
-		grid-template-columns: 1fr;
+		grid-template-columns: 1fr 1fr;
 		gap: 12px;
 	}
 }

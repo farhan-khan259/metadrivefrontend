@@ -1030,7 +1030,7 @@ export default function Dashboard() {
         percent: 4,
         img: placeholderPlanImg4,
         invested: investedCounts[3] || 25,
-        locked: true,
+        locked: false,
       },
       {
         title: "Meta Facebook/Social media",
