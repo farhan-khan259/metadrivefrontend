@@ -1,5 +1,7 @@
+// // src/admin/pages/Deposits/PendingDeposits.jsx
 // import axios from "axios";
 // import { useEffect, useMemo, useState } from "react";
+// import { FaSync } from "react-icons/fa";
 // import Sidebar from "../../components/Sidebar";
 // import Topbar from "../../components/Topbar";
 // import "../../styles/userlist.css";
@@ -7,33 +9,34 @@
 // export default function PendingDeposits() {
 //   const [q, setQ] = useState("");
 //   const [deposits, setDeposits] = useState([]);
+//   const [loading, setLoading] = useState(false);
 
-//   // Fetch deposits from backend
+//   // ✅ Fetch deposits function (used for refresh too)
+//   const fetchDeposits = async () => {
+//     try {
+//       setLoading(true);
+//       const res = await axios.get("https://be.solarx0.com/api/payments");
+//       setDeposits(res.data.data || []);
+//     } catch (error) {
+//       console.error("Error fetching deposits:", error);
+//       setDeposits([]);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
 //   useEffect(() => {
-//     const fetchDeposits = async () => {
-//       try {
-//         const res = await axios.get("https://be.solarx0.com/api/payments");
-//         // ✅ backend returns { success, payments }
-//         console.log(res.data.data);
-//         setDeposits(res.data.data || []);
-//       } catch (error) {
-//         console.error("Error fetching deposits:", error);
-//         setDeposits([]);
-//       }
-//     };
-
 //     fetchDeposits();
 //   }, []);
 
-//   // Search + filter
-//   // Search + filter
+//   // ✅ Search + filter
 //   const filtered = useMemo(() => {
 //     return (deposits || [])
-//       .filter((d) => d.depositStatus === "pending") // ✅ only pending
+//       .filter((d) => d.depositStatus === "pending") // only pending
 //       .filter((d) => JSON.stringify(d).toLowerCase().includes(q.toLowerCase()));
 //   }, [deposits, q]);
 
-//   // Update status
+//   // ✅ Approve / Reject Deposit
 //   const handleStatusChange = async (userId, newStatus, _id) => {
 //     try {
 //       const res = await axios.post("https://be.solarx0.com/api/status", {
@@ -45,7 +48,7 @@
 
 //       alert(res.data.message);
 
-//       // ✅ Update frontend state without reload
+//       // Update frontend instantly
 //       setDeposits((prev) =>
 //         prev.map((d) =>
 //           d._id === _id ? { ...d, depositStatus: newStatus } : d
@@ -62,7 +65,12 @@
 //       <div className="admin-main">
 //         <Topbar />
 //         <div className="admin-content">
-//           <h2>Pending Deposits</h2>
+//           <div className="page-header">
+//             <h2>Pending Deposits</h2>
+//             <button onClick={fetchDeposits} className="refresh-btn">
+//               <FaSync /> {loading ? "Refreshing..." : "Refresh"}
+//             </button>
+//           </div>
 
 //           <div style={{ marginBottom: 12 }}>
 //             <input
@@ -90,7 +98,9 @@
 //               {filtered.map((d) => (
 //                 <tr key={d._id}>
 //                   <td data-label="ID">{d._id}</td>
-//                   <td data-label="User">{d.user_id}</td>
+//                   <td data-label="User">
+//                     {d.user_id?.randomCode || d.user_id?._id || "N/A"}
+//                   </td>
 //                   <td data-label="Method">{d.payment_method}</td>
 //                   <td data-label="Amount">
 //                     PKR {d.depositsAmount?.toLocaleString()}
@@ -135,26 +145,36 @@
 //             </tbody>
 //           </table>
 
-//           {filtered.length === 0 && <p>No pending deposits found.</p>}
+//           {filtered.length === 0 && !loading && (
+//             <p style={{ textAlign: "center", marginTop: 10 }}>
+//               No pending deposits found.
+//             </p>
+//           )}
+//           {loading && (
+//             <p style={{ textAlign: "center", marginTop: 10 }}>
+//               Loading deposits...
+//             </p>
+//           )}
 //         </div>
 //       </div>
 //     </div>
 //   );
 // }
-// src/admin/pages/Deposits/PendingDeposits.jsx
+
 import axios from "axios";
 import { useEffect, useMemo, useState } from "react";
-import { FaSync } from "react-icons/fa";
+import { FaSync, FaSearch, FaClock, FaCheck, FaTimes } from "react-icons/fa";
 import Sidebar from "../../components/Sidebar";
 import Topbar from "../../components/Topbar";
-import "../../styles/userlist.css";
+import "../../styles/deposits.css";
 
 export default function PendingDeposits() {
   const [q, setQ] = useState("");
   const [deposits, setDeposits] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [processingId, setProcessingId] = useState(null);
 
-  // ✅ Fetch deposits function (used for refresh too)
+  // ✅ Fetch deposits function
   const fetchDeposits = async () => {
     try {
       setLoading(true);
@@ -175,13 +195,14 @@ export default function PendingDeposits() {
   // ✅ Search + filter
   const filtered = useMemo(() => {
     return (deposits || [])
-      .filter((d) => d.depositStatus === "pending") // only pending
+      .filter((d) => d.depositStatus === "pending")
       .filter((d) => JSON.stringify(d).toLowerCase().includes(q.toLowerCase()));
   }, [deposits, q]);
 
   // ✅ Approve / Reject Deposit
   const handleStatusChange = async (userId, newStatus, _id) => {
     try {
+      setProcessingId(_id);
       const res = await axios.post("https://be.solarx0.com/api/status", {
         userId: userId,
         status: newStatus,
@@ -189,16 +210,47 @@ export default function PendingDeposits() {
         requesId: _id,
       });
 
-      alert(res.data.message);
-
       // Update frontend instantly
       setDeposits((prev) =>
         prev.map((d) =>
           d._id === _id ? { ...d, depositStatus: newStatus } : d
         )
       );
+
+      // Show success message
+      const action = newStatus === "approved" ? "approved" : "rejected";
+      console.log(`Deposit ${action}:`, res.data.message);
     } catch (error) {
       console.error("Error updating status:", error);
+    } finally {
+      setProcessingId(null);
+    }
+  };
+
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
+  const getTimeAgo = (dateString) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffMs = now - date;
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMs / 3600000);
+
+    if (diffMins < 60) {
+      return `${diffMins}m ago`;
+    } else if (diffHours < 24) {
+      return `${diffHours}h ago`;
+    } else {
+      const diffDays = Math.floor(diffHours / 24);
+      return `${diffDays}d ago`;
     }
   };
 
@@ -208,96 +260,182 @@ export default function PendingDeposits() {
       <div className="admin-main">
         <Topbar />
         <div className="admin-content">
-          <div className="page-header">
-            <h2>Pending Deposits</h2>
-            <button onClick={fetchDeposits} className="refresh-btn">
-              <FaSync /> {loading ? "Refreshing..." : "Refresh"}
-            </button>
+          {/* Header Section */}
+          <div className="admin-page-header">
+            <div className="admin-page-title-section">
+              <div className="admin-page-icon pending">
+                <FaClock />
+              </div>
+              <div>
+                <h1>Pending Deposits</h1>
+                <p>Review and manage pending deposit requests</p>
+              </div>
+            </div>
+            <div className="admin-page-actions">
+              <div className="admin-page-stats">
+                <div className="admin-stat-card warning">
+                  <span className="admin-stat-value">{filtered.length}</span>
+                  <span className="admin-stat-label">Awaiting Review</span>
+                </div>
+              </div>
+              <button
+                onClick={fetchDeposits}
+                className="admin-refresh-btn"
+                disabled={loading}
+              >
+                <FaSync className={loading ? "spinning" : ""} />
+                {loading ? "Refreshing..." : "Refresh"}
+              </button>
+            </div>
           </div>
 
-          <div style={{ marginBottom: 12 }}>
-            <input
-              placeholder="Search UID, method, amount..."
-              className="userlist-search"
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-            />
+          {/* Search Section */}
+          <div className="admin-search-section">
+            <div className="admin-search-box">
+              <FaSearch className="admin-search-icon" />
+              <input
+                placeholder="Search by User ID, Method, Amount..."
+                className="admin-search-input"
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+              />
+            </div>
           </div>
 
-          <table className="userlist-table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>User ID</th>
-                <th>Method</th>
-                <th>Amount</th>
-                <th>Date</th>
-                <th>Proof</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filtered.map((d) => (
-                <tr key={d._id}>
-                  <td data-label="ID">{d._id}</td>
-                  <td data-label="User">
-                    {d.user_id?.randomCode || d.user_id?._id || "N/A"}
-                  </td>
-                  <td data-label="Method">{d.payment_method}</td>
-                  <td data-label="Amount">
-                    PKR {d.depositsAmount?.toLocaleString()}
-                  </td>
-                  <td data-label="Date">
-                    {new Date(d.createdAt).toLocaleDateString()}
-                  </td>
-                  <td data-label="Proof">
-                    {d.screenshot ? (
-                      <a
-                        href={`https://be.solarx0.com/${d.screenshot}`}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        View
-                      </a>
-                    ) : (
-                      "No proof"
-                    )}
-                  </td>
-                  <td data-label="Status">{d.depositStatus}</td>
-                  <td data-label="Actions">
-                    <button
-                      className="action-btn view"
-                      onClick={() =>
-                        handleStatusChange(d.user_id, "approved", d._id)
-                      }
-                    >
-                      Approve
-                    </button>
-                    <button
-                      className="action-btn delete"
-                      onClick={() =>
-                        handleStatusChange(d.user_id, "reject", d._id)
-                      }
-                    >
-                      Reject
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          {/* Table Section */}
+          <div className="admin-table-container">
+            {loading ? (
+              <div className="admin-loading">
+                <div className="admin-loading-spinner"></div>
+                <p>Loading pending deposits...</p>
+              </div>
+            ) : (
+              <>
+                <table className="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Transaction</th>
+                      <th>User</th>
+                      <th>Method</th>
+                      <th>Amount</th>
+                      <th>Submitted</th>
+                      <th>Proof</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filtered.map((d) => (
+                      <tr key={d._id} className="admin-table-row pending-row">
+                        <td>
+                          <div className="transaction-id">
+                            <FaClock className="transaction-icon pending" />
+                            {d._id.slice(-8)}
+                          </div>
+                        </td>
+                        <td>
+                          <div className="user-info-cell">
+                            <div className="user-avatar-sm">
+                              {d.user_id?.randomCode?.charAt(0) || "U"}
+                            </div>
+                            <div className="user-details">
+                              <span className="user-id">
+                                {d.user_id?.randomCode ||
+                                  d.user_id?._id ||
+                                  "N/A"}
+                              </span>
+                              <span className="user-time">
+                                {getTimeAgo(d.createdAt)}
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <span className="payment-method-badge">
+                            {d.payment_method}
+                          </span>
+                        </td>
+                        <td>
+                          <div className="amount-cell">
+                            <span className="amount-value">
+                              PKR {d.depositsAmount?.toLocaleString()}
+                            </span>
+                          </div>
+                        </td>
+                        <td>
+                          <div className="date-cell">
+                            {formatDate(d.createdAt)}
+                          </div>
+                        </td>
+                        <td>
+                          {d.screenshot ? (
+                            <a
+                              href={`https://be.solarx0.com/${d.screenshot}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="proof-link"
+                            >
+                              <div className="proof-thumbnail">
+                                <img
+                                  src={`https://be.solarx0.com/${d.screenshot}`}
+                                  alt="Deposit Proof"
+                                />
+                                <div className="proof-overlay">
+                                  <span>View Proof</span>
+                                </div>
+                              </div>
+                            </a>
+                          ) : (
+                            <span className="no-proof">No proof</span>
+                          )}
+                        </td>
+                        <td>
+                          <div className="action-buttons">
+                            <button
+                              className="admin-btn success"
+                              onClick={() =>
+                                handleStatusChange(d.user_id, "approved", d._id)
+                              }
+                              disabled={processingId === d._id}
+                            >
+                              <FaCheck />
+                              {processingId === d._id
+                                ? "Processing..."
+                                : "Approve"}
+                            </button>
+                            <button
+                              className="admin-btn danger"
+                              onClick={() =>
+                                handleStatusChange(d.user_id, "reject", d._id)
+                              }
+                              disabled={processingId === d._id}
+                            >
+                              <FaTimes />
+                              {processingId === d._id
+                                ? "Processing..."
+                                : "Reject"}
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
 
-          {filtered.length === 0 && !loading && (
-            <p style={{ textAlign: "center", marginTop: 10 }}>
-              No pending deposits found.
-            </p>
-          )}
-          {loading && (
-            <p style={{ textAlign: "center", marginTop: 10 }}>
-              Loading deposits...
-            </p>
-          )}
+                {/* Empty State */}
+                {filtered.length === 0 && !loading && (
+                  <div className="admin-empty-state">
+                    <div className="empty-state-icon">
+                      <FaClock />
+                    </div>
+                    <h3>No Pending Deposits</h3>
+                    <p>
+                      All deposit requests have been processed. Great job! 🎉
+                    </p>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -591,7 +591,7 @@ const Withdrawfunds = () => {
           <Link to="/withdraw" className="back-button">
             <FaArrowLeft />
           </Link>
-          <h1 className="withdraw-title">Funds Withdrawal</h1>
+          <h1 className="withdraw-title">Withdrawal Funds</h1>
         </div>
       </div>
 

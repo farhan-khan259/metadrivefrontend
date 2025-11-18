@@ -232,7 +232,7 @@ const Withdraw = () => {
           <Link className="back-linkwd" to="/dashboard">
             <FaArrowLeft />
           </Link>
-          <span>Funds Withdrawal</span>
+          <span>Withdrawal Funds</span>
         </div>
       </div>
 

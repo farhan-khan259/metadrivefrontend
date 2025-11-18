@@ -1,51 +1,168 @@
-.cards-grid {
+/* Admin Cards - Modern Metadrive Theme */
+.admin-cards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin: 30px 0;
+}
+
+.admin-card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.admin-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-primary);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.admin-card:hover::before {
+    transform: scaleX(1);
+}
+
+.admin-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+}
+
+.admin-card-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+}
+
+.admin-card:hover .admin-card-glow {
+    opacity: 0.05;
+}
+
+.admin-card-content {
+    display: flex;
+    align-items: center;
     gap: 20px;
-    margin: 20px 0;
+    position: relative;
+    z-index: 2;
 }
 
-.card-box {
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
-    text-align: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+.admin-card-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 20px;
+    background: var(--gradient-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 28px;
+    transition: all 0.4s ease;
 }
 
-.card-box:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+.admin-card:hover .admin-card-icon {
+    transform: scale(1.1) rotate(5deg);
 }
 
-.card-box h3 {
-    font-size: 18px;
-    margin-bottom: 8px;
-    font-weight: 600;
+.admin-card-text {
+    flex: 1;
 }
 
-.card-box p {
-    font-size: 24px;
-    font-weight: 600;
-}
-
-.dashboard-section {
-    margin-top: 30px;
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
-
-.dashboard-section h2 {
-    margin-bottom: 12px;
-    font-size: 20px;
-    font-weight: 600;
-}
-
-.dashboard-section ul {
-    list-style: square;
-    padding-left: 20px;
-    color: #444;
+.admin-card-title {
     font-size: 14px;
+    font-weight: 600;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.admin-card-value {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--dark);
+    margin: 0;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Card Variants */
+.admin-card-primary .admin-card-icon {
+    background: var(--gradient-primary);
+}
+
+.admin-card-secondary .admin-card-icon {
+    background: var(--gradient-secondary);
+}
+
+.admin-card-success .admin-card-icon {
+    background: linear-gradient(135deg, var(--success) 0%, #1ed760 100%);
+}
+
+.admin-card-warning .admin-card-icon {
+    background: linear-gradient(135deg, var(--warning) 0%, #ffdf8c 100%);
+}
+
+.admin-card-accent .admin-card-icon {
+    background: linear-gradient(135deg, var(--accent) 0%, #ff8e8e 100%);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .admin-cards-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 16px;
+    }
+
+    .admin-card {
+        padding: 24px;
+    }
+
+    .admin-card-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+    }
+
+    .admin-card-value {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-cards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-card-content {
+        gap: 16px;
+    }
+
+    .admin-card-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+    .admin-card-value {
+        font-size: 24px;
+    }
 }

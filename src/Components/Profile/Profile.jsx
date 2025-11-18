@@ -520,7 +520,7 @@ export default function Profile() {
         >
           <FaArrowLeft />
         </button>
-        <h2 className="profile-page-heading7p">Profile Settings</h2>
+        <h2 className="profile-page-heading7p">My Profile Setup</h2>
       </div>
 
       {/* User Info Header */}

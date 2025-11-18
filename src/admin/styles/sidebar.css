@@ -1,184 +1,524 @@
-/* Sidebar overlay covers part of screen when open */
-.sidebar-overlay {
+/* Admin Sidebar - Modern Metadrive Theme */
+.admin-sidebar-overlay {
     position: fixed;
     top: 0;
     left: -100%;
-    width: 50%;
-    /* Covers half screen */
-    max-width: 300px;
+    width: 320px;
     height: 100%;
     background: rgba(0, 0, 0, 0);
-    /* Transparent by default */
-    transition: all 0.3s ease;
-    z-index: 999;
-}
-
-.sidebar-overlay.show {
-    left: 0;
-    background: rgba(0, 0, 0, 0.4);
-    /* dim content */
-}
-
-.sidebar {
-    width: 100%;
-    height: 100%;
-    background: #1e1e2d;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s ease;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
-    overflow-y: auto;
-    /* <-- enable vertical scroll */
-}
-
-/* Optional: style the scrollbar (works in WebKit browsers) */
-.sidebar::-webkit-scrollbar {
-    width: 6px;
-}
-
-.sidebar::-webkit-scrollbar-thumb {
-    background-color: #555;
-    border-radius: 3px;
-}
-
-.sidebar::-webkit-scrollbar-thumb:hover {
-    background-color: #777;
-}
-
-
-.sidebar-header {
-    display: flex;
-    justify-content: space-between;
-    /* align-items: center; */
-    position: absolute;
-    padding: 15px;
-    width: 100%;
-    /* background: #141421; */
-}
-
-.logo {
-    font-size: 20px;
-    margin: 0;
-    color: white;
-}
-
-.close-btn {
-    font-size: 22px;
-    cursor: pointer;
-    color: white;
-}
-
-.sidebar-menu {
-
-    display: flex;
-    flex-direction: column;
-    margin-top: 60px;
-}
-
-.sidebar-menu a {
-    display: flex;
-    align-items: center;
-    padding: 12px 15px;
-    color: white;
-    text-decoration: none;
-    gap: 10px;
-    transition: background 0.3s ease;
-}
-
-.sidebar-menu a:hover {
-    background: #2c2c3e;
-}
-
-.sidebar-menu a.active {
-    background: #343450;
-}
-
-.sidebar-menu a svg {
-    font-size: 18px;
-    transition: transform 0.3s ease;
-}
-
-.sidebar-menu a:hover svg {
-    transform: scale(1.1);
-}
-
-.sidebar-menu a span {
-    white-space: nowrap;
-}
-
-/* Hamburger button (visible only when sidebar closed) */
-.hamburger-btn {
-    position: absolute;
-    top: 8px;
-    left: 15px;
-    font-size: 24px;
-    background: #1e1e2d;
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
+    transition: all 0.4s ease;
     z-index: 1000;
 }
 
-
-
-@media (max-width: 768px) {
-    .sidebar-header {
-        width: 150%;
-    }
+.admin-sidebar-overlay.show {
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
 }
 
-
-/* Dropdown section */
-.dropdown-section {
+.admin-sidebar {
+    width: 100%;
+    height: 100%;
+    background: var(--darker);
     display: flex;
     flex-direction: column;
+    box-shadow: 2px 0 30px rgba(0, 0, 0, 0.3);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
 }
 
-.dropdown-btn {
-    background: none;
-    border: none;
-    color: white;
+.admin-sidebar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 212, 170, 0.05) 0%, rgba(108, 99, 255, 0.05) 100%);
+    pointer-events: none;
+}
+
+/* Sidebar Header */
+.admin-sidebar-header {
+    padding: 30px 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.2);
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 15px;
-    font-size: 15px;
-    text-align: left;
+}
+
+.admin-sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-logo-icon {
+    font-size: 28px;
+    color: var(--primary);
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.admin-logo-text {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--light);
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.admin-sidebar-close {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: var(--gray);
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
+    font-size: 16px;
 }
 
-.dropdown-btn:hover {
-    background: #2c2c3e;
+.admin-sidebar-close:hover {
+    background: var(--primary);
+    color: var(--darker);
+    transform: rotate(90deg);
 }
 
-.dropdown-btn span {
+/* Sidebar Menu */
+.admin-sidebar-menu {
     flex: 1;
-    margin-left: 10px;
-    text-align: left;
-}
-
-.dropdown-links {
+    padding: 20px 0;
     display: flex;
     flex-direction: column;
-    background: #2c2c3e;
+    gap: 8px;
+    overflow-y: auto;
 }
 
-.dropdown-links a {
-    padding: 10px 30px;
-    font-size: 14px;
+/* Menu Items */
+.admin-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 16px 25px;
+    color: var(--gray);
     text-decoration: none;
-    color: #ddd;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
+    position: relative;
+    border-left: 4px solid transparent;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
 }
 
-.dropdown-links a:hover {
-    background: #3b3b55;
-    color: white;
+.admin-menu-item:hover {
+    background: rgba(0, 212, 170, 0.1);
+    color: var(--light);
+    border-left-color: var(--primary);
 }
 
-.dropdown-links a.active {
-    background: #343450;
+.admin-menu-item.active {
+    background: rgba(0, 212, 170, 0.15);
+    color: var(--primary);
+    border-left-color: var(--primary);
+}
+
+/* Fixed Icon Styling - No wrapper divs */
+.admin-menu-icon {
+    font-size: 18px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.admin-menu-item:hover .admin-menu-icon {
+    transform: scale(1.1);
+}
+
+.admin-menu-item.active .admin-menu-icon {
+    color: var(--primary);
+}
+
+.admin-menu-text {
+    flex: 1;
+    font-weight: 600;
+    font-size: 15px;
+    white-space: nowrap;
+}
+
+.admin-menu-badge {
+    background: var(--accent);
     color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    min-width: 20px;
+    text-align: center;
+}
+
+/* Dropdown Sections */
+.admin-dropdown-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-dropdown-btn {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 16px 25px;
+    background: none;
+    border: none;
+    color: var(--gray);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+    width: 100%;
+    text-align: left;
+}
+
+.admin-dropdown-btn:hover,
+.admin-dropdown-btn.active {
+    background: rgba(0, 212, 170, 0.1);
+    color: var(--light);
+    border-left-color: var(--primary);
+}
+
+.admin-dropdown-btn.active .admin-menu-icon {
+    color: var(--primary);
+}
+
+.admin-dropdown-arrow {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+    color: var(--gray);
+    margin-left: auto;
+}
+
+.admin-dropdown-btn.active .admin-dropdown-arrow {
+    transform: rotate(180deg);
+    color: var(--primary);
+}
+
+.admin-dropdown-links {
+    display: flex;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.4s ease;
+}
+
+.admin-dropdown-links.open {
+    max-height: 300px;
+}
+
+.admin-dropdown-links a {
+    display: flex;
+    align-items: center;
+    padding: 12px 25px 12px 64px;
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    position: relative;
+    border-left: 4px solid transparent;
+    gap: 12px;
+}
+
+.admin-dropdown-links a::before {
+    content: '';
+    position: absolute;
+    left: 44px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    background: currentColor;
+    border-radius: 50%;
+    opacity: 0.6;
+}
+
+.admin-dropdown-links a:hover {
+    background: rgba(0, 212, 170, 0.08);
+    color: var(--light);
+    padding-left: 68px;
+}
+
+.admin-dropdown-links a.active {
+    background: rgba(0, 212, 170, 0.12);
+    color: var(--primary);
+    border-left-color: var(--primary);
+}
+
+.admin-dropdown-links a.active::before {
+    background: var(--primary);
+    opacity: 1;
+}
+
+/* Sidebar Footer */
+.admin-sidebar-footer {
+    padding: 20px 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.admin-user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.admin-user-info:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.admin-user-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--gradient-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--darker);
+    font-weight: 800;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.admin-user-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.admin-user-name {
+    color: var(--light);
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.admin-user-role {
+    color: var(--gray);
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Hamburger Button */
+.admin-hamburger-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: var(--primary);
+    color: var(--darker);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 20px;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow);
+    z-index: 999;
+}
+
+.admin-hamburger-btn:hover {
+    background: var(--primary-dark);
+    transform: scale(1.05);
+    box-shadow: var(--shadow-hover);
+}
+
+.admin-hamburger-pulse {
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 2px solid var(--primary);
+    border-radius: 16px;
+    animation: pulse 2s infinite;
+    opacity: 0;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    70% {
+        transform: scale(1.1);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1.1);
+        opacity: 0;
+    }
+}
+
+/* Scrollbar Styling */
+.admin-sidebar-menu::-webkit-scrollbar {
+    width: 6px;
+}
+
+.admin-sidebar-menu::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+.admin-sidebar-menu::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 3px;
+}
+
+.admin-sidebar-menu::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-light);
+}
+
+/* Animation for menu items */
+@keyframes slideInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.admin-menu-item,
+.admin-dropdown-btn {
+    animation: slideInFromLeft 0.3s ease forwards;
+}
+
+/* Staggered animation delays */
+.admin-menu-item:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.admin-menu-item:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.admin-menu-item:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.admin-dropdown-section:nth-child(4) {
+    animation-delay: 0.25s;
+}
+
+.admin-dropdown-section:nth-child(5) {
+    animation-delay: 0.3s;
+}
+
+.admin-dropdown-section:nth-child(6) {
+    animation-delay: 0.35s;
+}
+
+.admin-menu-item:nth-child(7) {
+    animation-delay: 0.4s;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .admin-sidebar-overlay {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .admin-sidebar-header {
+        padding: 25px 20px;
+    }
+
+    .admin-menu-item,
+    .admin-dropdown-btn {
+        padding: 14px 20px;
+    }
+
+    .admin-dropdown-links a {
+        padding: 10px 20px 10px 60px;
+    }
+
+    .admin-dropdown-links a::before {
+        left: 40px;
+    }
+
+    .admin-hamburger-btn {
+        top: 15px;
+        left: 15px;
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-sidebar-overlay {
+        width: 100%;
+        max-width: none;
+    }
+
+    .admin-sidebar-header {
+        padding: 20px;
+    }
+
+    .admin-logo-text {
+        font-size: 18px;
+    }
+
+    .admin-menu-item,
+    .admin-dropdown-btn {
+        padding: 12px 20px;
+    }
+
+    .admin-dropdown-links a {
+        padding: 10px 20px 10px 56px;
+    }
+
+    .admin-dropdown-links a::before {
+        left: 36px;
+    }
+}
+
+/* Ensure proper stacking context */
+.admin-sidebar-overlay {
+    isolation: isolate;
+}
+
+.admin-sidebar {
+    isolation: isolate;
 }
