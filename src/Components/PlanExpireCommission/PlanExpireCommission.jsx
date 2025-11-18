@@ -35,7 +35,7 @@ export default function PlanExpireCommission() {
 
         // ✅ CALL THE REAL ENDPOINT
         const response = await axios.get(
-          `http://localhost:3005/api/commissions/plan-expire-summary/${userId}`
+          `https://be.solarx0.com/api/commissions/plan-expire-summary/${userId}`
         );
         console.log("📦 REAL API Response:", response.data);
 
