@@ -169,6 +169,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {
+  FaCalendarTimes,
   FaChevronRight,
   FaHandHoldingUsd,
   FaInfoCircle,
@@ -242,6 +243,12 @@ export default function Settings({ isOpen, onClose }) {
           </Link>
           <Link to="/usercommission" onClick={onClose}>
             <MenuItem icon={<FaHandHoldingUsd />} label="Commission History" />
+          </Link>
+          <Link to="/planexpire" onClick={onClose}>
+            <MenuItem
+              icon={<FaCalendarTimes />}
+              label="Plan Expire Commission"
+            />
           </Link>
           <Link to="/support" onClick={onClose}>
             <MenuItem icon={<FaLifeRing />} label="Technical Support" />
