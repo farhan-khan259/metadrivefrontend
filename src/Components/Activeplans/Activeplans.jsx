@@ -463,7 +463,7 @@ export default function Activeplans() {
           <Link to="/dashboard" className="back-link">
             <FaArrowLeft className="back-icon" />
           </Link>
-          <h1 className="active-plans-title">Active Plans</h1>
+          <h1 className="active-plans-title">Purchased Products</h1>
         </div>
       </div>
 
