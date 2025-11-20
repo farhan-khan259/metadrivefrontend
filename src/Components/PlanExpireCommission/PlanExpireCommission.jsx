@@ -138,7 +138,6 @@ export default function PlanExpireCommission() {
     return (
       <div className="commission-history-container">
         <div className="loading">
-          <div className="loading-spinner"></div>
           <p className="loading-sub">Fetching from database</p>
         </div>
       </div>
