@@ -1,10 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import {
-  FaArrowLeft,
-  FaCalendarTimes,
-  FaExclamationTriangle,
-} from "react-icons/fa";
+import { FaArrowLeft, FaExclamationTriangle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "./PlanExpireCommission.css";
 
@@ -143,7 +139,6 @@ export default function PlanExpireCommission() {
       <div className="commission-history-container">
         <div className="loading">
           <div className="loading-spinner"></div>
-          <p>Loading real commission data...</p>
           <p className="loading-sub">Fetching from database</p>
         </div>
       </div>
@@ -159,7 +154,6 @@ export default function PlanExpireCommission() {
             <FaArrowLeft className="back-icon" />
           </Link>
           <h1 className="commission-title">Plan Expire Commission</h1>
-          <FaCalendarTimes className="header-icon" />
         </div>
       </div>
 
@@ -206,7 +200,6 @@ export default function PlanExpireCommission() {
           {/* Commission Records */}
           {levelTransactions.length === 0 ? (
             <div className="no-commissions">
-              <div className="no-commissions-icon">💸</div>
               <p>
                 No plan expire commission records available for{" "}
                 {currentLevel.label}.

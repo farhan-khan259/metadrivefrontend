@@ -279,7 +279,6 @@ import {
   FaEye,
   FaSync,
   FaTrash,
-  FaSearch,
   FaUsers,
   FaFilter,
 } from "react-icons/fa";
@@ -464,7 +463,6 @@ export default function UserList() {
           <div className="admin-controls-section">
             <div className="search-filters-grid">
               <div className="search-box">
-                <FaSearch className="search-icon" />
                 <input
                   type="text"
                   placeholder="Search by UID, name, email, phone..."
