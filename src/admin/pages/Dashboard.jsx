@@ -553,11 +553,8 @@ export default function Dashboard() {
                         <tr key={d.id || index} className="admin-table-row">
                           <td>
                             <div className="user-cell">
-                              <div className="user-avatar-xs">
-                                {d.user_id?.charAt(0) || "U"}
-                              </div>
                               <span className="user-id">
-                                User {d.user_id?.slice(-6) || "N/A"}
+                                {d.user_id?.slice(-6) || "N/A"}
                               </span>
                             </div>
                           </td>
@@ -632,11 +629,8 @@ export default function Dashboard() {
                         <tr key={w.id || index} className="admin-table-row">
                           <td>
                             <div className="user-cell">
-                              <div className="user-avatar-xs">
-                                {w.user_id?.charAt(0) || "U"}
-                              </div>
                               <span className="user-id">
-                                User {w.user_id?.slice(-6) || "N/A"}
+                                {w.user_id?.slice(-6) || "N/A"}
                               </span>
                             </div>
                           </td>

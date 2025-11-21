@@ -525,15 +525,15 @@ export default function UserList() {
                     <tr key={user._id} className="admin-table-row">
                       <td>
                         <div className="user-info-cell">
-                          <div className="user-avatar">
+                          {/* <div className="user-avatar">
                             {user.fullName?.charAt(0) ||
                               user.name?.charAt(0) ||
                               "U"}
-                          </div>
+                          </div> */}
                           <div className="user-details">
-                            <span className="user-name">
+                            {/* <span className="user-name">
                               {user.fullName || user.name || "N/A"}
-                            </span>
+                            </span> */}
                             <span className="user-id">
                               {user.randomCode || user._id?.slice(-6) || "N/A"}
                             </span>
@@ -543,9 +543,9 @@ export default function UserList() {
                       <td>
                         <div className="contact-info">
                           <span className="user-email">{user.email}</span>
-                          <span className="user-phone">
+                          {/* <span className="user-phone">
                             {user.phoneNumber || user.whatsappNumber || "N/A"}
-                          </span>
+                          </span> */}
                         </div>
                       </td>
                       <td>
@@ -586,7 +586,7 @@ export default function UserList() {
                             </button>
                           </Link>
 
-                          <button
+                          {/* <button
                             className="action-btn suspend"
                             onClick={() => handleSuspendToggle(user._id)}
                             title={
@@ -596,7 +596,7 @@ export default function UserList() {
                             }
                           >
                             {user.status === "active" ? "⏸️" : "▶️"}
-                          </button>
+                          </button> */}
 
                           <button
                             className="action-btn delete"

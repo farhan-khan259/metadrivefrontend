@@ -451,8 +451,6 @@
 // };
 
 // export default Withdrawfunds;
-
-// export default Withdrawfunds;
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {
@@ -584,64 +582,64 @@ const Withdrawfunds = () => {
   };
 
   return (
-    <div className="withdraw-container">
+    <div className="withdraw-container2">
       {/* Header with gradient background */}
-      <div className="withdraw-header-section">
-        <div className="withdraw-header-content">
-          <Link to="/withdraw" className="back-button">
+      <div className="withdraw-header-section2">
+        <div className="withdraw-header-content2">
+          <Link to="/withdraw" className="back-button2">
             <FaArrowLeft />
           </Link>
-          <h1 className="withdraw-title">Withdrawal Funds</h1>
+          <h1 className="withdraw-title2">Withdrawal Funds</h1>
         </div>
       </div>
 
-      <div className="header-balance">
-        <span className="balance-label">Available Balance</span>
-        <span className="balance-amount2">
+      <div className="header-balance2">
+        <span className="balance-label2">Available Balance</span>
+        <span className="balance-amount22">
           {userBalance.toLocaleString()} PKR
         </span>
       </div>
-      <div className="withdraw-content">
+      <div className="withdraw-content2">
         {/* Account Information Card */}
-        <div className="info-card">
-          <div className="card-header">
-            <FaWallet className="header-icon" />
+        <div className="info-card2">
+          <div className="card-header2">
+            <FaWallet className="header-icon2" />
             <h3>Withdrawal Account</h3>
           </div>
-          <div className="success-badge">
-            <FaCheckCircle className="success-icon" />
+          <div className="success-badge2">
+            <FaCheckCircle className="success-icon2" />
             <span>Verified & Ready for Withdrawal</span>
           </div>
-          <div className="account-details">
-            <div className="detail-row">
-              <span className="detail-label">Bank Name:</span>
-              <span className="detail-value">{bankName}</span>
+          <div className="account-details2">
+            <div className="detail-row2">
+              <span className="detail-label2">Bank Name:</span>
+              <span className="detail-value2">{bankName}</span>
             </div>
-            <div className="detail-row">
-              <span className="detail-label">Account Name:</span>
-              <span className="detail-value">{accountName}</span>
+            <div className="detail-row2">
+              <span className="detail-label2">Account Name:</span>
+              <span className="detail-value2">{accountName}</span>
             </div>
-            <div className="detail-row">
-              <span className="detail-label">Account Number:</span>
-              <span className="detail-value">{accountNumber}</span>
+            <div className="detail-row2">
+              <span className="detail-label2">Account Number:</span>
+              <span className="detail-value2">{accountNumber}</span>
             </div>
           </div>
-          <div className="security-note">
-            <FaLock className="lock-icon" />
+          <div className="security-note2">
+            <FaLock className="lock-icon2" />
             <span>Your banking details are securely encrypted</span>
           </div>
         </div>
 
         {/* Service Hours Card */}
-        <div className="info-card service-card">
-          <div className="card-header">
-            <FaRegClock className="header-icon" />
+        <div className="info-card2 service-card2">
+          <div className="card-header2">
+            <FaRegClock className="header-icon2" />
             <h3>Withdrawal Service</h3>
           </div>
-          <div className="service-status">
-            <span className="status-badge">Available 24/7</span>
+          <div className="service-status2">
+            <span className="status-badge2">Available 24/7</span>
           </div>
-          <div className="service-info">
+          <div className="service-info2">
             <p>
               Processing Time: <strong>Time 24 hours to 48</strong>
             </p>
@@ -652,22 +650,22 @@ const Withdrawfunds = () => {
         </div>
 
         {/* Amount Input Card */}
-        <div className="info-card">
-          <div className="card-header">
-            <FaWallet className="header-icon" />
+        <div className="info-card2">
+          <div className="card-header2">
+            <FaWallet className="header-icon2" />
             <h3>Enter Withdrawal Amount</h3>
           </div>
-          <div className="amount-input-group">
+          <div className="amount-input-group2">
             <input
-              className="amount-input"
+              className="amount-input2"
               type="number"
               placeholder={`Minimum ${MIN_WITHDRAWAL_AMOUNT.toLocaleString()} PKR`}
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               min={MIN_WITHDRAWAL_AMOUNT}
             />
-            <div className="amount-hint">
-              <FaInfoCircle className="hint-icon" />
+            <div className="amount-hint2">
+              <FaInfoCircle className="hint-icon2" />
               <span>Enter amount in Pakistani Rupees</span>
             </div>
           </div>
@@ -675,36 +673,36 @@ const Withdrawfunds = () => {
 
         {/* Withdrawal Calculation Card */}
         {amount && Number(amount) >= MIN_WITHDRAWAL_AMOUNT && (
-          <div className="info-card calculation-card">
-            <div className="card-header">
-              <FaCalculator className="header-icon" />
+          <div className="info-card2 calculation-card2">
+            <div className="card-header2">
+              <FaCalculator className="header-icon2" />
               <h3>Withdrawal Calculation</h3>
             </div>
-            <div className="calculation-details">
-              <div className="calc-row">
-                <span className="calc-label">Requested Amount:</span>
-                <span className="calc-value">
+            <div className="calculation-details2">
+              <div className="calc-row2">
+                <span className="calc-label2">Requested Amount:</span>
+                <span className="calc-value2">
                   {Number(amount).toLocaleString()} PKR
                 </span>
               </div>
-              <div className="calc-row fee-row">
-                <span className="calc-label">
+              <div className="calc-row2 fee-row2">
+                <span className="calc-label2">
                   Processing Fee ({WITHDRAWAL_FEE_PERCENTAGE}%):
                 </span>
-                <span className="calc-value fee-value">
+                <span className="calc-value2 fee-value2">
                   -{withdrawalFee.toLocaleString()} PKR
                 </span>
               </div>
-              <div className="calc-divider"></div>
-              <div className="calc-row total-row">
-                <span className="calc-label">You Will Receive:</span>
-                <span className="calc-value total-value">
+              <div className="calc-divider2"></div>
+              <div className="calc-row2 total-row2">
+                <span className="calc-label2">You Will Receive:</span>
+                <span className="calc-value2 total-value2">
                   {netAmount.toLocaleString()} PKR
                 </span>
               </div>
             </div>
-            <div className="calculation-note">
-              <FaInfoCircle className="note-icon" />
+            <div className="calculation-note2">
+              <FaInfoCircle className="note-icon2" />
               <span>
                 The {WITHDRAWAL_FEE_PERCENTAGE}% processing fee will be
                 deducted. Admin will send{" "}
@@ -717,7 +715,7 @@ const Withdrawfunds = () => {
 
         {/* Submit Button */}
         <button
-          className={`submit-button ${loading ? "loading" : ""}`}
+          className={`submit-button2 ${loading ? "loading2" : ""}`}
           onClick={handleSubmit}
           disabled={
             loading || !amount || Number(amount) < MIN_WITHDRAWAL_AMOUNT
@@ -725,7 +723,7 @@ const Withdrawfunds = () => {
         >
           {loading ? (
             <>
-              <div className="spinner"></div>
+              <div className="spinner2"></div>
               Processing Withdrawal...
             </>
           ) : (
@@ -733,31 +731,31 @@ const Withdrawfunds = () => {
           )}
         </button>
         {showSuccess && (
-          <div className="popup-overlay">
-            <div className="popup-content success-popup">
-              <div className="popup-icon">✅</div>
+          <div className="popup-overlay2">
+            <div className="popup-content2 success-popup2">
+              <div className="popup-icon2">✅</div>
               <h2>Withdrawal Request Submitted!</h2>
-              <div className="popup-details">
-                <div className="popup-row">
+              <div className="popup-details2">
+                <div className="popup-row2">
                   <span>Requested Amount:</span>
                   <strong>{Number(amount).toLocaleString()} PKR</strong>
                 </div>
-                <div className="popup-row">
+                <div className="popup-row2">
                   <span>Processing Fee ({WITHDRAWAL_FEE_PERCENTAGE}%):</span>
                   <strong>-{withdrawalFee.toLocaleString()} PKR</strong>
                 </div>
-                <div className="popup-row total">
+                <div className="popup-row2 total2">
                   <span>Amount to be Sent:</span>
                   <strong>{netAmount.toLocaleString()} PKR</strong>
                 </div>
               </div>
-              <p className="popup-message">
+              <p className="popup-message2">
                 Your withdrawal request has been submitted. Admin will send{" "}
                 <strong>{netAmount.toLocaleString()} PKR</strong> to your bank
                 account after approval.
               </p>
               <button
-                className="popup-button"
+                className="popup-button2"
                 onClick={() => {
                   setShowSuccess(false);
                   setAmount(""); // Move setAmount here
@@ -771,13 +769,13 @@ const Withdrawfunds = () => {
 
         {/* Error Popup */}
         {showError && (
-          <div className="popup-overlay">
-            <div className="popup-content error-popup">
-              <div className="popup-icon">❌</div>
+          <div className="popup-overlay2">
+            <div className="popup-content2 error-popup2">
+              <div className="popup-icon2">❌</div>
               <h2>Withdrawal Failed</h2>
-              <p className="error-message">{errorMessage}</p>
+              <p className="error-message2">{errorMessage}</p>
               <button
-                className="popup-button"
+                className="popup-button2"
                 onClick={() => setShowError(false)}
               >
                 Try Again

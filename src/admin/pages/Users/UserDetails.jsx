@@ -971,9 +971,6 @@ export default function UserDetails() {
               <button className="action-btn warning" onClick={handleDeletePlan}>
                 <FaTrash /> Delete User Plan
               </button>
-              <button className="action-btn secondary">
-                <FaEdit /> Edit Profile
-              </button>
             </div>
           </div>
         </div>
