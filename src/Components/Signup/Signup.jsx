@@ -65,7 +65,7 @@
 //     }
 
 //     try {
-//       const res = await axios.post("https://be.solarx0.com/api/signup", {
+//       const res = await axios.post("https://metadrivebackend.onrender.com/api/signup", {
 //         fullName,
 //         whatsappNumber: whatsAppNumber,
 //         refercode: referralCode,
@@ -322,7 +322,7 @@
 //     }
 
 //     try {
-//       const res = await axios.post("https://be.solarx0.com/api/signup", {
+//       const res = await axios.post("https://metadrivebackend.onrender.com/api/signup", {
 //         fullName,
 //         whatsappNumber: whatsAppNumber,
 //         refercode: referralCode,
@@ -578,7 +578,7 @@
 //     }
 
 //     try {
-//       const res = await axios.post("https://be.solarx0.com/api/signup", {
+//       const res = await axios.post("https://metadrivebackend.onrender.com/api/signup", {
 //         fullName,
 //         whatsappNumber: whatsAppNumber,
 //         refercode: referralCode,
@@ -829,7 +829,7 @@ export default function Signup() {
     }
 
     try {
-      const res = await axios.post("https://be.solarx0.com/api/signup", {
+      const res = await axios.post("https://metadrivebackend.onrender.com/api/signup", {
         fullName,
         whatsappNumber: whatsAppNumber,
         refercode: referralCode,

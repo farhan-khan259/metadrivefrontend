@@ -13,7 +13,7 @@ export default function ReferralTree() {
   useEffect(() => {
     const fetchReferrals = async () => {
       try {
-        const res = await axios.get("https://be.solarx0.com/team");
+        const res = await axios.get("https://metadrivebackend.onrender.com/team");
 
         if (res.data.success) {
           const mapped = res.data.data.map((item) => ({

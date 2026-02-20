@@ -20,7 +20,7 @@
 //     const fetchDailyReport = async () => {
 //       try {
 //         const response = await axios.get(
-//           "https://be.solarx0.com/api/admin/report/daily"
+//           "https://metadrivebackend.onrender.com/api/admin/report/daily"
 //         );
 
 //         if (response.data.success) {
@@ -225,7 +225,7 @@ export default function DailyReport() {
     const fetchDailyReport = async () => {
       try {
         const response = await axios.get(
-          "https://be.solarx0.com/api/admin/report/daily"
+          "https://metadrivebackend.onrender.com/api/admin/report/daily"
         );
 
         if (response.data.success) {

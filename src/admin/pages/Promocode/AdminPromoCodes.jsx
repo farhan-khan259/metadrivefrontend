@@ -17,7 +17,7 @@ export default function AdminPromoCodes() {
     const fetchPromoCodes = async () => {
       try {
         const res = await axios.post(
-          "https://be.solarx0.com/api/promoCodeGetAll"
+          "https://metadrivebackend.onrender.com/api/promoCodeGetAll"
         );
 
         setData(res.data.data);
@@ -33,7 +33,7 @@ export default function AdminPromoCodes() {
     if (!limitUsers || !amount) return;
 
     try {
-      const res = await axios.post("https://be.solarx0.com/api/promoCode", {
+      const res = await axios.post("https://metadrivebackend.onrender.com/api/promoCode", {
         limit: Number(limitUsers),
         amount: Number(amount),
       });
@@ -60,7 +60,7 @@ export default function AdminPromoCodes() {
 
     try {
       const res = await axios.post(
-        `https://be.solarx0.com/api/promoCodeDelete1`,
+        `https://metadrivebackend.onrender.com/api/promoCodeDelete1`,
         {
           id: id,
         }

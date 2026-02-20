@@ -17,7 +17,7 @@
 //   useEffect(() => {
 //     const fetchTeamData = async () => {
 //       try {
-//         const res = await axios.post("https://be.solarx0.com/team", {
+//         const res = await axios.post("https://metadrivebackend.onrender.com/team", {
 //           userId: userId,
 //         });
 //         setTeamData(res.data);
@@ -152,7 +152,7 @@ export default function UserWithdraw() {
   useEffect(() => {
     const fetchTeamData = async () => {
       try {
-        const res = await axios.post("https://be.solarx0.com/team", {
+        const res = await axios.post("https://metadrivebackend.onrender.com/team", {
           userId: userId,
         });
         setTeamData(res.data);

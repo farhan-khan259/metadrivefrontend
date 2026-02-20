@@ -22,7 +22,7 @@
 //           return;
 //         }
 
-//         const response = await fetch("https://be.solarx0.com/team", {
+//         const response = await fetch("https://metadrivebackend.onrender.com/team", {
 //           method: "POST",
 //           headers: {
 //             "Content-Type": "application/json",
@@ -225,7 +225,7 @@ const InviteScreen = () => {
           return;
         }
 
-        const response = await fetch("https://be.solarx0.com/team", {
+        const response = await fetch("https://metadrivebackend.onrender.com/team", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

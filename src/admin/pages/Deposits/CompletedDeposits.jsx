@@ -12,7 +12,7 @@
 //   useEffect(() => {
 //     const fetchDeposits = async () => {
 //       try {
-//         const res = await axios.get("https://be.solarx0.com/api/payments");
+//         const res = await axios.get("https://metadrivebackend.onrender.com/api/payments");
 //         // ✅ backend returns { success, data: [...] }
 //         setDeposits(res.data.data || []);
 //       } catch (error) {
@@ -78,12 +78,12 @@
 //                   <td data-label="Proof">
 //                     {d.screenshot ? (
 //                       <a
-//                         href={`https://be.solarx0.com/${d.screenshot}`}
+//                         href={`https://metadrivebackend.onrender.com/${d.screenshot}`}
 //                         target="_blank"
 //                         rel="noreferrer"
 //                       >
 //                         <img
-//                           src={`https://be.solarx0.com/${d.screenshot}`}
+//                           src={`https://metadrivebackend.onrender.com/${d.screenshot}`}
 //                           alt="Proof"
 //                           className="deposit-proof-thumb"
 //                         />
@@ -122,7 +122,7 @@ export default function CompletedDeposits() {
     const fetchDeposits = async () => {
       try {
         setLoading(true);
-        const res = await axios.get("https://be.solarx0.com/api/payments");
+        const res = await axios.get("https://metadrivebackend.onrender.com/api/payments");
         setDeposits(res.data.data || []);
       } catch (error) {
         console.error("Error fetching deposits:", error);

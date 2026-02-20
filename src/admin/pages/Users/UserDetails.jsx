@@ -23,7 +23,7 @@
 
 // //           if (userId && userId !== "userdetails") {
 // //             const response = await axios.get(
-// //               `https://be.solarx0.com/api/admin/users/${userId}`
+// //               `https://metadrivebackend.onrender.com/api/admin/users/${userId}`
 // //             );
 // //             if (response.data.success) {
 // //               setUser(response.data.user);
@@ -49,7 +49,7 @@
 // //     if (!isNaN(amount) && amount > 0) {
 // //       try {
 // //         const response = await axios.post(
-// //           `https://be.solarx0.com/api/addBalanceByAdmin`,
+// //           `https://metadrivebackend.onrender.com/api/addBalanceByAdmin`,
 // //           {
 // //             userId: user._id,
 // //             balance: amount,
@@ -73,7 +73,7 @@
 // //     if (!isNaN(amount) && amount > 0) {
 // //       try {
 // //         const response = await axios.post(
-// //           `https://be.solarx0.com/api/addSubtractByAdmin`,
+// //           `https://metadrivebackend.onrender.com/api/addSubtractByAdmin`,
 // //           {
 // //             userId: user._id,
 // //             balance: amount,
@@ -98,7 +98,7 @@
 // //     if (window.confirm("Are you sure you want to delete this account?")) {
 // //       try {
 // //         const response = await axios.delete(
-// //           `https://be.solarx0.com/api/delete`,
+// //           `https://metadrivebackend.onrender.com/api/delete`,
 // //           { userId: user._id }
 // //         );
 
@@ -120,7 +120,7 @@
 // //     console.log("adsfas");
 // //     try {
 // //       const response = await axios.post(
-// //         `https://be.solarx0.com/api/adminLoginUserAccount`,
+// //         `https://metadrivebackend.onrender.com/api/adminLoginUserAccount`,
 // //         {
 // //           userId: user._id,
 // //         }
@@ -144,7 +144,7 @@
 // //     if (window.confirm("Are you sure you want to delete this user's plan?")) {
 // //       try {
 // //         const response = await axios.post(
-// //           `https://be.solarx0.com/api/admindeleteplainuser`,
+// //           `https://metadrivebackend.onrender.com/api/admindeleteplainuser`,
 // //           { userId: user._id }
 // //         );
 
@@ -272,7 +272,7 @@
 
 //           if (userId && userId !== "userdetails") {
 //             const response = await axios.get(
-//               `https://be.solarx0.com/api/admin/users/${userId}`
+//               `https://metadrivebackend.onrender.com/api/admin/users/${userId}`
 //             );
 //             if (response.data.success) {
 //               setUser(response.data.user);
@@ -295,7 +295,7 @@
 //       if (!user?._id) return;
 //       try {
 //         setTeamLoading(true);
-//         const res = await axios.post("https://be.solarx0.com/team", {
+//         const res = await axios.post("https://metadrivebackend.onrender.com/team", {
 //           userId: user._id,
 //         });
 //         setTeamData(res.data);
@@ -315,7 +315,7 @@
 //     if (!isNaN(amount) && amount > 0) {
 //       try {
 //         const response = await axios.post(
-//           `https://be.solarx0.com/api/addBalanceByAdmin`,
+//           `https://metadrivebackend.onrender.com/api/addBalanceByAdmin`,
 //           {
 //             userId: user._id,
 //             balance: amount,
@@ -339,7 +339,7 @@
 //     if (!isNaN(amount) && amount > 0) {
 //       try {
 //         const response = await axios.post(
-//           `https://be.solarx0.com/api/addSubtractByAdmin`,
+//           `https://metadrivebackend.onrender.com/api/addSubtractByAdmin`,
 //           {
 //             userId: user._id,
 //             balance: amount,
@@ -366,7 +366,7 @@
 
 //     try {
 //       const response = await axios.post(
-//         `https://be.solarx0.com/api/adminLoginUserAccount`,
+//         `https://metadrivebackend.onrender.com/api/adminLoginUserAccount`,
 //         { userId: user._id }
 //       );
 
@@ -386,7 +386,7 @@
 //     if (window.confirm("Are you sure you want to delete this user's plan?")) {
 //       try {
 //         const response = await axios.post(
-//           `https://be.solarx0.com/api/admindeleteplainuser`,
+//           `https://metadrivebackend.onrender.com/api/admindeleteplainuser`,
 //           { userId: user._id }
 //         );
 
@@ -538,7 +538,7 @@ export default function UserDetails() {
 
           if (userId && userId !== "userdetails") {
             const response = await axios.get(
-              `https://be.solarx0.com/api/admin/users/${userId}`
+              `https://metadrivebackend.onrender.com/api/admin/users/${userId}`
             );
             if (response.data.success) {
               setUser(response.data.user);
@@ -561,7 +561,7 @@ export default function UserDetails() {
       if (!user?._id) return;
       try {
         setTeamLoading(true);
-        const res = await axios.post("https://be.solarx0.com/team", {
+        const res = await axios.post("https://metadrivebackend.onrender.com/team", {
           userId: user._id,
         });
         setTeamData(res.data);
@@ -581,7 +581,7 @@ export default function UserDetails() {
     if (!isNaN(amount) && amount > 0) {
       try {
         const response = await axios.post(
-          `https://be.solarx0.com/api/addBalanceByAdmin`,
+          `https://metadrivebackend.onrender.com/api/addBalanceByAdmin`,
           {
             userId: user._id,
             balance: amount,
@@ -609,7 +609,7 @@ export default function UserDetails() {
 
       try {
         const response = await axios.post(
-          `https://be.solarx0.com/api/addSubtractByAdmin`,
+          `https://metadrivebackend.onrender.com/api/addSubtractByAdmin`,
           {
             userId: user._id,
             balance: amount,
@@ -638,7 +638,7 @@ export default function UserDetails() {
 
     try {
       const response = await axios.post(
-        `https://be.solarx0.com/api/adminLoginUserAccount`,
+        `https://metadrivebackend.onrender.com/api/adminLoginUserAccount`,
         { userId: user._id }
       );
 
@@ -658,7 +658,7 @@ export default function UserDetails() {
     if (window.confirm("Are you sure you want to delete this user's plan?")) {
       try {
         const response = await axios.post(
-          `https://be.solarx0.com/api/admindeleteplainuser`,
+          `https://metadrivebackend.onrender.com/api/admindeleteplainuser`,
           { userId: user._id }
         );
 

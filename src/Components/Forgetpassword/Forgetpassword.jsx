@@ -29,7 +29,7 @@
 //     setLoading(true);
 //     try {
 //       const res = await axios.post(
-//         "https://be.solarx0.com/api/forgetpassword",
+//         "https://metadrivebackend.onrender.com/api/forgetpassword",
 //         {
 //           email: email.trim().toLowerCase(),
 //         }
@@ -74,7 +74,7 @@
 
 //     setLoading(true);
 //     try {
-//       const res = await axios.post("https://be.solarx0.com/api/resetpassword", {
+//       const res = await axios.post("https://metadrivebackend.onrender.com/api/resetpassword", {
 //         email: email.trim().toLowerCase(),
 //         resetcode: resetCode.trim(),
 //         password,
@@ -304,7 +304,7 @@ export default function Forgetpassword() {
     setLoading(true);
     try {
       // Remove the 'res' variable assignment
-      await axios.post("https://be.solarx0.com/api/forgetpassword", {
+      await axios.post("https://metadrivebackend.onrender.com/api/forgetpassword", {
         email: email.trim().toLowerCase(),
       });
 
@@ -351,7 +351,7 @@ export default function Forgetpassword() {
     setLoading(true);
     try {
       // Remove the 'res' variable assignment
-      await axios.post("https://be.solarx0.com/api/resetpassword", {
+      await axios.post("https://metadrivebackend.onrender.com/api/resetpassword", {
         email: email.trim().toLowerCase(),
         resetcode: resetCode.trim(),
         password,
@@ -379,7 +379,7 @@ export default function Forgetpassword() {
     setLoading(true);
     try {
       // Remove the 'res' variable assignment
-      await axios.post("https://be.solarx0.com/api/forgetpassword", {
+      await axios.post("https://metadrivebackend.onrender.com/api/forgetpassword", {
         email: email.trim().toLowerCase(),
       });
 

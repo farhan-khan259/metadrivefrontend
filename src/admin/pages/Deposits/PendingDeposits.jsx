@@ -15,7 +15,7 @@
 //   const fetchDeposits = async () => {
 //     try {
 //       setLoading(true);
-//       const res = await axios.get("https://be.solarx0.com/api/payments");
+//       const res = await axios.get("https://metadrivebackend.onrender.com/api/payments");
 //       setDeposits(res.data.data || []);
 //     } catch (error) {
 //       console.error("Error fetching deposits:", error);
@@ -39,7 +39,7 @@
 //   // ✅ Approve / Reject Deposit
 //   const handleStatusChange = async (userId, newStatus, _id) => {
 //     try {
-//       const res = await axios.post("https://be.solarx0.com/api/status", {
+//       const res = await axios.post("https://metadrivebackend.onrender.com/api/status", {
 //         userId: userId,
 //         status: newStatus,
 //         type: "deposit",
@@ -111,7 +111,7 @@
 //                   <td data-label="Proof">
 //                     {d.screenshot ? (
 //                       <a
-//                         href={`https://be.solarx0.com/${d.screenshot}`}
+//                         href={`https://metadrivebackend.onrender.com/${d.screenshot}`}
 //                         target="_blank"
 //                         rel="noreferrer"
 //                       >
@@ -178,7 +178,7 @@ export default function PendingDeposits() {
   const fetchDeposits = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("https://be.solarx0.com/api/payments");
+      const res = await axios.get("https://metadrivebackend.onrender.com/api/payments");
       setDeposits(res.data.data || []);
     } catch (error) {
       console.error("Error fetching deposits:", error);
@@ -203,7 +203,7 @@ export default function PendingDeposits() {
   const handleStatusChange = async (userId, newStatus, _id) => {
     try {
       setProcessingId(_id);
-      const res = await axios.post("https://be.solarx0.com/api/status", {
+      const res = await axios.post("https://metadrivebackend.onrender.com/api/status", {
         userId: userId,
         status: newStatus,
         type: "deposit",
@@ -369,14 +369,14 @@ export default function PendingDeposits() {
                         <td>
                           {d.screenshot ? (
                             <a
-                              href={`https://be.solarx0.com/${d.screenshot}`}
+                              href={`https://metadrivebackend.onrender.com/${d.screenshot}`}
                               target="_blank"
                               rel="noreferrer"
                               className="proof-link"
                             >
                               <div className="proof-thumbnail">
                                 <img
-                                  src={`https://be.solarx0.com/${d.screenshot}`}
+                                  src={`https://metadrivebackend.onrender.com/${d.screenshot}`}
                                   alt="Deposit Proof"
                                 />
                                 <div className="proof-overlay">

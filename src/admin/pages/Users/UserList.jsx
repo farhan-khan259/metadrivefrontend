@@ -19,7 +19,7 @@
 //   const fetchUsers = async () => {
 //     try {
 //       setLoading(true);
-//       const response = await axios.get("https://be.solarx0.com/api/getalluser");
+//       const response = await axios.get("https://metadrivebackend.onrender.com/api/getalluser");
 
 //       if (response.data.success) {
 //         setUsers(response.data.users);
@@ -51,7 +51,7 @@
 //   const handleSuspendToggle = async (id) => {
 //     try {
 //       const response = await axios.put(
-//         `https://be.solarx0.com/api/admin/users/${id}/toggle-status`
+//         `https://metadrivebackend.onrender.com/api/admin/users/${id}/toggle-status`
 //       );
 
 //       if (response.data.success) {
@@ -83,7 +83,7 @@
 //   const handleDeleteUser = async (id) => {
 //     if (!window.confirm("Are you sure you want to delete this user?")) return;
 //     try {
-//       const response = await axios.delete("https://be.solarx0.com/api/delete", {
+//       const response = await axios.delete("https://metadrivebackend.onrender.com/api/delete", {
 //         data: { userId: id },
 //       });
 
@@ -302,7 +302,7 @@ export default function UserList() {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("https://be.solarx0.com/api/getalluser");
+      const response = await axios.get("https://metadrivebackend.onrender.com/api/getalluser");
 
       if (response.data.success) {
         setUsers(response.data.users);
@@ -340,7 +340,7 @@ export default function UserList() {
   const handleSuspendToggle = async (id) => {
     try {
       const response = await axios.put(
-        `https://be.solarx0.com/api/admin/users/${id}/toggle-status`
+        `https://metadrivebackend.onrender.com/api/admin/users/${id}/toggle-status`
       );
 
       if (response.data.success) {
@@ -370,7 +370,7 @@ export default function UserList() {
   const handleDeleteUser = async (id) => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
     try {
-      const response = await axios.delete("https://be.solarx0.com/api/delete", {
+      const response = await axios.delete("https://metadrivebackend.onrender.com/api/delete", {
         data: { userId: id },
       });
 

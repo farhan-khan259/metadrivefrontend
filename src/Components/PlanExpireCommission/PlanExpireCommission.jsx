@@ -31,7 +31,7 @@ export default function PlanExpireCommission() {
 
         // ✅ CALL THE REAL ENDPOINT
         const response = await axios.get(
-          `https://be.solarx0.com/api/commissions/plan-expire-summary/${userId}`
+          `https://metadrivebackend.onrender.com/api/commissions/plan-expire-summary/${userId}`
         );
         console.log("📦 REAL API Response:", response.data);
 

@@ -21,7 +21,7 @@ export default function Announcements() {
 		setError(null);
 
 		try {
-			const response = await fetch("https://be.solarx0.com/api/announcements", {
+			const response = await fetch("https://metadrivebackend.onrender.com/api/announcements", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

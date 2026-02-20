@@ -15,7 +15,7 @@
 //   useEffect(() => {
 //     const fetchTeamData = async () => {
 //       try {
-//         const res = await axios.post("https://be.solarx0.com/team", { userId });
+//         const res = await axios.post("https://metadrivebackend.onrender.com/team", { userId });
 //         setTeamData(res.data);
 //       } catch (err) {
 //         console.error("Error fetching team data:", err);
@@ -466,7 +466,7 @@
 //   useEffect(() => {
 //     const fetchTeamData = async () => {
 //       try {
-//         const res = await axios.post("https://be.solarx0.com/team", { userId });
+//         const res = await axios.post("https://metadrivebackend.onrender.com/team", { userId });
 //         setTeamData(res.data);
 //       } catch (err) {
 //         console.error("Error fetching team data:", err);
@@ -872,7 +872,7 @@
 //   useEffect(() => {
 //     const fetchTeamData = async () => {
 //       try {
-//         const res = await axios.post("https://be.solarx0.com/team", { userId });
+//         const res = await axios.post("https://metadrivebackend.onrender.com/team", { userId });
 //         setTeamData(res.data);
 //       } catch (err) {
 //         console.error("Error fetching team data:", err);
@@ -1280,7 +1280,7 @@ const Team = () => {
   useEffect(() => {
     const fetchTeamData = async () => {
       try {
-        const res = await axios.post("https://be.solarx0.com/team", { userId });
+        const res = await axios.post("https://metadrivebackend.onrender.com/team", { userId });
         setTeamData(res.data);
       } catch (err) {
         console.error("Error fetching team data:", err);

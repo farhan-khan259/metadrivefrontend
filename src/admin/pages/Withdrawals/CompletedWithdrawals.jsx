@@ -15,7 +15,7 @@
 //   const fetchWithdrawals = async () => {
 //     try {
 //       setLoading(true);
-//       const res = await axios.get("https://be.solarx0.com/api/payments");
+//       const res = await axios.get("https://metadrivebackend.onrender.com/api/payments");
 //       setWithdrawals(res.data.data || []);
 //       setError("");
 //     } catch (error) {
@@ -150,7 +150,7 @@ export default function CompletedWithdrawals() {
   const fetchWithdrawals = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("https://be.solarx0.com/api/payments");
+      const res = await axios.get("https://metadrivebackend.onrender.com/api/payments");
       setWithdrawals(res.data.data || []);
       setError("");
     } catch (error) {

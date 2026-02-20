@@ -12,7 +12,7 @@
 //   useEffect(() => {
 //     const fetchWithdrawal = async () => {
 //       try {
-//         const res = await axios.get("https://be.solarx0.com/api/payments");
+//         const res = await axios.get("https://metadrivebackend.onrender.com/api/payments");
 //         console.log(res.data.data);
 //         setWithdrawal(res.data.data || []);
 //       } catch (error) {
@@ -34,7 +34,7 @@
 //   // ✅ Handle Approve/Reject
 //   const handleStatusChange = async (userId, newStatus, _id) => {
 //     try {
-//       const res = await axios.post("https://be.solarx0.com/api/status", {
+//       const res = await axios.post("https://metadrivebackend.onrender.com/api/status", {
 //         userId,
 //         status: newStatus,
 //         type: "withdrawal",
@@ -66,7 +66,7 @@
 //       const userId = user?._id || user; // Make sure it's the actual ID
 
 //       const response = await axios.post(
-//         `https://be.solarx0.com/api/adminLoginUserAccount`,
+//         `https://metadrivebackend.onrender.com/api/adminLoginUserAccount`,
 //         { userId }
 //       );
 
@@ -203,7 +203,7 @@ export default function PendingWithdrawals() {
   const fetchWithdrawals = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("https://be.solarx0.com/api/payments");
+      const res = await axios.get("https://metadrivebackend.onrender.com/api/payments");
       setWithdrawals(res.data.data || []);
     } catch (error) {
       console.error("Error fetching withdrawals:", error);
@@ -221,7 +221,7 @@ export default function PendingWithdrawals() {
 
   const handleStatusChange = async (userId, newStatus, _id) => {
     try {
-      const res = await axios.post("https://be.solarx0.com/api/status", {
+      const res = await axios.post("https://metadrivebackend.onrender.com/api/status", {
         userId,
         status: newStatus,
         type: "withdrawal",
@@ -249,7 +249,7 @@ export default function PendingWithdrawals() {
 
       const userId = user?._id || user;
       const response = await axios.post(
-        `https://be.solarx0.com/api/adminLoginUserAccount`,
+        `https://metadrivebackend.onrender.com/api/adminLoginUserAccount`,
         { userId }
       );
 

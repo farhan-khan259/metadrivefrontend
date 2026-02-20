@@ -60,7 +60,7 @@
 //     try {
 //       // In a real application, you would send this data to your backend
 //       const response = await fetch(
-//         "https://be.solarx0.com/api/bindAccountRoutes",
+//         "https://metadrivebackend.onrender.com/api/bindAccountRoutes",
 //         {
 //           method: "POST",
 //           headers: {
@@ -312,7 +312,7 @@ const Withdrawform = () => {
     try {
       // In a real application, you would send this data to your backend
       const response = await fetch(
-        "https://be.solarx0.com/api/bindAccountRoutes",
+        "https://metadrivebackend.onrender.com/api/bindAccountRoutes",
         {
           method: "POST",
           headers: {
