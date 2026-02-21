@@ -94,7 +94,8 @@ export default function OurInfo() {
                   Team Building Rewards
                 </strong>
                 : Build your network and earn commissions from Level 1 (6%),
-                Level 2 (3.1%), and Level 3 (1.5%) team members.
+                Level 2 (3.1%), Level 3 (1.5%), Level 4 (1%), and Level 5 (0.5%)
+                team members.
               </li>
               <li>
                 <strong className="metadrive-highlight">
@@ -122,11 +123,19 @@ export default function OurInfo() {
                 Earn 1.5% commission from your extended network
               </li>
               <li>
+                <strong className="metadrive-highlight">Level 4 Team</strong>:
+                Earn 1% commission from your level 4 network
+              </li>
+              <li>
+                <strong className="metadrive-highlight">Level 5 Team</strong>:
+                Earn 0.5% commission from your level 5 network
+              </li>
+              <li>
                 <strong className="metadrive-highlight">
                   Bonus Incentives
                 </strong>
                 : Additional 3% extra commission on every 200k team deposit
-                across all three levels
+                across all five levels
               </li>
             </ul>
           </div>

@@ -295,7 +295,6 @@
 //     </div>
 //   );
 // }
-
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {
@@ -536,6 +535,22 @@ export default function EarningsSummary() {
                   PKR
                 </span>
               </div>
+              <div className="commission-level">
+                <span className="level-name">Level 4 (1%):</span>
+                <span className="level-amount">
+                  {Math.round(teamData.commissionSummary?.level4Commission) ||
+                    0}{" "}
+                  PKR
+                </span>
+              </div>
+              <div className="commission-level">
+                <span className="level-name">Level 5 (0.5%):</span>
+                <span className="level-amount">
+                  {Math.round(teamData.commissionSummary?.level5Commission) ||
+                    0}{" "}
+                  PKR
+                </span>
+              </div>
             </div>
           </div>
 
@@ -556,6 +571,14 @@ export default function EarningsSummary() {
               <div className="plan-level-item2">
                 <span className="plan-level-label2">Level 3:</span>
                 <span className="plan-level-value2">1.5%</span>
+              </div>
+              <div className="plan-level-item2">
+                <span className="plan-level-label2">Level 4:</span>
+                <span className="plan-level-value2">1%</span>
+              </div>
+              <div className="plan-level-item2">
+                <span className="plan-level-label2">Level 5:</span>
+                <span className="plan-level-value2">0.5%</span>
               </div>
             </div>
           </div>

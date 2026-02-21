@@ -82,7 +82,7 @@ export default function PlanExpireCommission() {
         setCommissionData({
           summary: {
             totalCommission: 0,
-            levelTotals: { level1: 0, level2: 0, level3: 0 },
+            levelTotals: { level1: 0, level2: 0, level3: 0, level4: 0, level5: 0 },
             totalTransactions: 0,
           },
           transactions: [],
@@ -100,6 +100,8 @@ export default function PlanExpireCommission() {
     level1: { label: "Level 1", rate: 0.04 },
     level2: { label: "Level 2", rate: 0.025 },
     level3: { label: "Level 3", rate: 0.015 },
+    level4: { label: "Level 4", rate: 0.01 },
+    level5: { label: "Level 5", rate: 0.005 },
   };
 
   const currentLevel = commissionLevels[level];
@@ -138,6 +140,7 @@ export default function PlanExpireCommission() {
     return (
       <div className="commission-history-container">
         <div className="loading">
+          <div className="loading-spinner"></div>
           <p className="loading-sub">Fetching from database</p>
         </div>
       </div>
@@ -153,6 +156,7 @@ export default function PlanExpireCommission() {
             <FaArrowLeft className="back-icon" />
           </Link>
           <h1 className="commission-title">Plan Expire Commission</h1>
+          {/* <FaCalendarTimes className="header-icon" /> */}
         </div>
       </div>
 
@@ -199,6 +203,7 @@ export default function PlanExpireCommission() {
           {/* Commission Records */}
           {levelTransactions.length === 0 ? (
             <div className="no-commissions">
+              {/* <div className="no-commissions-icon">💸</div> */}
               <p>
                 No plan expire commission records available for{" "}
                 {currentLevel.label}.

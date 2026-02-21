@@ -1518,6 +1518,86 @@ const TeamDataScreen = ({ teamData }) => {
         </div>
       </div>
 
+      {/* Level 4 */}
+      <div className="level-section">
+        <div className="level-header">
+          <h3>LEVEL 4: 1%</h3>
+        </div>
+        <div className="level-stats">
+          <div className="stat-item">
+            <span className="stat-label">Level 4 Team Deposit:</span>
+            <span className="stat-value">
+              {teamData.level4Referrals?.stats?.totalTeamDeposit?.toLocaleString?.() ||
+                0}{" "}
+              PKR
+            </span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-label">Level 4 Team Withdraw:</span>
+            <span className="stat-value">
+              {teamData.level4Referrals?.stats?.totalTeamWithdrawal?.toLocaleString?.() ||
+                0}{" "}
+              PKR
+            </span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-label">Level 4 Total Team:</span>
+            <span className="stat-value">
+              {teamData.level4Referrals?.stats?.totalUsers?.toLocaleString?.() ||
+                0}
+            </span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-label">Level 4 Team Commission:</span>
+            <span className="stat-value">
+              {Math.floor(
+                teamData.commissionSummary.level4Commission || 0
+              ).toLocaleString()} PKR
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Level 5 */}
+      <div className="level-section">
+        <div className="level-header">
+          <h3>LEVEL 5: 0.5%</h3>
+        </div>
+        <div className="level-stats">
+          <div className="stat-item">
+            <span className="stat-label">Level 5 Team Deposit:</span>
+            <span className="stat-value">
+              {teamData.level5Referrals?.stats?.totalTeamDeposit?.toLocaleString?.() ||
+                0}{" "}
+              PKR
+            </span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-label">Level 5 Team Withdraw:</span>
+            <span className="stat-value">
+              {teamData.level5Referrals?.stats?.totalTeamWithdrawal?.toLocaleString?.() ||
+                0}{" "}
+              PKR
+            </span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-label">Level 5 Total Team:</span>
+            <span className="stat-value">
+              {teamData.level5Referrals?.stats?.totalUsers?.toLocaleString?.() ||
+                0}
+            </span>
+          </div>
+          <div className="stat-item">
+            <span className="stat-label">Level 5 Team Commission:</span>
+            <span className="stat-value">
+              {Math.floor(
+                teamData.commissionSummary.level5Commission || 0
+              ).toLocaleString()} PKR
+            </span>
+          </div>
+        </div>
+      </div>
+
       {/* Plan Expire Commission Section */}
       <div className="plan-expire-section">
         <div className="plan-expire-header">
@@ -1536,6 +1616,14 @@ const TeamDataScreen = ({ teamData }) => {
             <span className="plan-level-label">Level 3:</span>
             <span className="plan-level-value">1.5%</span>
           </div>
+          <div className="plan-level-item">
+            <span className="plan-level-label">Level 4:</span>
+            <span className="plan-level-value">1%</span>
+          </div>
+          <div className="plan-level-item">
+            <span className="plan-level-label">Level 5:</span>
+            <span className="plan-level-value">0.5%</span>
+          </div>
         </div>
       </div>
       {/* Commission Notice Box */}
@@ -1545,7 +1633,7 @@ const TeamDataScreen = ({ teamData }) => {
         </div>
         <div className="notice-content">
           <p>You will get 3% extra commission on every 200k</p>
-          <p>team deposit (upto 3 levels)</p>
+          <p>team deposit (upto 5 levels)</p>
         </div>
       </div>
     </div>
@@ -1558,7 +1646,7 @@ const TeamDetailsScreen = ({ teamData }) => {
   return (
     <div className="team-details-wrapper">
       <h2 className="team-details-title">
-        <FaUsers /> NETWORK UPTO 3 LEVELS
+        <FaUsers /> NETWORK UPTO 5 LEVELS
       </h2>
 
       {/* Level Tabs */}
@@ -1581,6 +1669,18 @@ const TeamDetailsScreen = ({ teamData }) => {
         >
           3
         </button>
+        <button
+          className={`level-tab2 ${activeLevel === "4" ? "active" : ""}`}
+          onClick={() => setActiveLevel("4")}
+        >
+          4
+        </button>
+        <button
+          className={`level-tab2 ${activeLevel === "5" ? "active" : ""}`}
+          onClick={() => setActiveLevel("5")}
+        >
+          5
+        </button>
       </div>
 
       {/* Level 1 Members */}
@@ -1596,7 +1696,9 @@ const TeamDetailsScreen = ({ teamData }) => {
                 <div className="member-info">
                   <div className="info-row">
                     <span className="info-label">Upliner:</span>
-                    <span className="info-value">{teamData.user.fullName}</span>
+                    <span className="info-value">
+                      {user.uplinerName || teamData.user.fullName}
+                    </span>
                   </div>
                   <div className="info-row">
                     <span className="info-label">UserName:</span>
@@ -1640,11 +1742,7 @@ const TeamDetailsScreen = ({ teamData }) => {
                   <div className="info-row">
                     <span className="info-label">Upliner:</span>
                     <span className="info-value">
-                      {/* Find the direct referral who referred this level 2 user */}
-                      {teamData.directReferrals.members.find(
-                        (directUser) =>
-                          directUser.randomCode === user.referredBy
-                      )?.fullName || teamData.user.fullName}
+                      {user.uplinerName || teamData.user.fullName}
                     </span>
                   </div>
                   <div className="info-row">
@@ -1689,11 +1787,7 @@ const TeamDetailsScreen = ({ teamData }) => {
                   <div className="info-row">
                     <span className="info-label">Upliner:</span>
                     <span className="info-value">
-                      {/* Find the level 2 user who referred this level 3 user */}
-                      {teamData.indirectReferrals.members.find(
-                        (indirectUser) =>
-                          indirectUser.randomCode === user.referredBy
-                      )?.fullName || teamData.user.fullName}
+                      {user.uplinerName || teamData.user.fullName}
                     </span>
                   </div>
                   <div className="info-row">
@@ -1719,6 +1813,96 @@ const TeamDetailsScreen = ({ teamData }) => {
           ) : (
             <div className="no-members">
               <p>No extended referrals found</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Level 4 Members */}
+      {activeLevel === "4" && (
+        <div className="level-members">
+          {(teamData.level4Referrals?.members || []).length > 0 ? (
+            (teamData.level4Referrals.members || []).map((user, index) => (
+              <div className="member-card" key={index}>
+                <div className="member-header">
+                  <h4>Level: 4</h4>
+                  <span className="commission-rateteam">1%</span>
+                </div>
+                <div className="member-info">
+                  <div className="info-row">
+                    <span className="info-label">Upliner:</span>
+                    <span className="info-value">
+                      {user.uplinerName || teamData.user.fullName}
+                    </span>
+                  </div>
+                  <div className="info-row">
+                    <span className="info-label">UserName:</span>
+                    <span className="info-value">{user.fullName}</span>
+                  </div>
+                  <div className="info-row">
+                    <span className="info-label">Phone No:</span>
+                    <span className="info-value">{user.whatsappNumber}</span>
+                  </div>
+                  <div className="info-row">
+                    <span className="info-label">Gmail:</span>
+                    <span className="info-value">
+                      {user.email ||
+                        `${user.fullName
+                          .toLowerCase()
+                          .replace(/\s/g, "")}@gmail.com`}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="no-members">
+              <p>No level 4 referrals found</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Level 5 Members */}
+      {activeLevel === "5" && (
+        <div className="level-members">
+          {(teamData.level5Referrals?.members || []).length > 0 ? (
+            (teamData.level5Referrals.members || []).map((user, index) => (
+              <div className="member-card" key={index}>
+                <div className="member-header">
+                  <h4>Level: 5</h4>
+                  <span className="commission-rateteam">0.5%</span>
+                </div>
+                <div className="member-info">
+                  <div className="info-row">
+                    <span className="info-label">Upliner:</span>
+                    <span className="info-value">
+                      {user.uplinerName || teamData.user.fullName}
+                    </span>
+                  </div>
+                  <div className="info-row">
+                    <span className="info-label">UserName:</span>
+                    <span className="info-value">{user.fullName}</span>
+                  </div>
+                  <div className="info-row">
+                    <span className="info-label">Phone No:</span>
+                    <span className="info-value">{user.whatsappNumber}</span>
+                  </div>
+                  <div className="info-row">
+                    <span className="info-label">Gmail:</span>
+                    <span className="info-value">
+                      {user.email ||
+                        `${user.fullName
+                          .toLowerCase()
+                          .replace(/\s/g, "")}@gmail.com`}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="no-members">
+              <p>No level 5 referrals found</p>
             </div>
           )}
         </div>

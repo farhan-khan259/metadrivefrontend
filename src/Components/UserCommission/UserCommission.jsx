@@ -137,7 +137,6 @@
 //     </div>
 //   );
 // }
-
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
@@ -180,6 +179,8 @@ export default function UserCommission() {
     directReferrals: { label: "Level 1", rate: 0.06 },
     indirectReferrals: { label: "Level 2", rate: 0.031 },
     extendedReferrals: { label: "Level 3", rate: 0.015 },
+    level4Referrals: { label: "Level 4", rate: 0.01 },
+    level5Referrals: { label: "Level 5", rate: 0.005 },
   };
 
   const currentLevel = commissionLevels[level];

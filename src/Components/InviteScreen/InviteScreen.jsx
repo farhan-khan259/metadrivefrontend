@@ -201,6 +201,9 @@
 
 // export default InviteScreen;
 
+
+
+
 import { useEffect, useState } from "react";
 import { FaArrowLeft, FaCopy, FaShareAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -359,6 +362,14 @@ const InviteScreen = () => {
               <li className="earnings-item">
                 <span className="level">Level 3:</span>
                 <span className="percentage">1.5% from third level</span>
+              </li>
+              <li className="earnings-item">
+                <span className="level">Level 4:</span>
+                <span className="percentage">1% from fourth level</span>
+              </li>
+              <li className="earnings-item">
+                <span className="level">Level 5:</span>
+                <span className="percentage">0.5% from fifth level</span>
               </li>
             </ul>
           </div>
