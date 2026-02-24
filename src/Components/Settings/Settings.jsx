@@ -247,7 +247,7 @@ export default function Settings({ isOpen, onClose }) {
           <Link to="/planexpire" onClick={onClose}>
             <MenuItem
               icon={<FaCalendarTimes />}
-              label="Plan Expire Commission"
+              label="Daily Earning Commission"
             />
           </Link>
           <Link to="/support" onClick={onClose}>

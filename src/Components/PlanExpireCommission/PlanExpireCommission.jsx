@@ -14,9 +14,9 @@ export default function PlanExpireCommission() {
   const user = userString ? JSON.parse(userString) : null;
   const userId = user?._id;
 
-  // ✅ Fetch REAL Plan Expire Commission Data
+  // ✅ Fetch REAL Daily Plan Commission Data
   useEffect(() => {
-    const fetchPlanExpireCommission = async () => {
+    const fetchDailyPlanCommission = async () => {
       try {
         setLoading(true);
         setError(null);
@@ -27,9 +27,9 @@ export default function PlanExpireCommission() {
           return;
         }
 
-        console.log("🔍 Fetching REAL commission data for user:", userId);
+        console.log("🔍 Fetching REAL daily plan commission data for user:", userId);
 
-        // ✅ CALL THE REAL ENDPOINT
+        // ✅ Endpoint kept for compatibility; backend now returns DAILY plan commissions
         const response = await axios.get(
           `https://metadrivebackend.onrender.com/api/commissions/plan-expire-summary/${userId}`
         );
@@ -37,12 +37,12 @@ export default function PlanExpireCommission() {
 
         if (response.data.success) {
           setCommissionData(response.data.data);
-          console.log("✅ REAL Commission data loaded successfully");
+          console.log("✅ REAL daily commission data loaded successfully");
 
           // Log commission statistics
           if (response.data.data.transactions.length > 0) {
             console.log(
-              `💰 Found ${response.data.data.transactions.length} real commission transactions`
+              `💰 Found ${response.data.data.transactions.length} real daily commission transactions`
             );
             console.log(
               `📈 Total Commission: ${response.data.data.summary.totalCommission} PKR`
@@ -53,7 +53,7 @@ export default function PlanExpireCommission() {
         }
       } catch (error) {
         console.error(
-          "❌ Error fetching real plan expire commission data:",
+          "❌ Error fetching real daily plan commission data:",
           error
         );
 
@@ -92,10 +92,10 @@ export default function PlanExpireCommission() {
       }
     };
 
-    fetchPlanExpireCommission();
+    fetchDailyPlanCommission();
   }, [userId]);
 
-  // ✅ Commission Levels for Plan Expire
+  // ✅ Commission Levels (daily plan commission)
   const commissionLevels = {
     level1: { label: "Level 1", rate: 0.04 },
     level2: { label: "Level 2", rate: 0.025 },
@@ -155,7 +155,7 @@ export default function PlanExpireCommission() {
           <Link to="/dashboard" className="commission-back-link">
             <FaArrowLeft className="back-icon" />
           </Link>
-          <h1 className="commission-title">Plan Expire Commission</h1>
+          <h1 className="commission-title">Daily Earning Commission</h1>
           {/* <FaCalendarTimes className="header-icon" /> */}
         </div>
       </div>
@@ -182,15 +182,15 @@ export default function PlanExpireCommission() {
               <FaExclamationTriangle className="info-icon" />
               <p>{error}</p>
               <p className="info-sub">
-                This shows real data from your database. Commissions will appear
-                when team members' plans expire.
+                This shows real data from your database. Commissions appear
+                daily when your team members receive daily plan profit.
               </p>
             </div>
           )}
 
           {/* Commission Summary */}
           <div className="commission-summary">
-            <h3>Total {currentLevel.label} Plan Expire Commission</h3>
+            <h3>Total {currentLevel.label} Daily Commission</h3>
             <div className="total-amount">{totalCommission.toFixed(2)} PKR</div>
             <p className="commission-rate">
               Commission Rate: {(currentLevel.rate * 100).toFixed(1)}%
@@ -205,12 +205,12 @@ export default function PlanExpireCommission() {
             <div className="no-commissions">
               {/* <div className="no-commissions-icon">💸</div> */}
               <p>
-                No plan expire commission records available for{" "}
+                No daily commission records available for{" "}
                 {currentLevel.label}.
               </p>
               <p className="no-commissions-sub">
-                Commissions will appear here when your team members' plans
-                expire and generate profits.
+                Commissions will appear here daily when your team members earn
+                daily plan profit.
                 {commissionData?.transactions?.length > 0 && (
                   <span> You have commissions in other levels.</span>
                 )}

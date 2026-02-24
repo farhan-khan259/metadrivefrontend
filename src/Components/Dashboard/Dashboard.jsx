@@ -242,80 +242,80 @@ export default function Dashboard() {
     return [
       {
         title: "Meta Drive🚘",
-        days: 3,
+        days: 7,
         min: 1000,
-        max: 3000,
-        percent: 3.6,
+        max: 30000,
+        percent: 5,
         img: placeholderPlanImg1,
         invested: investedCounts[0] || 25,
         locked: false,
       },
       {
         title: "Meta Messenger/Community",
-        days: 7,
-        min: 4000,
-        max: 15000,
-        percent: 3.5,
+        days: 12,
+        min: 1000,
+        max: 40000,
+        percent: 5.3,
         img: placeholderPlanImg2,
         invested: investedCounts[1] || 25,
         locked: false,
       },
       {
         title: "Meta WhatsApp/Team",
-        days: 12,
-        min: 5000,
-        max: 30000,
-        percent: 3.8,
+        days: 15,
+        min: 3000,
+        max: 60000,
+        percent: 5.7,
         img: placeholderPlanImg3,
         invested: investedCounts[2] || 25,
         locked: true,
       },
       {
         title: "Meta Instagram/Social studies",
-        days: 15,
-        min: 10000,
-        max: 50000,
-        percent: 4,
+        days: 22,
+        min:  3000,
+        max: 70000,
+        percent: 6,
         img: placeholderPlanImg4,
         invested: investedCounts[3] || 25,
         locked: false,
       },
       {
         title: "Meta Facebook/Social media",
-        days: 22,
-        min: 10000,
-        max: 30000,
-        percent: 4.2,
+        days: 30,
+        min: 5000,
+        max: 80000,
+        percent: 6.3,
         img: placeholderPlanImg5,
         invested: investedCounts[4] || 25,
         locked: true,
       },
       {
         title: "Meta Oculus/Products",
-        days: 30,
-        min: 20000,
-        max: 150000,
-        percent: 4.5,
+        days: 42,
+        min: 5000,
+        max: 100000,
+        percent: 6.5,
         img: placeholderPlanImg6,
         invested: investedCounts[5] || 10,
         locked: false,
       },
       {
         title: "Meta Workplace/Team's",
-        days: 42,
-        min: 25000,
-        max: 200000,
-        percent: 5,
+        days: 60,
+        min: 5000,
+        max: 130000,
+        percent: 6.8,
         img: placeholderPlanImg7,
         invested: investedCounts[6] || 10,
         locked: true,
       },
       {
         title: "Meta Portal/LCD",
-        days: 60,
-        min: 30000,
-        max: 300000,
-        percent: 6,
+        days: 90,
+        min: 10000,
+        max: 150000,
+        percent: 7,
         img: placeholderPlanImg8,
         invested: investedCounts[7] || 10,
         locked: false,
@@ -370,16 +370,21 @@ export default function Dashboard() {
 
     setSubmitting(true);
     try {
-      const dailyEarning = Math.round(amt * (activePlan.percent / 100));
-      const returnProfit = dailyEarning * activePlan.days;
+      // `percent` is TOTAL profit percentage for the whole plan duration.
+      // Daily profit is split across the plan days.
+      const totalProfit = Math.round(amt * (activePlan.percent / 100));
+      const baseDaily = Math.floor(totalProfit / activePlan.days);
+      const lastDay = totalProfit - baseDaily * (activePlan.days - 1);
 
       const payload = {
         user_id: userId,
         PlanName: activePlan.title,
         Investment: amt,
-        dailyEarning: dailyEarning,
         days: activePlan.days,
-        returnProfit: returnProfit,
+        // Backend recomputes schedule too; we send these for transparency/backwards support.
+        dailyEarning: baseDaily,
+        returnProfit: totalProfit,
+        lastDayEarning: lastDay,
         profitPercentage: activePlan.percent + "%",
       };
 
@@ -546,7 +551,7 @@ export default function Dashboard() {
           <div className="sx-plan-card" key={idx}>
             <div className="sx-plan-img-wrap">
               <img src={p.img} alt={p.title} className="sx-plan-img" />
-              <div className="sx-plan-percent">{p.percent}%/PAR DAY</div>
+              <div className="sx-plan-percent">{p.percent}%/PER DAY</div>
               {idx < 5 && <div className="sx-popular-badge">🔥 POPULAR</div>}
             </div>
             <div className="sx-plan-body">
