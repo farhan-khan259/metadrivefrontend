@@ -29,7 +29,7 @@
 //         }
 
 //         // 🔹 Fetch user/team data
-//         const teamRes = await axios.post("https://metadrivebackend.onrender.com/team", {
+//         const teamRes = await axios.post("https://be.metadrive01.xyz/team", {
 //           userId,
 //         });
 //         if (teamRes.data?.user?.userbalance !== undefined) {
@@ -38,7 +38,7 @@
 
 //         // 🔹 Fetch bind account
 //         const accountRes = await axios.post(
-//           "https://metadrivebackend.onrender.com/api/bindAccountRoutes/find",
+//           "https://be.metadrive01.xyz/api/bindAccountRoutes/find",
 //           { userId }
 //         );
 
@@ -172,7 +172,7 @@ const Withdraw = () => {
         }
 
         // 🔹 Fetch user/team data
-        const teamRes = await axios.post("https://metadrivebackend.onrender.com/team", {
+        const teamRes = await axios.post("https://be.metadrive01.xyz/team", {
           userId,
         });
         if (teamRes.data?.user?.userbalance !== undefined) {
@@ -181,7 +181,7 @@ const Withdraw = () => {
 
         // 🔹 Fetch bind account
         const accountRes = await axios.post(
-          "https://metadrivebackend.onrender.com/api/bindAccountRoutes/find",
+          "https://be.metadrive01.xyz/api/bindAccountRoutes/find",
           { userId }
         );
 

@@ -30,7 +30,7 @@
 // //   // ✅ Fetch user balance from DB
 // //   const fetchBalance = async () => {
 // //     try {
-// //       const res = await axios.post("https://metadrivebackend.onrender.com/team", { userId });
+// //       const res = await axios.post("https://be.metadrive01.xyz/team", { userId });
 // //       if (res.data?.user?.userbalance !== undefined) {
 // //         setUserBalance(res.data.user.userbalance);
 // //       }
@@ -47,7 +47,7 @@
 // //   useEffect(() => {
 // //     const fetchPlan = async () => {
 // //       try {
-// //         const res = await axios.get(`https://metadrivebackend.onrender.com/api/plans/`, {
+// //         const res = await axios.get(`https://be.metadrive01.xyz/api/plans/`, {
 // //           params: { id: userId },
 // //         });
 // //         if (res.data.success) {
@@ -84,7 +84,7 @@
 
 // //     setLoading(true);
 // //     try {
-// //       const res = await axios.post("https://metadrivebackend.onrender.com/api/withdrawal", {
+// //       const res = await axios.post("https://be.metadrive01.xyz/api/withdrawal", {
 // //         userId,
 // //         withdrawals: Number(amount),
 // //         bankName,
@@ -257,7 +257,7 @@
 //   // ✅ Fetch user balance from DB
 //   const fetchBalance = async () => {
 //     try {
-//       const res = await axios.post("https://metadrivebackend.onrender.com/team", { userId });
+//       const res = await axios.post("https://be.metadrive01.xyz/team", { userId });
 //       if (res.data?.user?.userbalance !== undefined) {
 //         setUserBalance(res.data.user.userbalance);
 //       }
@@ -274,7 +274,7 @@
 //   useEffect(() => {
 //     const fetchPlan = async () => {
 //       try {
-//         const res = await axios.get(`https://metadrivebackend.onrender.com/api/plans/`, {
+//         const res = await axios.get(`https://be.metadrive01.xyz/api/plans/`, {
 //           params: { id: userId },
 //         });
 //         if (res.data.success) {
@@ -311,7 +311,7 @@
 
 //     setLoading(true);
 //     try {
-//       const res = await axios.post("https://metadrivebackend.onrender.com/api/withdrawal", {
+//       const res = await axios.post("https://be.metadrive01.xyz/api/withdrawal", {
 //         userId,
 //         withdrawals: Number(amount),
 //         bankName,
@@ -495,7 +495,7 @@ const Withdrawfunds = () => {
   // ✅ Fetch user balance from DB
   const fetchBalance = async () => {
     try {
-      const res = await axios.post("https://metadrivebackend.onrender.com/team", { userId });
+      const res = await axios.post("https://be.metadrive01.xyz/team", { userId });
       if (res.data?.user?.userbalance !== undefined) {
         setUserBalance(res.data.user.userbalance);
       }
@@ -512,7 +512,7 @@ const Withdrawfunds = () => {
   useEffect(() => {
     const fetchPlan = async () => {
       try {
-        const res = await axios.get(`https://metadrivebackend.onrender.com/api/plans/`, {
+        const res = await axios.get(`https://be.metadrive01.xyz/api/plans/`, {
           params: { id: userId },
         });
         if (res.data.success) {
@@ -551,7 +551,7 @@ const Withdrawfunds = () => {
 
     setLoading(true);
     try {
-      const res = await axios.post("https://metadrivebackend.onrender.com/api/withdrawal", {
+      const res = await axios.post("https://be.metadrive01.xyz/api/withdrawal", {
         userId,
         withdrawals: Number(amount), // Original requested amount (1000)
         netWithdrawal: netAmount, // Amount after fee (970) - This is what admin will send

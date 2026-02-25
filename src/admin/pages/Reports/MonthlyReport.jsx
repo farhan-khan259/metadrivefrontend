@@ -20,7 +20,7 @@
 //     const fetchmonthlyReport = async () => {
 //       try {
 //         const response = await axios.get(
-//           "https://metadrivebackend.onrender.com/api/admin/report/monthly"
+//           "https://be.metadrive01.xyz/api/admin/report/monthly"
 //         );
 
 //         if (response.data.success) {
@@ -225,7 +225,7 @@ export default function MonthlyReport() {
     const fetchMonthlyReport = async () => {
       try {
         const response = await axios.get(
-          "https://metadrivebackend.onrender.com/api/admin/report/monthly"
+          "https://be.metadrive01.xyz/api/admin/report/monthly"
         );
 
         if (response.data.success) {

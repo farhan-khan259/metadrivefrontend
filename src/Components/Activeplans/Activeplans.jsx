@@ -18,9 +18,9 @@
 //       try {
 //         let endpoint;
 //         if (activeTab === "inProgress") {
-//           endpoint = `https://metadrivebackend.onrender.com/api/plans/user/active/${id}`;
+//           endpoint = `https://be.metadrive01.xyz/api/plans/user/active/${id}`;
 //         } else {
-//           endpoint = `https://metadrivebackend.onrender.com/api/plans/user/claimed/${id}`;
+//           endpoint = `https://be.metadrive01.xyz/api/plans/user/claimed/${id}`;
 //         }
 
 //         const res = await axios.get(endpoint);
@@ -92,7 +92,7 @@
 //   // Handle claim button click
 //   const handleClaim = async (planId) => {
 //     try {
-//       const res = await axios.post(`https://metadrivebackend.onrender.com/api/plans/claim`, {
+//       const res = await axios.post(`https://be.metadrive01.xyz/api/plans/claim`, {
 //         planId,
 //         user_id: id, // Changed from userId to user_id
 //       });
@@ -320,9 +320,9 @@ export default function Activeplans() {
       try {
         let endpoint;
         if (activeTab === "inProgress") {
-          endpoint = `https://metadrivebackend.onrender.com/api/plans/user/inprogress/${id}`;
+          endpoint = `https://be.metadrive01.xyz/api/plans/user/inprogress/${id}`;
         } else {
-          endpoint = `https://metadrivebackend.onrender.com/api/plans/user/claimed/${id}`;
+          endpoint = `https://be.metadrive01.xyz/api/plans/user/claimed/${id}`;
         }
 
         const res = await axios.get(endpoint);
@@ -409,7 +409,7 @@ export default function Activeplans() {
   // ✅ Handle claim button click
   const handleClaim = async (planId) => {
     try {
-      const res = await axios.post(`https://metadrivebackend.onrender.com/api/plans/claim`, {
+      const res = await axios.post(`https://be.metadrive01.xyz/api/plans/claim`, {
         planId,
         user_id: id,
       });

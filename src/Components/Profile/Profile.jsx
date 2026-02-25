@@ -54,7 +54,7 @@
 
 //     try {
 //       const response = await axios.post(
-//         "https://metadrivebackend.onrender.com/api/account",
+//         "https://be.metadrive01.xyz/api/account",
 //         formDataUpload,
 //         {
 //           headers: {
@@ -89,7 +89,7 @@
 //     if (isEditing) {
 //       try {
 //         const response = await axios.post(
-//           "https://metadrivebackend.onrender.com/api/account",
+//           "https://be.metadrive01.xyz/api/account",
 //           {
 //             userId,
 //             fullName: formData.Name,
@@ -123,7 +123,7 @@
 
 //       try {
 //         const response = await axios.post(
-//           "https://metadrivebackend.onrender.com/api/changePassword",
+//           "https://be.metadrive01.xyz/api/changePassword",
 //           {
 //             userId,
 //             oldpassword: passwordData.oldPassword,
@@ -165,7 +165,7 @@
 //           <img
 //             src={
 //               user?.profilepicture
-//                 ? `https://metadrivebackend.onrender.com${user.profilepicture}`
+//                 ? `https://be.metadrive01.xyz${user.profilepicture}`
 //                 : profileimg
 //             }
 //             alt="Profile"
@@ -345,7 +345,7 @@ export default function Profile() {
 
     try {
       const response = await axios.post(
-        "https://metadrivebackend.onrender.com/api/getUserByReferral",
+        "https://be.metadrive01.xyz/api/getUserByReferral",
         {
           referralCode: referralCode,
         }
@@ -372,7 +372,7 @@ export default function Profile() {
 
       try {
         // Fetch team data - using the same endpoint as Team component
-        const response = await axios.post("https://metadrivebackend.onrender.com/team", {
+        const response = await axios.post("https://be.metadrive01.xyz/team", {
           userId: userId,
         });
 
@@ -444,7 +444,7 @@ export default function Profile() {
     if (isEditing) {
       try {
         const response = await axios.post(
-          "https://metadrivebackend.onrender.com/api/account",
+          "https://be.metadrive01.xyz/api/account",
           {
             userId,
             fullName: formData.Name,
@@ -478,7 +478,7 @@ export default function Profile() {
 
       try {
         const response = await axios.post(
-          "https://metadrivebackend.onrender.com/api/changePassword",
+          "https://be.metadrive01.xyz/api/changePassword",
           {
             userId,
             oldpassword: passwordData.oldPassword,

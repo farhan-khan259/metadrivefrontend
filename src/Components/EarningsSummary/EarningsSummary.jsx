@@ -23,7 +23,7 @@
 //   useEffect(() => {
 //     const fetchTeamData = async () => {
 //       try {
-//         const res = await axios.post("https://metadrivebackend.onrender.com/team", {
+//         const res = await axios.post("https://be.metadrive01.xyz/team", {
 //           userId: userId,
 //         });
 //         setTeamData(res.data);
@@ -322,7 +322,7 @@ export default function EarningsSummary() {
   useEffect(() => {
     const fetchTeamData = async () => {
       try {
-        const res = await axios.post("https://metadrivebackend.onrender.com/team", {
+        const res = await axios.post("https://be.metadrive01.xyz/team", {
           userId: userId,
         });
         setTeamData(res.data);

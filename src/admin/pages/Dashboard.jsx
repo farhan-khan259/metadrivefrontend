@@ -15,7 +15,7 @@
 //     const fetchDashboardStats = async () => {
 //       try {
 //         const response = await axios.get(
-//           "https://metadrivebackend.onrender.com/api/admin/dashboard-stats"
+//           "https://be.metadrive01.xyz/api/admin/dashboard-stats"
 //         );
 //         if (response.data.success) {
 //           setStats(response.data.stats);
@@ -268,7 +268,7 @@ export default function Dashboard() {
     const fetchDashboardStats = async () => {
       try {
         const response = await axios.get(
-          "https://metadrivebackend.onrender.com/api/admin/dashboard-stats"
+          "https://be.metadrive01.xyz/api/admin/dashboard-stats"
         );
         if (response.data.success) {
           setStats(response.data.stats);

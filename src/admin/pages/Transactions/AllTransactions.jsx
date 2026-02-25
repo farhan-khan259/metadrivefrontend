@@ -13,7 +13,7 @@
 //     const fetchTransactions = async () => {
 //       try {
 //         const response = await axios.get(
-//           "https://metadrivebackend.onrender.com/api/admin/transactions"
+//           "https://be.metadrive01.xyz/api/admin/transactions"
 //         );
 //         setTransactions(response.data.transactions || []);
 //       } catch (error) {
@@ -148,7 +148,7 @@ export default function AllTransactions() {
     try {
       setLoading(true);
       const response = await axios.get(
-        "https://metadrivebackend.onrender.com/api/admin/transactions"
+        "https://be.metadrive01.xyz/api/admin/transactions"
       );
       setTransactions(response.data.transactions || []);
     } catch (error) {

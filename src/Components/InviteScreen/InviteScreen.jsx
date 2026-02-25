@@ -29,7 +29,7 @@ const InviteScreen = () => {
           return;
         }
 
-        const response = await fetch("https://metadrivebackend.onrender.com/team", {
+        const response = await fetch("https://be.metadrive01.xyz/team", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

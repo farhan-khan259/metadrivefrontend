@@ -31,7 +31,7 @@ export default function PlanExpireCommission() {
 
         // ✅ Endpoint kept for compatibility; backend now returns DAILY plan commissions
         const response = await axios.get(
-          `https://metadrivebackend.onrender.com/api/commissions/plan-expire-summary/${userId}`
+          `https://be.metadrive01.xyz/api/commissions/plan-expire-summary/${userId}`
         );
         console.log("📦 REAL API Response:", response.data);
 

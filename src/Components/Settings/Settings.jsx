@@ -35,7 +35,7 @@
 
 //     const fetchTeamData = async () => {
 //       try {
-//         const res = await axios.post("https://metadrivebackend.onrender.com/team", { userId });
+//         const res = await axios.post("https://be.metadrive01.xyz/team", { userId });
 //         setTeamData(res.data);
 //       } catch (err) {
 //         console.error("Error fetching team data:", err);
@@ -78,7 +78,7 @@
 //             <img
 //               src={
 //                 user?.profilepicture
-//                   ? `https://metadrivebackend.onrender.com${user.profilepicture}`
+//                   ? `https://be.metadrive01.xyz${user.profilepicture}`
 //                   : profileImg
 //               }
 //               className="settings-user-avatar"
@@ -200,7 +200,7 @@ export default function Settings({ isOpen, onClose }) {
 
     const fetchTeamData = async () => {
       try {
-        const res = await axios.post("https://metadrivebackend.onrender.com/team", { userId });
+        const res = await axios.post("https://be.metadrive01.xyz/team", { userId });
         setTeamData(res.data);
       } catch (err) {
         console.error("Error fetching team data:", err);
