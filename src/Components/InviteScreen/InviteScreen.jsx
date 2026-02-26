@@ -29,7 +29,7 @@ const InviteScreen = () => {
           return;
         }
 
-        const response = await fetch("https://be.metadrive01.xyz/team", {
+        const response = await fetch("http://localhost:3005/team", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -152,23 +152,23 @@ const InviteScreen = () => {
             <ul className="earnings-list">
               <li className="earnings-item">
                 <span className="level">Level 1:</span>
-                <span className="percentage">6% from direct referrals</span>
+                <span className="percentage">6.5% from direct referrals</span>
               </li>
               <li className="earnings-item">
                 <span className="level">Level 2:</span>
-                <span className="percentage">3.1% from their referrals</span>
+                <span className="percentage">3.3% from their referrals</span>
               </li>
               <li className="earnings-item">
                 <span className="level">Level 3:</span>
-                <span className="percentage">1.5% from third level</span>
+                <span className="percentage">2.5% from third level</span>
               </li>
               <li className="earnings-item">
                 <span className="level">Level 4:</span>
-                <span className="percentage">1% from fourth level</span>
+                <span className="percentage">2% from fourth level</span>
               </li>
               <li className="earnings-item">
                 <span className="level">Level 5:</span>
-                <span className="percentage">0.5% from fifth level</span>
+                <span className="percentage">1.5% from fifth level</span>
               </li>
             </ul>
           </div>

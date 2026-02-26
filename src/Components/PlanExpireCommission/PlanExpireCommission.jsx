@@ -4,7 +4,7 @@ import { FaArrowLeft, FaExclamationTriangle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "./PlanExpireCommission.css";
 
-export default function PlanExpireCommission() {
+export default function RebateCommission() {
   const [level, setLevel] = useState("level1");
   const [loading, setLoading] = useState(true);
   const [commissionData, setCommissionData] = useState(null);
@@ -14,9 +14,9 @@ export default function PlanExpireCommission() {
   const user = userString ? JSON.parse(userString) : null;
   const userId = user?._id;
 
-  // ✅ Fetch REAL Daily Plan Commission Data
+  // ✅ Fetch REAL Rebate Commission Data
   useEffect(() => {
-    const fetchDailyPlanCommission = async () => {
+    const fetchRebateCommission = async () => {
       try {
         setLoading(true);
         setError(null);
@@ -27,22 +27,22 @@ export default function PlanExpireCommission() {
           return;
         }
 
-        console.log("🔍 Fetching REAL daily plan commission data for user:", userId);
+        console.log("🔍 Fetching rebate commission data for user:", userId);
 
-        // ✅ Endpoint kept for compatibility; backend now returns DAILY plan commissions
+        // ✅ Rebate endpoint with backend legacy compatibility
         const response = await axios.get(
-          `https://be.metadrive01.xyz/api/commissions/plan-expire-summary/${userId}`
+          `http://localhost:3005/api/commissions/rebate-summary/${userId}`
         );
         console.log("📦 REAL API Response:", response.data);
 
         if (response.data.success) {
           setCommissionData(response.data.data);
-          console.log("✅ REAL daily commission data loaded successfully");
+          console.log("✅ Rebate commission data loaded successfully");
 
           // Log commission statistics
           if (response.data.data.transactions.length > 0) {
             console.log(
-              `💰 Found ${response.data.data.transactions.length} real daily commission transactions`
+              `💰 Found ${response.data.data.transactions.length} rebate commission transactions`
             );
             console.log(
               `📈 Total Commission: ${response.data.data.summary.totalCommission} PKR`
@@ -53,7 +53,7 @@ export default function PlanExpireCommission() {
         }
       } catch (error) {
         console.error(
-          "❌ Error fetching real daily plan commission data:",
+          "❌ Error fetching rebate commission data:",
           error
         );
 
@@ -92,16 +92,16 @@ export default function PlanExpireCommission() {
       }
     };
 
-    fetchDailyPlanCommission();
+    fetchRebateCommission();
   }, [userId]);
 
-  // ✅ Commission Levels (daily plan commission)
+  // ✅ Commission Levels (rebate commission)
   const commissionLevels = {
     level1: { label: "Level 1", rate: 0.04 },
-    level2: { label: "Level 2", rate: 0.025 },
+    level2: { label: "Level 2", rate: 0.022 },
     level3: { label: "Level 3", rate: 0.015 },
-    level4: { label: "Level 4", rate: 0.01 },
-    level5: { label: "Level 5", rate: 0.005 },
+    level4: { label: "Level 4", rate: 0.012 },
+    level5: { label: "Level 5", rate: 0.01 },
   };
 
   const currentLevel = commissionLevels[level];
@@ -155,7 +155,7 @@ export default function PlanExpireCommission() {
           <Link to="/dashboard" className="commission-back-link">
             <FaArrowLeft className="back-icon" />
           </Link>
-          <h1 className="commission-title">Daily Earning Commission</h1>
+          <h1 className="commission-title">Daily Rebate Commission</h1>
           {/* <FaCalendarTimes className="header-icon" /> */}
         </div>
       </div>
@@ -183,14 +183,14 @@ export default function PlanExpireCommission() {
               <p>{error}</p>
               <p className="info-sub">
                 This shows real data from your database. Commissions appear
-                daily when your team members receive daily plan profit.
+                when your team members receive daily plan profit.
               </p>
             </div>
           )}
 
           {/* Commission Summary */}
           <div className="commission-summary">
-            <h3>Total {currentLevel.label} Daily Commission</h3>
+            <h3>Total {currentLevel.label} Rebate Commission</h3>
             <div className="total-amount">{totalCommission.toFixed(2)} PKR</div>
             <p className="commission-rate">
               Commission Rate: {(currentLevel.rate * 100).toFixed(1)}%
@@ -205,12 +205,12 @@ export default function PlanExpireCommission() {
             <div className="no-commissions">
               {/* <div className="no-commissions-icon">💸</div> */}
               <p>
-                No daily commission records available for{" "}
+                No rebate commission records available for{" "}
                 {currentLevel.label}.
               </p>
               <p className="no-commissions-sub">
-                Commissions will appear here daily when your team members earn
-                daily plan profit.
+                Commissions will appear here when your team members earn daily
+                plan profit.
                 {commissionData?.transactions?.length > 0 && (
                   <span> You have commissions in other levels.</span>
                 )}

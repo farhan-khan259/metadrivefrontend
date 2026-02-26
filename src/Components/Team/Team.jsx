@@ -14,7 +14,7 @@
 //   useEffect(() => {
 //     const fetchTeamData = async () => {
 //       try {
-//         const res = await axios.post("https://be.metadrive01.xyz/team", { userId });
+//         const res = await axios.post("http://localhost:3005/team", { userId });
 //         setTeamData(res.data);
 //       } catch (err) {
 //         console.error("Error fetching team data:", err);
@@ -422,7 +422,7 @@ const Team = () => {
   useEffect(() => {
     const fetchTeamData = async () => {
       try {
-        const res = await axios.post("https://be.metadrive01.xyz/team", { userId });
+        const res = await axios.post("http://localhost:3005/team", { userId });
         setTeamData(res.data);
       } catch (err) {
         console.error("Error fetching team data:", err);
@@ -500,7 +500,7 @@ const Team = () => {
 };
 
 const TeamDataScreen = ({ teamData, userId, setTeamData }) => {
-  const [claimingReward, setClaimingReward] = useState(false);
+  const [claimingThreshold, setClaimingThreshold] = useState(null);
   const [rewardToast, setRewardToast] = useState(null);
 
   // Calculate totals
@@ -529,30 +529,40 @@ const TeamDataScreen = ({ teamData, userId, setTeamData }) => {
     teamData.commissionSummary.grandTotalCommission
   );
 
-  const rewardThreshold = 100000;
-  const rewardClaimed = Boolean(teamData?.user?.teamDepositRewardClaimed);
-  const progressDeposit = rewardClaimed
-    ? rewardThreshold
-    : Math.min(totalTeamDeposit, rewardThreshold);
-  const progressPercent = Math.round((progressDeposit / rewardThreshold) * 100);
-  const canClaimReward =
-    !rewardClaimed && !claimingReward && totalTeamDeposit >= rewardThreshold;
+  const rewardMilestones = [100000, 200000, 300000];
+  const claimedMilestones = teamData?.user?.teamDepositRewardMilestones || [];
 
-  const showToast = (message) => {
-    setRewardToast(message);
+  const getProgressPercent = (threshold) => {
+    const progressDeposit = Math.min(totalTeamDeposit, threshold);
+    return Math.round((progressDeposit / threshold) * 100);
+  };
+
+  const isRewardClaimed = (threshold) =>
+    claimedMilestones.includes(threshold) ||
+    (threshold === 100000 && Boolean(teamData?.user?.teamDepositRewardClaimed));
+
+  const canClaimReward = (threshold) =>
+    !isRewardClaimed(threshold) &&
+    claimingThreshold !== threshold &&
+    totalTeamDeposit >= threshold;
+
+  const showToast = (threshold, message) => {
+    setRewardToast({ threshold, message });
     window.setTimeout(() => setRewardToast(null), 2000);
   };
 
-  const handleClaimReward = async () => {
-    if (!userId || claimingReward) return;
+  const handleClaimReward = async (threshold) => {
+    if (!userId || claimingThreshold) return;
 
     try {
-      setClaimingReward(true);
-      const res = await axios.post("https://be.metadrive01.xyz/team/claim-reward", {
+      setClaimingThreshold(threshold);
+      const res = await axios.post("http://localhost:3005/team/claim-reward", {
         userId,
+        threshold,
       });
 
       const newBalance = res?.data?.newBalance;
+      const newClaimedMilestones = res?.data?.claimedMilestones || [];
       setTeamData((prev) => {
         if (!prev) return prev;
         return {
@@ -560,8 +570,15 @@ const TeamDataScreen = ({ teamData, userId, setTeamData }) => {
           user: {
             ...prev.user,
             userbalance: Number(newBalance ?? prev.user?.userbalance ?? 0),
-            teamDepositRewardClaimed: true,
-            teamDepositRewardClaimedAt: res?.data?.claimedAt || new Date(),
+            teamDepositRewardClaimed:
+              threshold === 100000
+                ? true
+                : prev.user?.teamDepositRewardClaimed || false,
+            teamDepositRewardClaimedAt:
+              threshold === 100000
+                ? res?.data?.claimedAt || new Date()
+                : prev.user?.teamDepositRewardClaimedAt || null,
+            teamDepositRewardMilestones: newClaimedMilestones,
           },
         };
       });
@@ -572,25 +589,32 @@ const TeamDataScreen = ({ teamData, userId, setTeamData }) => {
         localStorage.setItem("user", JSON.stringify(storedUser));
       }
 
-      showToast("✅ Reward added in total balance");
+      showToast(threshold, "✅ Reward added in total balance");
     } catch (err) {
       const message =
         err?.response?.data?.message || "Unable to claim reward right now";
       if (err?.response?.data?.claimed) {
+        const responseThreshold = Number(err?.response?.data?.threshold || threshold);
         setTeamData((prev) => {
           if (!prev) return prev;
+          const oldMilestones = prev.user?.teamDepositRewardMilestones || [];
+          const merged = [...new Set([...oldMilestones, responseThreshold])];
           return {
             ...prev,
             user: {
               ...prev.user,
-              teamDepositRewardClaimed: true,
+              teamDepositRewardClaimed:
+                responseThreshold === 100000
+                  ? true
+                  : prev.user?.teamDepositRewardClaimed || false,
+              teamDepositRewardMilestones: merged,
             },
           };
         });
       }
-      showToast(`❌ ${message}`);
+      showToast(threshold, `❌ ${message}`);
     } finally {
-      setClaimingReward(false);
+      setClaimingThreshold(null);
     }
   };
 
@@ -629,7 +653,7 @@ const TeamDataScreen = ({ teamData, userId, setTeamData }) => {
       {/* Level 1 */}
       <div className="level-section">
         <div className="level-header">
-          <h3>LEVEL 1: 6%</h3>
+          <h3>LEVEL 1: 6.5%</h3>
         </div>
         <div className="level-stats">
           <div className="stat-item">
@@ -667,7 +691,7 @@ const TeamDataScreen = ({ teamData, userId, setTeamData }) => {
       {/* Level 2 */}
       <div className="level-section">
         <div className="level-header">
-          <h3>LEVEL 2: 3.1%</h3>
+          <h3>LEVEL 2: 3.3%</h3>
         </div>
         <div className="level-stats">
           <div className="stat-item">
@@ -705,7 +729,7 @@ const TeamDataScreen = ({ teamData, userId, setTeamData }) => {
       {/* Level 3 */}
       <div className="level-section">
         <div className="level-header">
-          <h3>LEVEL 3: 1.5%</h3>
+          <h3>LEVEL 3: 2.5%</h3>
         </div>
         <div className="level-stats">
           <div className="stat-item">
@@ -743,7 +767,7 @@ const TeamDataScreen = ({ teamData, userId, setTeamData }) => {
       {/* Level 4 */}
       <div className="level-section">
         <div className="level-header">
-          <h3>LEVEL 4: 1%</h3>
+          <h3>LEVEL 4: 2%</h3>
         </div>
         <div className="level-stats">
           <div className="stat-item">
@@ -783,7 +807,7 @@ const TeamDataScreen = ({ teamData, userId, setTeamData }) => {
       {/* Level 5 */}
       <div className="level-section">
         <div className="level-header">
-          <h3>LEVEL 5: 0.5%</h3>
+          <h3>LEVEL 5: 1.5%</h3>
         </div>
         <div className="level-stats">
           <div className="stat-item">
@@ -820,10 +844,10 @@ const TeamDataScreen = ({ teamData, userId, setTeamData }) => {
         </div>
       </div>
 
-      {/* Plan Expire Commission Section */}
+      {/* Rebate Commission Section */}
       <div className="plan-expire-section">
         <div className="plan-expire-header">
-          <h3>Plan Expire Commission</h3>
+          <h3>Rebate Commission</h3>
         </div>
         <div className="plan-expire-levels">
           <div className="plan-level-item">
@@ -832,7 +856,7 @@ const TeamDataScreen = ({ teamData, userId, setTeamData }) => {
           </div>
           <div className="plan-level-item">
             <span className="plan-level-label">Level 2:</span>
-            <span className="plan-level-value">2.5%</span>
+            <span className="plan-level-value">2.2%</span>
           </div>
           <div className="plan-level-item">
             <span className="plan-level-label">Level 3:</span>
@@ -840,48 +864,63 @@ const TeamDataScreen = ({ teamData, userId, setTeamData }) => {
           </div>
           <div className="plan-level-item">
             <span className="plan-level-label">Level 4:</span>
-            <span className="plan-level-value">1%</span>
+            <span className="plan-level-value">1.2%</span>
           </div>
           <div className="plan-level-item">
             <span className="plan-level-label">Level 5:</span>
-            <span className="plan-level-value">0.5%</span>
+            <span className="plan-level-value">1%</span>
           </div>
         </div>
       </div>
-      {/* Commission Notice Box */}
-      <div className="commission-notice-box">
-        <div className="notice-header">
-          <h3>NOTICE</h3>
-        </div>
-        <div className="notice-content">
-          <p>You will get 3k extra reward on every 100k</p>
-          <p>team deposit (upto 5 levels)</p>
+      {/* Commission Notice Boxes */}
+      {rewardMilestones.map((threshold, index) => {
+        const progressPercent = getProgressPercent(threshold);
+        const rewardClaimed = isRewardClaimed(threshold);
+        const cardClass =
+          index === 0
+            ? "reward-tier-100"
+            : index === 1
+            ? "reward-tier-200"
+            : "reward-tier-300";
 
-          <div className="team-reward-progress">
-            <div className="team-reward-progress-bar" aria-hidden="true">
-              <div
-                className="team-reward-progress-fill"
-                style={{ width: `${Math.min(100, Math.max(0, progressPercent))}%` }}
-              />
+        return (
+          <div key={threshold} className={`commission-notice-box ${cardClass}`}>
+            <div className="notice-header">
+              <h3>NOTICE</h3>
             </div>
+            <div className="notice-content">
+              <p>You will get 3k extra reward on {threshold / 1000}k</p>
+              <p>team deposit (upto 5 levels)</p>
 
-            <button
-              type="button"
-              className="team-reward-claim-btn"
-              onClick={handleClaimReward}
-              disabled={!canClaimReward}
-            >
-              {rewardClaimed
-                ? "Reward Claimed"
-                : claimingReward
-                ? "Claiming..."
-                : "Claim Reward"}
-            </button>
+              <div className="team-reward-progress">
+                <div className="team-reward-progress-bar" aria-hidden="true">
+                  <div
+                    className="team-reward-progress-fill"
+                    style={{ width: `${Math.min(100, Math.max(0, progressPercent))}%` }}
+                  />
+                </div>
 
-            {rewardToast && <div className="team-reward-toast">{rewardToast}</div>}
+                <button
+                  type="button"
+                  className="team-reward-claim-btn"
+                  onClick={() => handleClaimReward(threshold)}
+                  disabled={!canClaimReward(threshold)}
+                >
+                  {rewardClaimed
+                    ? "Reward Claimed"
+                    : claimingThreshold === threshold
+                    ? "Claiming..."
+                    : "Claim Reward"}
+                </button>
+
+                {rewardToast?.threshold === threshold && (
+                  <div className="team-reward-toast">{rewardToast.message}</div>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        );
+      })}
     </div>
   );
 };
@@ -937,7 +976,7 @@ const TeamDetailsScreen = ({ teamData }) => {
               <div className="member-card" key={index}>
                 <div className="member-header">
                   <h4>Level: 1</h4>
-                  <span className="commission-rateteam">6%</span>
+                  <span className="commission-rateteam">6.5%</span>
                 </div>
                 <div className="member-info">
                   <div className="info-row">
@@ -982,7 +1021,7 @@ const TeamDetailsScreen = ({ teamData }) => {
               <div className="member-card" key={index}>
                 <div className="member-header">
                   <h4>Level: 2</h4>
-                  <span className="commission-rateteam">3.1%</span>
+                  <span className="commission-rateteam">3.3%</span>
                 </div>
                 <div className="member-info">
                   <div className="info-row">
@@ -1027,7 +1066,7 @@ const TeamDetailsScreen = ({ teamData }) => {
               <div className="member-card" key={index}>
                 <div className="member-header">
                   <h4>Level: 3</h4>
-                  <span className="commission-rateteam">1.5%</span>
+                  <span className="commission-rateteam">2.5%</span>
                 </div>
                 <div className="member-info">
                   <div className="info-row">
@@ -1072,7 +1111,7 @@ const TeamDetailsScreen = ({ teamData }) => {
               <div className="member-card" key={index}>
                 <div className="member-header">
                   <h4>Level: 4</h4>
-                  <span className="commission-rateteam">1%</span>
+                  <span className="commission-rateteam">2%</span>
                 </div>
                 <div className="member-info">
                   <div className="info-row">
@@ -1117,7 +1156,7 @@ const TeamDetailsScreen = ({ teamData }) => {
               <div className="member-card" key={index}>
                 <div className="member-header">
                   <h4>Level: 5</h4>
-                  <span className="commission-rateteam">0.5%</span>
+                  <span className="commission-rateteam">1.5%</span>
                 </div>
                 <div className="member-info">
                   <div className="info-row">

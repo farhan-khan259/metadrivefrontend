@@ -31,7 +31,7 @@ import Withdrawfunds from "./Components/Withdrawfunds/Withdrawfunds";
 import adminRoutes from "./admin/adminRoutes";
 import EarningsSummary from "./Components/EarningsSummary/EarningsSummary";
 import OurInfo from "./Components/OurInfo/OurInfo";
-import PlanExpireCommission from "./Components/PlanExpireCommission/PlanExpireCommission";
+import RebateCommission from "./Components/PlanExpireCommission/PlanExpireCommission";
 import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy";
 
 function AppRoutes() {
@@ -173,10 +173,19 @@ function AppRoutes() {
 
 
 			<Route
+				path="/rebatecommission"
+				element={
+					<ProtectedRoute>
+						<RebateCommission />
+					</ProtectedRoute>
+				}
+			/>
+
+			<Route
 				path="/planexpire"
 				element={
 					<ProtectedRoute>
-						<PlanExpireCommission />
+						<RebateCommission />
 					</ProtectedRoute>
 				}
 			/>

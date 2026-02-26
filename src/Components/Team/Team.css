@@ -854,6 +854,70 @@
     color: var(--dark);
 }
 
+.commission-notice-box.reward-tier-100 .notice-header {
+    background: var(--gradient-success);
+}
+
+.commission-notice-box.reward-tier-100 .team-reward-progress-fill {
+    background: var(--gradient-success);
+}
+
+.commission-notice-box.reward-tier-100 .team-reward-claim-btn {
+    background: var(--gradient-success);
+}
+
+.commission-notice-box.reward-tier-200 .notice-header {
+    background: linear-gradient(135deg, #6C63FF 0%, #8B7CFF 100%);
+}
+
+.commission-notice-box.reward-tier-200 .notice-content {
+    background: rgba(108, 99, 255, 0.05);
+}
+
+.commission-notice-box.reward-tier-200 .team-reward-progress-bar {
+    background: rgba(108, 99, 255, 0.12);
+    border: 1px solid rgba(108, 99, 255, 0.2);
+}
+
+.commission-notice-box.reward-tier-200 .team-reward-progress-fill {
+    background: linear-gradient(135deg, #6C63FF 0%, #8B7CFF 100%);
+}
+
+.commission-notice-box.reward-tier-200 .team-reward-claim-btn {
+    background: linear-gradient(135deg, #6C63FF 0%, #8B7CFF 100%);
+    box-shadow: 0 10px 30px rgba(108, 99, 255, 0.25);
+}
+
+.commission-notice-box.reward-tier-200 .team-reward-claim-btn:hover:not(:disabled) {
+    box-shadow: 0 16px 40px rgba(108, 99, 255, 0.35);
+}
+
+.commission-notice-box.reward-tier-300 .notice-header {
+    background: linear-gradient(135deg, #FF8A00 0%, #FF5E62 100%);
+}
+
+.commission-notice-box.reward-tier-300 .notice-content {
+    background: rgba(255, 138, 0, 0.06);
+}
+
+.commission-notice-box.reward-tier-300 .team-reward-progress-bar {
+    background: rgba(255, 138, 0, 0.15);
+    border: 1px solid rgba(255, 138, 0, 0.24);
+}
+
+.commission-notice-box.reward-tier-300 .team-reward-progress-fill {
+    background: linear-gradient(135deg, #FF8A00 0%, #FF5E62 100%);
+}
+
+.commission-notice-box.reward-tier-300 .team-reward-claim-btn {
+    background: linear-gradient(135deg, #FF8A00 0%, #FF5E62 100%);
+    box-shadow: 0 10px 30px rgba(255, 94, 98, 0.28);
+}
+
+.commission-notice-box.reward-tier-300 .team-reward-claim-btn:hover:not(:disabled) {
+    box-shadow: 0 16px 40px rgba(255, 94, 98, 0.4);
+}
+
 /* Loading State */
 .loading-state {
     text-align: center;

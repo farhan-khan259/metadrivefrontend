@@ -678,6 +678,66 @@
 	background: linear-gradient(135deg, #1DB954 0%, #00D4AA 100%);
 }
 
+.profile-level-grid7p {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+	gap: 16px;
+	width: 100%;
+}
+
+.profile-level-card7p {
+	border: 1px solid rgba(0, 212, 170, 0.16);
+	border-radius: var(--border-radius-sm);
+	padding: 16px;
+	background: linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(237, 242, 247, 0.88) 100%);
+	box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+}
+
+.profile-level-title7p {
+	font-weight: 800;
+	font-size: 15px;
+	margin-bottom: 10px;
+	background: var(--gradient-primary);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+.profile-level-meta7p {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	font-size: 13px;
+	color: var(--darker);
+	margin-bottom: 10px;
+}
+
+.profile-member-list7p {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.profile-member-item7p {
+	border: 1px solid rgba(0, 212, 170, 0.12);
+	border-radius: 10px;
+	padding: 10px;
+	background: rgba(255, 255, 255, 0.9);
+	font-size: 12px;
+	line-height: 1.5;
+	color: var(--dark);
+}
+
+.profile-member-empty7p {
+	font-size: 12px;
+	font-weight: 600;
+	color: var(--gray);
+	padding: 10px;
+	border: 1px dashed rgba(0, 0, 0, 0.12);
+	border-radius: 10px;
+	text-align: center;
+}
+
 /* Ensure the grid layout works for 6 items */
 .user-info-grid7p {
 	display: grid;

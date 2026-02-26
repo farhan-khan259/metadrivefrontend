@@ -93,8 +93,8 @@ export default function OurInfo() {
                 <strong className="metadrive-highlight">
                   Team Building Rewards
                 </strong>
-                : Build your network and earn commissions from Level 1 (6%),
-                Level 2 (3.1%), Level 3 (1.5%), Level 4 (1%), and Level 5 (0.5%)
+                : Build your network and earn commissions from Level 1 (6.5%),
+                Level 2 (3.3%), Level 3 (2.5%), Level 4 (2%), and Level 5 (1.5%)
                 team members.
               </li>
               <li>
@@ -112,29 +112,29 @@ export default function OurInfo() {
             <ul className="bullet-list">
               <li>
                 <strong className="metadrive-highlight">Level 1 Team</strong>:
-                Earn 6% commission from your direct referrals
+                Earn 6.5% commission from your direct referrals
               </li>
               <li>
                 <strong className="metadrive-highlight">Level 2 Team</strong>:
-                Earn 3.1% commission from your indirect team members
+                Earn 3.3% commission from your indirect team members
               </li>
               <li>
                 <strong className="metadrive-highlight">Level 3 Team</strong>:
-                Earn 1.5% commission from your extended network
+                Earn 2.5% commission from your extended network
               </li>
               <li>
                 <strong className="metadrive-highlight">Level 4 Team</strong>:
-                Earn 1% commission from your level 4 network
+                Earn 2% commission from your level 4 network
               </li>
               <li>
                 <strong className="metadrive-highlight">Level 5 Team</strong>:
-                Earn 0.5% commission from your level 5 network
+                Earn 1.5% commission from your level 5 network
               </li>
               <li>
                 <strong className="metadrive-highlight">
                   Bonus Incentives
                 </strong>
-                : Additional 3% extra commission on every 200k team deposit
+                : Additional 3% extra commission on every 100k,200k and 300k team deposit
                 across all five levels
               </li>
             </ul>

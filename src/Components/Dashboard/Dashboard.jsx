@@ -17,6 +17,8 @@ import placeholderPlanImg5 from "../../Assets/Pictures/plan5.jpeg";
 import placeholderPlanImg6 from "../../Assets/Pictures/plan6.jpeg";
 import placeholderPlanImg7 from "../../Assets/Pictures/plan7.jpeg";
 import placeholderPlanImg8 from "../../Assets/Pictures/plan8.jpeg";
+import metaAiImg from "../../Assets/Pictures/metaai.jpg";
+import metaBusinessImg from "../../Assets/Pictures/metabuisness.jpeg";
 import Settings from "../Settings/Settings";
 import "./Dashboard.css";
 
@@ -49,7 +51,7 @@ export default function Dashboard() {
     if (!userId) return;
     setLoadingTeam(true);
     try {
-      const res = await axios.post("https://be.metadrive01.xyz/team", { userId });
+      const res = await axios.post("http://localhost:3005/team", { userId });
       setTeamData(res.data || {});
     } catch (err) {
       console.error("Error fetching team data:", err);
@@ -63,7 +65,7 @@ export default function Dashboard() {
     if (!userId) return;
     try {
       const res = await axios.get(
-        `https://be.metadrive01.xyz/api/plans/user/active/${userId}`
+        `http://localhost:3005/api/plans/user/active/${userId}`
       );
       if (res.data.success) {
         setUserPlans(res.data.plans || []);
@@ -195,7 +197,7 @@ export default function Dashboard() {
     const fetchCounts = async () => {
       try {
         const res = await axios.get(
-          "https://be.metadrive01.xyz/api/plans/countSubscribePlanName"
+          "http://localhost:3005/api/plans/countSubscribePlanName"
         );
         setSubscribersCounts(res.data.plans || []);
       } catch (err) {
@@ -213,115 +215,109 @@ export default function Dashboard() {
 
   // Plans to show on dashboard
   const dashboardPlans = useMemo(() => {
-    const placeholderImages = [
-      placeholderPlanImg1,
-      placeholderPlanImg2,
-      placeholderPlanImg3,
-      placeholderPlanImg4,
-      placeholderPlanImg5,
-      placeholderPlanImg6,
-      placeholderPlanImg7,
-      placeholderPlanImg8,
-    ];
-
-    if (Array.isArray(teamData?.plans) && teamData.plans.length >= 2) {
-      return teamData.plans.slice(0, 2).map((p, i) => {
-        const title = p.title || p.PlanName || p.name || `Plan ${i + 1}`;
-        const days = p.durationDays || p.days || p.validity || p.duration || 3;
-        const min =
-          p.minAmount || p.min || p.minimum || p.rangeMin || p.amount || 1000;
-        const max = p.maxAmount || p.max || p.maximum || p.rangeMax || min * 2;
-        const percent = p.profitPerDay || p.dailyPercent || p.total || 4;
-        const img =
-          p.image || p.img || placeholderImages[i % placeholderImages.length];
-        const invested = p.investedPeople || p.subscribers || 0;
-        return { raw: p, title, days, min, max, percent, img, invested };
-      });
-    }
-
     return [
       {
-        title: "Meta Drive🚘",
-        days: 7,
+        title: "Meta Drive",
+        days: 180,
         min: 1000,
-        max: 30000,
-        percent: 5,
+        max: 1000,
+        percent: 5.5,
         img: placeholderPlanImg1,
         invested: investedCounts[0] || 25,
         locked: false,
       },
       {
-        title: "Meta Messenger/Community",
-        days: 12,
-        min: 1000,
-        max: 40000,
-        percent: 5.3,
+        title: "Meta Messenger Community",
+        days: 180,
+        min: 3000,
+        max: 3000,
+        percent: 5.7,
         img: placeholderPlanImg2,
         invested: investedCounts[1] || 25,
         locked: false,
       },
       {
-        title: "Meta WhatsApp/Team",
-        days: 15,
-        min: 3000,
-        max: 60000,
-        percent: 5.7,
+        title: "Meta WhatsApp Team",
+        days: 180,
+        min: 5000,
+        max: 5000,
+        percent: 6,
         img: placeholderPlanImg3,
         invested: investedCounts[2] || 25,
-        locked: true,
+        locked: false,
       },
       {
-        title: "Meta Instagram/Social studies",
-        days: 22,
-        min:  3000,
-        max: 70000,
-        percent: 6,
+        title: "Meta Instagram / Social Studies",
+        days: 180,
+        min: 10000,
+        max: 10000,
+        percent: 6.3,
         img: placeholderPlanImg4,
         invested: investedCounts[3] || 25,
         locked: false,
       },
       {
-        title: "Meta Facebook/Social media",
-        days: 30,
-        min: 5000,
-        max: 80000,
-        percent: 6.3,
+        title: "Meta Facebook / Social Media",
+        days: 180,
+        min: 20000,
+        max: 20000,
+        percent: 6.5,
         img: placeholderPlanImg5,
         invested: investedCounts[4] || 25,
-        locked: true,
+        locked: false,
       },
       {
-        title: "Meta Oculus/Products",
-        days: 42,
-        min: 5000,
-        max: 100000,
-        percent: 6.5,
+        title: "Meta Oculus / Products",
+        days: 180,
+        min: 30000,
+        max: 30000,
+        percent: 6.7,
         img: placeholderPlanImg6,
         invested: investedCounts[5] || 10,
         locked: false,
       },
       {
-        title: "Meta Workplace/Team's",
-        days: 60,
-        min: 5000,
-        max: 130000,
-        percent: 6.8,
+        title: "Meta Workplace / Teams",
+        days: 180,
+        min: 40000,
+        max: 40000,
+        percent: 7,
         img: placeholderPlanImg7,
         invested: investedCounts[6] || 10,
-        locked: true,
+        locked: false,
       },
       {
-        title: "Meta Portal/LCD",
-        days: 90,
-        min: 10000,
-        max: 150000,
-        percent: 7,
+        title: "Meta Portal / LCD",
+        days: 180,
+        min: 50000,
+        max: 50000,
+        percent: 7.5,
         img: placeholderPlanImg8,
         invested: investedCounts[7] || 10,
         locked: false,
       },
+      {
+        title: "Meta AI / Artificial Intelligence",
+        days: 180,
+        min: 80000,
+        max: 80000,
+        percent: 8,
+        img: metaAiImg,
+        invested: investedCounts[8] || 10,
+        locked: false,
+      },
+      {
+        title: "Meta Business",
+        days: 180,
+        min: 100000,
+        max: 100000,
+        percent: 9,
+        img: metaBusinessImg,
+        invested: investedCounts[9] || 10,
+        locked: false,
+      },
     ];
-  }, [teamData, investedCounts]);
+  }, [investedCounts]);
 
   // INVEST MODAL state
   const [modalOpen, setModalOpen] = useState(false);
@@ -352,10 +348,8 @@ export default function Dashboard() {
       setModalError("Enter a valid amount");
       return;
     }
-    if (amt < activePlan.min || amt > activePlan.max) {
-      setModalError(
-        `Amount must be between ${activePlan.min} and ${activePlan.max} PKR`
-      );
+    if (amt !== activePlan.min) {
+      setModalError(`Amount must be exactly ${activePlan.min} PKR`);
       return;
     }
     const userBalance = teamData?.user?.userbalance || 0;
@@ -370,11 +364,10 @@ export default function Dashboard() {
 
     setSubmitting(true);
     try {
-      // `percent` is TOTAL profit percentage for the whole plan duration.
-      // Daily profit is split across the plan days.
-      const totalProfit = Math.round(amt * (activePlan.percent / 100));
-      const baseDaily = Math.floor(totalProfit / activePlan.days);
-      const lastDay = totalProfit - baseDaily * (activePlan.days - 1);
+      // `percent` is DAILY profit percentage for the plan.
+      const baseDaily = Math.round(amt * (activePlan.percent / 100));
+      const totalProfit = baseDaily * activePlan.days;
+      const lastDay = baseDaily;
 
       const payload = {
         user_id: userId,
@@ -390,7 +383,7 @@ export default function Dashboard() {
 
       console.log("Creating plan with payload:", payload);
 
-      const res = await axios.post("https://be.metadrive01.xyz/api/plans", payload);
+      const res = await axios.post("http://localhost:3005/api/plans", payload);
       if (res.data?.success) {
         // Update balance immediately
         setTeamData((prev) => ({
@@ -435,7 +428,7 @@ export default function Dashboard() {
   };
 
   const whatsappGroupLink =
-    "https://chat.whatsapp.com/CfSWPF8X6yL4XiHSQyxxwg?mode=wwt";
+    "https://chat.whatsapp.com/LCW0V5VeVAr9NFIx1asQis?mode=gi_t";
 
   const formatLastUpdate = () => {
     if (!lastUpdate) return "Today";
@@ -557,11 +550,7 @@ export default function Dashboard() {
             <div className="sx-plan-body">
               <div className="sx-plan-title">{p.title}</div>
               <div className="sx-plan-range">
-                <span className="sx-range-min">{p.min.toLocaleString()}</span>
-                <span className="sx-dash"> - </span>
-                <span className="sx-range-max">
-                  {p.max.toLocaleString()} PKR
-                </span>
+                <span className="sx-range-min">{p.min.toLocaleString()} PKR</span>
               </div>
               <div className="sx-invested-people">
                 <div className="sx-invested-header">
@@ -618,8 +607,7 @@ export default function Dashboard() {
             <div className="sx-modal-body">
               <img src={activePlan.img} alt="" className="sx-modal-img" />
               <p className="sx-modal-range">
-                Range: {activePlan.min.toLocaleString()} -{" "}
-                {activePlan.max.toLocaleString()} PKR
+                 Price : {activePlan.min.toLocaleString()} PKR
               </p>
               <div className="sx-popularity-info">
                 <div className="sx-popularity-badge">
@@ -637,15 +625,7 @@ export default function Dashboard() {
                   ? (totalBalance || 0).toLocaleString() + " PKR"
                   : "••••••"}
               </div>
-              <label className="sx-label">Enter Amount</label>
-              <input
-                className="sx-input"
-                type="number"
-                min={activePlan.min}
-                max={activePlan.max}
-                value={investAmount}
-                onChange={(e) => setInvestAmount(e.target.value)}
-              />
+
               <div className="sx-calc">
                 <div>
                   <small>Daily Profit ({activePlan.percent}%)</small>
