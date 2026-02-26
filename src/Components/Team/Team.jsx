@@ -14,7 +14,7 @@
 //   useEffect(() => {
 //     const fetchTeamData = async () => {
 //       try {
-//         const res = await axios.post("http://localhost:3005/team", { userId });
+//         const res = await axios.post("https://be.metadrive01.xyz/team", { userId });
 //         setTeamData(res.data);
 //       } catch (err) {
 //         console.error("Error fetching team data:", err);
@@ -422,7 +422,7 @@ const Team = () => {
   useEffect(() => {
     const fetchTeamData = async () => {
       try {
-        const res = await axios.post("http://localhost:3005/team", { userId });
+        const res = await axios.post("https://be.metadrive01.xyz/team", { userId });
         setTeamData(res.data);
       } catch (err) {
         console.error("Error fetching team data:", err);
@@ -556,7 +556,7 @@ const TeamDataScreen = ({ teamData, userId, setTeamData }) => {
 
     try {
       setClaimingThreshold(threshold);
-      const res = await axios.post("http://localhost:3005/team/claim-reward", {
+      const res = await axios.post("https://be.metadrive01.xyz/team/claim-reward", {
         userId,
         threshold,
       });

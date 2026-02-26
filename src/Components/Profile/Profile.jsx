@@ -38,7 +38,7 @@ export default function Profile() {
 
     try {
       const response = await axios.post(
-        "http://localhost:3005/api/getUserByReferral",
+        "https://be.metadrive01.xyz/api/getUserByReferral",
         {
           referralCode: referralCode,
         }
@@ -65,7 +65,7 @@ export default function Profile() {
 
       try {
         // Fetch team data - using the same endpoint as Team component
-        const response = await axios.post("http://localhost:3005/team", {
+        const response = await axios.post("https://be.metadrive01.xyz/team", {
           userId: userId,
         });
 
@@ -172,7 +172,7 @@ export default function Profile() {
   const toggleEdit = async () => {
     if (isEditing) {
       try {
-        const response = await axios.post("http://localhost:3005/api/account", {
+        const response = await axios.post("https://be.metadrive01.xyz/api/account", {
           userId,
           fullName: formData.Name,
           email: formData.email,
@@ -204,7 +204,7 @@ export default function Profile() {
 
       try {
         const response = await axios.post(
-          "http://localhost:3005/api/changePassword",
+          "https://be.metadrive01.xyz/api/changePassword",
           {
             userId,
             oldpassword: passwordData.oldPassword,

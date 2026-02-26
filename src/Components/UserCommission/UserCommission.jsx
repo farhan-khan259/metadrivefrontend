@@ -17,7 +17,7 @@ export default function UserCommission() {
   useEffect(() => {
     const fetchTeamData = async () => {
       try {
-        const res = await axios.post("http://localhost:3005/team", {
+        const res = await axios.post("https://be.metadrive01.xyz/team", {
           userId: userId,
         });
         setTeamData(res.data);

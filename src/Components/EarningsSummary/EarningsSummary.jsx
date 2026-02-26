@@ -77,11 +77,11 @@ export default function EarningsSummary() {
     const fetchSummaryData = async () => {
       try {
         const [teamRes, rebateRes] = await Promise.allSettled([
-          axios.post("http://localhost:3005/team", {
+          axios.post("https://be.metadrive01.xyz/team", {
             userId: userId,
           }),
           axios.get(
-            `http://localhost:3005/api/commissions/rebate-summary/${userId}`
+            `https://be.metadrive01.xyz/api/commissions/rebate-summary/${userId}`
           ),
         ]);
 

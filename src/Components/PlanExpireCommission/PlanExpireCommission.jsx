@@ -31,7 +31,7 @@ export default function RebateCommission() {
 
         // ✅ Rebate endpoint with backend legacy compatibility
         const response = await axios.get(
-          `http://localhost:3005/api/commissions/rebate-summary/${userId}`
+          `https://be.metadrive01.xyz/api/commissions/rebate-summary/${userId}`
         );
         console.log("📦 REAL API Response:", response.data);
 

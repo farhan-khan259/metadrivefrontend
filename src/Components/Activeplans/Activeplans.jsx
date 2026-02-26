@@ -26,8 +26,8 @@ export default function Activeplans() {
 
       try {
         const [plansRes, historyRes] = await Promise.all([
-          axios.get(`http://localhost:3005/api/plans/user/inprogress/${id}`),
-          axios.get(`http://localhost:3005/api/plans/user/daily-earning-history/${id}`),
+          axios.get(`https://be.metadrive01.xyz/api/plans/user/inprogress/${id}`),
+          axios.get(`https://be.metadrive01.xyz/api/plans/user/daily-earning-history/${id}`),
         ]);
 
         if (plansRes.data.success) {

@@ -80,7 +80,7 @@ export default function Deposit() {
       formData.append("payment_method", "Easypaisa");
       formData.append("screenshot", imageFile);
 
-      const response = await fetch("http://localhost:3005/api/deposit", {
+      const response = await fetch("https://be.metadrive01.xyz/api/deposit", {
         method: "POST",
         body: formData,
       });
