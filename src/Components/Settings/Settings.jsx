@@ -32,7 +32,7 @@ export default function Settings({ isOpen, onClose }) {
 
     const fetchTeamData = async () => {
       try {
-        const res = await axios.post("http://localhost:3005/team", { userId });
+        const res = await axios.post("https://be.metadrive01.xyz/team", { userId });
         setTeamData(res.data);
       } catch (err) {
         console.error("Error fetching team data:", err);
