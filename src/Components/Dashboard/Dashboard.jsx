@@ -264,7 +264,7 @@ export default function Dashboard() {
         percent: 6.5,
         img: placeholderPlanImg5,
         invested: investedCounts[4] || 25,
-        locked: false,
+        locked: true,
       },
       {
         title: "Meta Oculus / Products",
@@ -274,7 +274,7 @@ export default function Dashboard() {
         percent: 6.7,
         img: placeholderPlanImg6,
         invested: investedCounts[5] || 10,
-        locked: false,
+        locked: true,
       },
       {
         title: "Meta Workplace / Teams",
@@ -284,7 +284,7 @@ export default function Dashboard() {
         percent: 7,
         img: placeholderPlanImg7,
         invested: investedCounts[6] || 10,
-        locked: false,
+        locked: true,
       },
       {
         title: "Meta Portal / LCD",
@@ -294,7 +294,7 @@ export default function Dashboard() {
         percent: 7.5,
         img: placeholderPlanImg8,
         invested: investedCounts[7] || 10,
-        locked: false,
+        locked: true,
       },
       {
         title: "Meta AI / Artificial Intelligence",
@@ -304,7 +304,7 @@ export default function Dashboard() {
         percent: 8,
         img: metaAiImg,
         invested: investedCounts[8] || 10,
-        locked: false,
+        locked: true,
       },
       {
         title: "Meta Business",
@@ -314,7 +314,7 @@ export default function Dashboard() {
         percent: 9,
         img: metaBusinessImg,
         invested: investedCounts[9] || 10,
-        locked: false,
+        locked: true,
       },
     ];
   }, [investedCounts]);
