@@ -7,7 +7,7 @@ import {
   RiGroupLine,
   RiMoneyDollarCircleLine,
 } from "react-icons/ri";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logoimagemetadrive from "../../Assets/Pictures/metadrivelogo.jpeg";
 import placeholderPlanImg1 from "../../Assets/Pictures/plan1.jpeg";
 import placeholderPlanImg2 from "../../Assets/Pictures/plan2.jpeg";
@@ -20,11 +20,23 @@ import placeholderPlanImg8 from "../../Assets/Pictures/plan8.jpeg";
 import metaAiImg from "../../Assets/Pictures/metaai.jpg";
 import metaBusinessImg from "../../Assets/Pictures/metabuisness.jpeg";
 import Settings from "../Settings/Settings";
+import WelcomePopup from "../WelcomePopup/WelcomePopup";
 import "./Dashboard.css";
 
 export default function Dashboard() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [showSettings, setShowSettings] = useState(false);
+  const [welcomeDismissed, setWelcomeDismissed] = useState(false);
+
+  const shouldShowWelcomePopup =
+    new URLSearchParams(location.search).get("welcome") === "1" &&
+    !welcomeDismissed;
+
+  const handleCloseWelcomePopup = () => {
+    setWelcomeDismissed(true);
+    navigate("/dashboard", { replace: true });
+  };
 
   // User from localStorage
   const user = useMemo(() => {
@@ -51,7 +63,7 @@ export default function Dashboard() {
     if (!userId) return;
     setLoadingTeam(true);
     try {
-      const res = await axios.post("https://be.metadrive01.xyz/team", { userId });
+      const res = await axios.post("http://localhost:3005/team", { userId });
       setTeamData(res.data || {});
     } catch (err) {
       console.error("Error fetching team data:", err);
@@ -65,7 +77,7 @@ export default function Dashboard() {
     if (!userId) return;
     try {
       const res = await axios.get(
-        `https://be.metadrive01.xyz/api/plans/user/active/${userId}`
+        `http://localhost:3005/api/plans/user/active/${userId}`
       );
       if (res.data.success) {
         setUserPlans(res.data.plans || []);
@@ -197,7 +209,7 @@ export default function Dashboard() {
     const fetchCounts = async () => {
       try {
         const res = await axios.get(
-          "https://be.metadrive01.xyz/api/plans/countSubscribePlanName"
+          "http://localhost:3005/api/plans/countSubscribePlanName"
         );
         setSubscribersCounts(res.data.plans || []);
       } catch (err) {
@@ -383,7 +395,7 @@ export default function Dashboard() {
 
       console.log("Creating plan with payload:", payload);
 
-      const res = await axios.post("https://be.metadrive01.xyz/api/plans", payload);
+      const res = await axios.post("http://localhost:3005/api/plans", payload);
       if (res.data?.success) {
         // Update balance immediately
         setTeamData((prev) => ({
@@ -446,6 +458,12 @@ export default function Dashboard() {
 
   return (
     <div className="sx-dashboard-root">
+      <WelcomePopup
+        userName={user?.fullName || user?.name || "Nisbat X"}
+        isOpen={shouldShowWelcomePopup}
+        onClose={handleCloseWelcomePopup}
+      />
+
       {/* TOP: Welcome header */}
 
       <div className="sx-header">

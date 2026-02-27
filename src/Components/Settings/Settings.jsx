@@ -32,7 +32,7 @@ export default function Settings({ isOpen, onClose }) {
 
     const fetchTeamData = async () => {
       try {
-        const res = await axios.post("https://be.metadrive01.xyz/team", { userId });
+        const res = await axios.post("http://localhost:3005/team", { userId });
         setTeamData(res.data);
       } catch (err) {
         console.error("Error fetching team data:", err);
@@ -46,6 +46,9 @@ export default function Settings({ isOpen, onClose }) {
 
   const handleLogoutUser = () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    localStorage.removeItem("userPlan");
     navigate("/");
   };
 
