@@ -486,7 +486,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Total Balance Card */}
+    {/* Total Balance Card */}
       <div className="sx-balance-card">
         <div className="sx-balance-header">
           <div className="sx-balance-title">Available Balance</div>
@@ -500,13 +500,19 @@ export default function Dashboard() {
         </div>
         <div className="sx-balance-value">
           {showBalance
-            ? (totalBalance || 0).toLocaleString() + " PKR"
+            ? Number(totalBalance || 0).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              }) + " PKR"
             : "••••••"}
         </div>
         <div className="sx-net-worth">
           Net Worth:{" "}
           {showBalance
-            ? (totalNetWorth || 0).toLocaleString() + " PKR"
+            ? Number(totalNetWorth || 0).toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              }) + " PKR"
             : "••••••"}
         </div>
       </div>

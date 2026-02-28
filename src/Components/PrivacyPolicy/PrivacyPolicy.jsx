@@ -19,7 +19,7 @@ export default function PrivacyPolicy() {
       <div className="privacy-content">
         <div className="privacy-card">
           <p className="launch-date">
-            <strong>Launching Date:</strong> 1/3/2026
+            <strong>Launching Date:</strong> 28 February 2026
           </p>
 
           <p className="privacy-intro">

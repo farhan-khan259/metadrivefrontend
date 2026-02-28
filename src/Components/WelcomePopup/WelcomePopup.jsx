@@ -11,11 +11,16 @@ export default function WelcomePopup({ userName = "User", isOpen, onClose }) {
           ✕
         </button>
 
-        <div className="welcome-launch-pill">🚀 Launched 28/2/2026</div>
+        <div className="welcome-launch-pill">🚀 META DRIVE – Official Launch
+</div>
 
-        <h2 className="welcome-title">Welcome {userName}!</h2>
+        <h2 className="welcome-title">Launched: 28/2/2026
+</h2>
 
         <div className="welcome-stats">
+          <p className="welcomeline">🎉 Welcome to Meta Drive!
+Start your earning journey today with simple and secure investment plans.
+</p>
           <div className="welcome-stat-row">
             <span>Minimum Deposit</span>
             <strong>PKR 1000</strong>
@@ -27,9 +32,19 @@ export default function WelcomePopup({ userName = "User", isOpen, onClose }) {
         </div>
 
         <ul className="welcome-features">
-          <li>✓ No team required for withdrawal</li>
-          <li>✓ Invest &amp; withdraw easily</li>
-          <li>✓ Have team? Enjoy commission up to 5 levels</li>
+          <li>👥 No Team Required for Withdrawal
+</li>
+          <li>🔄 Easy Invest & Easy Withdraw System
+</li>
+          <li>🤝 Have a Team?
+Enjoy commission up to 5 Levels and boost your income!
+</li>
+<li>
+📲 Join Our WhatsApp Channel
+Stay updated with latest news, offers & announcements.
+</li>
+<li>💡 Power Your Future with Meta Drive
+Start Today – Earn Daily!</li>
         </ul>
 
         <a
