@@ -440,7 +440,7 @@ export default function Dashboard() {
   };
 
   const whatsappGroupLink =
-    "https://chat.whatsapp.com/LCW0V5VeVAr9NFIx1asQis?mode=gi_t";
+    "https://chat.whatsapp.com/FvRiiZs7DyhIDIDHxTdRNj?mode=gi_t";
 
   const formatLastUpdate = () => {
     if (!lastUpdate) return "Today";
