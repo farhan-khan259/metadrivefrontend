@@ -29,9 +29,9 @@ export default function Deposit() {
   }, []);
 
   const bankDetails = {
-    bankName: "Meezan Bank",
-    accountHolder: "Muhammad Farhan",
-    accountNo: "00300112230485",
+    bankName: "Easypaisa",
+    accountHolder: "Zahid Mehmood",
+    accountNo: "03390490934",
   };
 
   const handleImageUpload = (e) => {
