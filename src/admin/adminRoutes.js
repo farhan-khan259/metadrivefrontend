@@ -7,6 +7,7 @@ import CompletedDeposits from "./pages/Deposits/CompletedDeposits";
 import PendingDeposits from "./pages/Deposits/PendingDeposits";
 import AddPlan from "./pages/Plans/AddPlan";
 import PlansList from "./pages/Plans/PlansList";
+import AdminPromoCodes from "./pages/Promocode/AdminPromoCodes";
 
 import DailyReport from "./pages/Reports/DailyReport";
 import MonthlyReport from "./pages/Reports/MonthlyReport";
@@ -36,6 +37,7 @@ const adminRoutes = {
     WithdrawalHistory,
     DailyReport,
     MonthlyReport,
+    AdminPromoCodes,
     Pages,
     Announcements,
 

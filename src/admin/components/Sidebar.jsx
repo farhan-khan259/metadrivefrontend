@@ -9,6 +9,7 @@ import {
   FaMoneyCheckAlt,
   FaRocket,
   FaTachometerAlt,
+  FaTags,
   FaTimes,
   FaUsers,
   FaWallet,
@@ -81,6 +82,15 @@ const Sidebar = () => {
             >
               <FaExchangeAlt className="admin-menu-icon" />
               <span className="admin-menu-text">Transactions</span>
+            </NavLink>
+
+            <NavLink
+              to="/admin/promocode"
+              onClick={() => setOpen(false)}
+              className="admin-menu-item"
+            >
+              <FaTags className="admin-menu-icon" />
+              <span className="admin-menu-text">Promo Code</span>
             </NavLink>
 
             {/* Analytics Dropdown */}

@@ -9,6 +9,7 @@ import {
   FaMoneyBillAlt,
   FaMoneyCheckAlt,
   FaSignOutAlt,
+  FaTags,
   FaTimes,
   FaUser,
 } from "react-icons/fa";
@@ -78,6 +79,9 @@ export default function Settings({ isOpen, onClose }) {
           </Link>
           <Link to="/usercommission" onClick={onClose}>
             <MenuItem icon={<FaHandHoldingUsd />} label="Commission History" />
+          </Link>
+          <Link to="/promocode" onClick={onClose}>
+            <MenuItem icon={<FaTags />} label="Promo Code" />
           </Link>
           <Link to="/rebatecommission" onClick={onClose}>
             <MenuItem

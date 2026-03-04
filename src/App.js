@@ -33,6 +33,7 @@ import EarningsSummary from "./Components/EarningsSummary/EarningsSummary";
 import OurInfo from "./Components/OurInfo/OurInfo";
 import RebateCommission from "./Components/PlanExpireCommission/PlanExpireCommission";
 import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy";
+import Promocodepage from "./Components/Promocodepage/Promocodepage";
 
 function AppRoutes() {
 	const location = useLocation();
@@ -216,6 +217,15 @@ function AppRoutes() {
 				}
 			/>
 
+			<Route
+				path="/promocode"
+				element={
+					<ProtectedRoute>
+						<Promocodepage />
+					</ProtectedRoute>
+				}
+			/>
+
 
 			{/* -------- ADMIN PROTECTED ROUTES -------- */}
 			<Route
@@ -348,6 +358,14 @@ function AppRoutes() {
 				element={
 					<ProtectedRoute role="admin">
 						<adminRoutes.MonthlyReport />
+					</ProtectedRoute>
+				}
+			/>
+			<Route
+				path="/admin/promocode"
+				element={
+					<ProtectedRoute role="admin">
+						<adminRoutes.AdminPromoCodes />
 					</ProtectedRoute>
 				}
 			/>
