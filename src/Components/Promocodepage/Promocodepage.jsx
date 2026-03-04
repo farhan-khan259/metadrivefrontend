@@ -113,7 +113,7 @@ const Promocodepage = () => {
               Join our official WhatsApp channel for special Promo code!
             </p>
             <button className="join-btn">
-              <Link to="https://chat.whatsapp.com/E3V0WcJKMru954hzfPIGMy?mode=wwt">
+              <Link to="https://chat.whatsapp.com/FvRiiZs7DyhIDIDHxTdRNj?mode=gi_t">
                 <FaLink /> Join Channel
               </Link>
             </button>
