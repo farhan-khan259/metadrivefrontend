@@ -143,8 +143,6 @@ const Promocodepage = () => {
                       <th>#</th>
                       <th>Code</th>
                       <th>Credited</th>
-                      <th>Total</th>
-                      <th>Limit</th>
                       <th>Date</th>
                     </tr>
                   </thead>
@@ -154,8 +152,6 @@ const Promocodepage = () => {
                         <td data-label="#">{index + 1}</td>
                         <td data-label="Code">{item.code}</td>
                         <td data-label="Credited">Rs{item.creditedAmount}</td>
-                        <td data-label="Total">Rs{item.totalAmount}</td>
-                        <td data-label="Limit">{item.limit}</td>
                         <td data-label="Date">
                           {new Date(item.createdAt).toLocaleString()}
                         </td>
