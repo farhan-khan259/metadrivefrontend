@@ -1,4 +1,6 @@
 import { FaWhatsapp } from "react-icons/fa";
+import { FaCheckCircle, FaMoneyBillWave, FaUsers, FaRocket } from "react-icons/fa";
+import { MdOutlineWallet } from "react-icons/md";
 import "./WelcomePopup.css";
 
 export default function WelcomePopup({ userName = "User", isOpen, onClose }) {
@@ -18,9 +20,7 @@ export default function WelcomePopup({ userName = "User", isOpen, onClose }) {
 </h2>
 
         <div className="welcome-stats">
-          <p className="welcomeline">🎉 Welcome to Meta Drive!
-Start your earning journey today with simple and secure investment plans.
-</p>
+          
           <div className="welcome-stat-row">
             <span>Minimum Deposit</span>
             <strong>PKR 1000</strong>
@@ -32,23 +32,30 @@ Start your earning journey today with simple and secure investment plans.
         </div>
 
         <ul className="welcome-features">
-          <li>👥 No Team Required for Withdrawal
-</li>
-          <li>🔄 Easy Invest & Easy Withdraw System
-</li>
-          <li>🤝 Have a Team?
-Enjoy commission up to 5 Levels and boost your income!
-</li>
-<li>
-📲 Join Our WhatsApp Channel
-Stay updated with latest news, offers & announcements.
-</li>
-<li>💡 Power Your Future with Meta Drive
-Start Today – Earn Daily!</li>
+          <li className="welcome-feature-item">
+            <FaCheckCircle className="welcome-feature-icon" aria-hidden="true" />
+            <span>No Team Needed For Withdrawal</span>
+          </li>
+          <li className="welcome-feature-item">
+            <MdOutlineWallet className="welcome-feature-icon" aria-hidden="true" />
+            <span>Easy Invest and Withdraw</span>
+          </li>
+          <li className="welcome-feature-item">
+            <FaUsers className="welcome-feature-icon" aria-hidden="true" />
+            <span>Enjoy commission up to 5 Levels</span>
+          </li>
+          <li className="welcome-feature-item">
+            <FaWhatsapp className="welcome-feature-icon" aria-hidden="true" />
+            <span>Join WhatsApp Channel</span>
+          </li>
+          <li className="welcome-feature-item">
+            <FaRocket className="welcome-feature-icon" aria-hidden="true" />
+            <span>Earn Daily with Meta Drive</span>
+          </li>
         </ul>
 
         <a
-          href="https://chat.whatsapp.com/FvRiiZs7DyhIDIDHxTdRNj?mode=gi_t"
+          href="https://chat.whatsapp.com/LCW0V5VeVAr9NFIx1asQis?mode=gi_t"
           target="_blank"
           rel="noopener noreferrer"
           className="welcome-whatsapp-btn"

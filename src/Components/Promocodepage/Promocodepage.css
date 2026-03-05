@@ -276,6 +276,25 @@
     font-size: 14px;
 }
 
+.promo-bullet-heading {
+    margin-bottom: 10px !important;
+    color: var(--dark) !important;
+}
+
+.promo-bullets {
+    margin: 0;
+    padding-left: 18px;
+    color: var(--gray);
+    display: grid;
+    gap: 10px;
+}
+
+.promo-bullets li {
+    line-height: 1.7;
+    font-size: 14px;
+    text-align: left;
+}
+
 .promo-history-section {
     margin-top: 14px;
     padding: 18px;
@@ -292,11 +311,73 @@
     font-weight: 700;
 }
 
+.promo-history-subtitle {
+    margin: -6px 0 12px;
+    color: var(--gray);
+    font-size: 13px;
+    font-weight: 600;
+}
+
 .promo-history-empty {
     margin: 0;
     color: var(--gray);
     font-size: 14px;
     font-weight: 600;
+}
+
+.promo-live-list-wrap {
+    max-height: 320px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.promo-live-list {
+    display: grid;
+    gap: 10px;
+}
+
+.promo-live-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px;
+    border-radius: var(--border-radius-sm);
+    background: rgba(0, 212, 170, 0.05);
+    border: 1px solid rgba(0, 212, 170, 0.14);
+}
+
+.promo-live-left {
+    min-width: 0;
+    display: grid;
+    gap: 4px;
+}
+
+.promo-live-user {
+    color: var(--dark);
+    font-size: 14px;
+    font-weight: 700;
+    word-break: break-word;
+}
+
+.promo-live-time {
+    color: var(--gray);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.promo-live-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-shrink: 0;
+}
+
+.promo-live-amount {
+    color: var(--primary-dark);
+    font-size: 14px;
+    font-weight: 800;
+    white-space: nowrap;
 }
 
 .promo-history-table-wrap {
@@ -373,6 +454,33 @@
         font-size: 18px;
     }
 
+    .promo-live-list-wrap {
+        max-height: 280px;
+    }
+
+    .promo-live-item {
+        padding: 11px;
+    }
+
+    .promo-live-user,
+    .promo-live-amount {
+        font-size: 13px;
+    }
+
+    .promo-live-time {
+        font-size: 11px;
+    }
+
+    .promo-bullets {
+        padding-left: 16px;
+        gap: 9px;
+    }
+
+    .promo-bullets li {
+        font-size: 13.5px;
+        line-height: 1.65;
+    }
+
     .promo-history-table {
         min-width: 100%;
     }
@@ -435,5 +543,34 @@
 
     .promo-section h3 {
         font-size: 18px;
+    }
+
+    .promo-history-subtitle {
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+
+    .promo-live-list-wrap {
+        max-height: 240px;
+    }
+
+    .promo-live-item {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .promo-live-user,
+    .promo-live-amount {
+        font-size: 12.5px;
+    }
+
+    .promo-bullets {
+        padding-left: 14px;
+        gap: 8px;
+    }
+
+    .promo-bullets li {
+        font-size: 13px;
+        line-height: 1.6;
     }
 }

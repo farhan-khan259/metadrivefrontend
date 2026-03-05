@@ -7,11 +7,12 @@
     align-items: center;
     justify-content: center;
     z-index: 9999;
-    padding: 16px;
+    padding: 20px;
 }
 
 .welcome-popup-box {
     width: min(680px, 100%);
+    max-height: calc(100vh - 40px);
     border-radius: 28px;
     padding: 28px 26px 24px;
     background: var(--card-bg);
@@ -20,7 +21,7 @@
     border: 1px solid rgba(0, 212, 170, 0.15);
     position: relative;
     animation: welcomeFadeIn 0.25s ease-out;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .welcome-popup-box::before {
@@ -45,6 +46,7 @@
     font-size: 22px;
     cursor: pointer;
     transition: all 0.2s ease;
+    z-index: 2;
 }
 
 .welcome-close-btn:hover {
@@ -86,6 +88,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 12px;
+    flex-wrap: wrap;
     border-radius: var(--border-radius-sm);
     padding: 16px 20px;
     background: var(--light);
@@ -106,11 +109,33 @@
 .welcome-features {
     list-style: none;
     margin: 6px 0 22px;
-    padding: 0;
+    padding: 12px;
     display: grid;
     gap: 12px;
     font-size: 1.05rem;
     color: var(--dark);
+    background: var(--light);
+    border: 1px solid rgba(0, 212, 170, 0.12);
+    border-radius: var(--border-radius-sm);
+}
+
+.welcome-feature-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    color: var(--primary-dark);
+    background: rgba(0, 212, 170, 0.08);
+    border: 1px solid rgba(0, 212, 170, 0.18);
+    font-weight: 600;
+    word-break: break-word;
+}
+
+.welcome-feature-icon {
+    font-size: 1.12rem;
+    color: var(--primary);
+    flex-shrink: 0;
 }
 
 .welcome-whatsapp-btn {
@@ -129,6 +154,8 @@
     background: var(--gradient-success);
     box-shadow: 0 10px 20px rgba(0, 212, 170, 0.25);
     transition: all 0.25s ease;
+    text-align: center;
+    flex-wrap: wrap;
 }
 
 .welcome-whatsapp-btn:hover {
@@ -148,9 +175,15 @@
 }
 
 @media (max-width: 768px) {
+    .welcome-popup-overlay {
+        padding: 14px;
+        align-items: flex-start;
+    }
+
     .welcome-popup-box {
         border-radius: 20px;
         padding: 20px 16px 18px;
+        max-height: calc(100vh - 28px);
     }
 
     .welcome-close-btn {
@@ -179,6 +212,15 @@
         font-size: 0.95rem;
         gap: 10px;
         margin-bottom: 16px;
+        padding: 10px;
+    }
+
+    .welcome-feature-item {
+        padding: 10px 12px;
+    }
+
+    .welcome-feature-icon {
+        font-size: 1rem;
     }
 
     .welcome-whatsapp-btn {
@@ -186,6 +228,72 @@
         padding: 13px 14px;
     }
 }
+
+@media (max-width: 480px) {
+    .welcome-popup-overlay {
+        padding: 10px;
+    }
+
+    .welcome-popup-box {
+        width: 100%;
+        border-radius: 16px;
+        padding: 16px 12px 14px;
+        max-height: calc(100vh - 20px);
+    }
+
+    .welcome-close-btn {
+        top: 10px;
+        right: 10px;
+        width: 34px;
+        height: 34px;
+        font-size: 18px;
+    }
+
+    .welcome-launch-pill {
+        font-size: 0.82rem;
+        padding: 7px 10px;
+    }
+
+    .welcome-title {
+        margin: 10px 0 12px;
+        font-size: clamp(1.1rem, 6.4vw, 1.35rem);
+    }
+
+    .welcome-stats {
+        gap: 10px;
+        margin-bottom: 14px;
+    }
+
+    .welcome-stat-row {
+        padding: 10px 12px;
+        font-size: 0.92rem;
+    }
+
+    .welcome-features {
+        font-size: 0.9rem;
+        gap: 8px;
+        padding: 8px;
+        margin: 4px 0 14px;
+    }
+
+    .welcome-feature-item {
+        gap: 8px;
+        padding: 9px 10px;
+    }
+
+    .welcome-whatsapp-btn {
+        font-size: 0.9rem;
+        padding: 11px 12px;
+        border-radius: 14px;
+    }
+}
+
+@media (min-width: 1025px) {
+    .welcome-popup-box {
+        max-height: calc(100vh - 56px);
+    }
+}
+
 
 .welcomeline {
    text-align: center;
