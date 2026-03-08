@@ -104,7 +104,7 @@ const Promocodepage = () => {
     <div className="promo-container-new">
       <div className="promo-header-section">
         <div className="promo-header-row">
-          <Link to="/setting" className="promo-back-link" aria-label="Back">
+          <Link to="/dashboard" className="promo-back-link" aria-label="Back">
             <FaArrowLeft className="back-icon" />
           </Link>
           <h1 className="promo-title">Promo Code</h1>

@@ -1,6 +1,12 @@
 import axios from "axios";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { FaChartLine, FaEye, FaEyeSlash, FaWhatsapp } from "react-icons/fa";
+import {
+  FaChartLine,
+  FaEye,
+  FaEyeSlash,
+  FaTags,
+  FaWhatsapp,
+} from "react-icons/fa";
 import { FiHome, FiMenu, FiPieChart, FiUsers } from "react-icons/fi";
 import {
   RiBankLine,
@@ -451,7 +457,7 @@ export default function Dashboard() {
   };
 
   const whatsappGroupLink =
-    "https://chat.whatsapp.com/LCW0V5VeVAr9NFIx1asQis?mode=gi_t";
+    "https://chat.whatsapp.com/FvRiiZs7DyhIDIDHxTdRNj?mode=gi_t";
 
   const formatLastUpdate = () => {
     if (!lastUpdate) return "Today";
@@ -547,6 +553,12 @@ export default function Dashboard() {
             <RiGroupLine className="sx-nav-icon" />
           </div>
           <div className="sx-action-label">Invite</div>
+        </div>
+        <div className="sx-action" onClick={() => navigate("/promocode")}>
+          <div className="sx-action-icon">
+            <FaTags className="sx-nav-icon" />
+          </div>
+          <div className="sx-action-label">Promo Code</div>
         </div>
         <a
           href={whatsappGroupLink}
