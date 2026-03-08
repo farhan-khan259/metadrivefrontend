@@ -17,6 +17,7 @@ import placeholderPlanImg5 from "../../Assets/Pictures/plan5.jpeg";
 import placeholderPlanImg6 from "../../Assets/Pictures/plan6.jpeg";
 import placeholderPlanImg7 from "../../Assets/Pictures/plan7.jpeg";
 import placeholderPlanImg8 from "../../Assets/Pictures/plan8.jpeg";
+import placeholderPlanImg500 from "../../Assets/Pictures/500plan.jpeg";
 import metaAiImg from "../../Assets/Pictures/metaai.jpg";
 import metaBusinessImg from "../../Assets/Pictures/metabuisness.jpeg";
 import Settings from "../Settings/Settings";
@@ -127,7 +128,7 @@ export default function Dashboard() {
       for (let i = 0; i < 5; i++) {
         counts[i] = Math.floor(Math.random() * 11) + 20;
       }
-      for (let i = 5; i < 8; i++) {
+      for (let i = 5; i < 11; i++) {
         counts[i] = Math.floor(Math.random() * 11) + 5;
       }
       return counts;
@@ -229,13 +230,23 @@ export default function Dashboard() {
   const dashboardPlans = useMemo(() => {
     return [
       {
+        title: "Basic Plan",
+        days: 180,
+        min: 500,
+        max: 500,
+        percent: 7,
+        img: placeholderPlanImg500,
+        invested: investedCounts[0] || 25,
+        locked: false,
+      },
+      {
         title: "Meta Drive",
         days: 180,
         min: 1000,
         max: 1000,
         percent: 5.5,
         img: placeholderPlanImg1,
-        invested: investedCounts[0] || 25,
+        invested: investedCounts[1] || 25,
         locked: false,
       },
       {
@@ -245,7 +256,7 @@ export default function Dashboard() {
         max: 3000,
         percent: 5.7,
         img: placeholderPlanImg2,
-        invested: investedCounts[1] || 25,
+        invested: investedCounts[2] || 25,
         locked: false,
       },
       {
@@ -255,7 +266,7 @@ export default function Dashboard() {
         max: 5000,
         percent: 6,
         img: placeholderPlanImg3,
-        invested: investedCounts[2] || 25,
+        invested: investedCounts[3] || 25,
         locked: false,
       },
       {
@@ -265,7 +276,7 @@ export default function Dashboard() {
         max: 10000,
         percent: 6.3,
         img: placeholderPlanImg4,
-        invested: investedCounts[3] || 25,
+        invested: investedCounts[4] || 25,
         locked: false,
       },
       {
@@ -275,7 +286,7 @@ export default function Dashboard() {
         max: 20000,
         percent: 6.5,
         img: placeholderPlanImg5,
-        invested: investedCounts[4] || 25,
+        invested: investedCounts[5] || 10,
         locked: true,
       },
       {
@@ -285,7 +296,7 @@ export default function Dashboard() {
         max: 30000,
         percent: 6.7,
         img: placeholderPlanImg6,
-        invested: investedCounts[5] || 10,
+        invested: investedCounts[6] || 10,
         locked: true,
       },
       {
@@ -295,7 +306,7 @@ export default function Dashboard() {
         max: 40000,
         percent: 7,
         img: placeholderPlanImg7,
-        invested: investedCounts[6] || 10,
+        invested: investedCounts[7] || 10,
         locked: true,
       },
       {
@@ -305,7 +316,7 @@ export default function Dashboard() {
         max: 50000,
         percent: 7.5,
         img: placeholderPlanImg8,
-        invested: investedCounts[7] || 10,
+        invested: investedCounts[8] || 10,
         locked: true,
       },
       {
@@ -315,7 +326,7 @@ export default function Dashboard() {
         max: 80000,
         percent: 8,
         img: metaAiImg,
-        invested: investedCounts[8] || 10,
+        invested: investedCounts[9] || 10,
         locked: true,
       },
       {
@@ -325,7 +336,7 @@ export default function Dashboard() {
         max: 100000,
         percent: 9,
         img: metaBusinessImg,
-        invested: investedCounts[9] || 10,
+        invested: investedCounts[10] || 10,
         locked: true,
       },
     ];
@@ -440,7 +451,7 @@ export default function Dashboard() {
   };
 
   const whatsappGroupLink =
-    "https://chat.whatsapp.com/FvRiiZs7DyhIDIDHxTdRNj?mode=gi_t";
+    "https://chat.whatsapp.com/LCW0V5VeVAr9NFIx1asQis?mode=gi_t";
 
   const formatLastUpdate = () => {
     if (!lastUpdate) return "Today";
@@ -486,7 +497,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-    {/* Total Balance Card */}
+      {/* Total Balance Card */}
       <div className="sx-balance-card">
         <div className="sx-balance-header">
           <div className="sx-balance-title">Available Balance</div>

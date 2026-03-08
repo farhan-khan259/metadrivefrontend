@@ -23,7 +23,7 @@ export default function WelcomePopup({ userName = "User", isOpen, onClose }) {
           
           <div className="welcome-stat-row">
             <span>Minimum Deposit</span>
-            <strong>PKR 1000</strong>
+            <strong>PKR 500</strong>
           </div>
           <div className="welcome-stat-row">
             <span>Minimum Withdrawal</span>
@@ -55,7 +55,7 @@ export default function WelcomePopup({ userName = "User", isOpen, onClose }) {
         </ul>
 
         <a
-          href="https://chat.whatsapp.com/FvRiiZs7DyhIDIDHxTdRNj?mode=gi_t"
+          href="https://chat.whatsapp.com/LCW0V5VeVAr9NFIx1asQis?mode=gi_t"
           target="_blank"
           rel="noopener noreferrer"
           className="welcome-whatsapp-btn"

@@ -50,9 +50,9 @@ export default function Deposit() {
   };
 
   const handleSubmit = async () => {
-    if (!customAmount || parseFloat(customAmount) < 1000) {
+    if (!customAmount || parseFloat(customAmount) < 500) {
       setPopupType("error");
-      setPopupMessage("❌ Minimum deposit amount is Rs. 1000");
+      setPopupMessage("❌ Minimum deposit amount is Rs. 500");
       setShowPopup(true);
       return;
     }
@@ -169,10 +169,10 @@ export default function Deposit() {
                 <input
                   type="number"
                   className="depositmain-amount-input"
-                  placeholder="Rs Min 1000 - Max Unlimited"
+                  placeholder="Rs Min 500 - Max Unlimited"
                   value={customAmount}
                   onChange={(e) => setCustomAmount(e.target.value)}
-                  min="1000"
+                  min="500"
                 />
               </div>
 
