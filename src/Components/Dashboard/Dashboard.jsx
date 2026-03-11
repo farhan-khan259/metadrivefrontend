@@ -4,6 +4,7 @@ import {
   FaChartLine,
   FaEye,
   FaEyeSlash,
+  FaGift,
   FaTags,
   FaWhatsapp,
 } from "react-icons/fa";
@@ -24,6 +25,7 @@ import placeholderPlanImg6 from "../../Assets/Pictures/plan6.jpeg";
 import placeholderPlanImg7 from "../../Assets/Pictures/plan7.jpeg";
 import placeholderPlanImg8 from "../../Assets/Pictures/plan8.jpeg";
 import placeholderPlanImg500 from "../../Assets/Pictures/500plan.jpeg";
+import placeholderPlanImg2000 from "../../Assets/Pictures/plan2000.jpeg";
 import metaAiImg from "../../Assets/Pictures/metaai.jpg";
 import metaBusinessImg from "../../Assets/Pictures/metabuisness.jpeg";
 import Settings from "../Settings/Settings";
@@ -131,10 +133,10 @@ export default function Dashboard() {
   useEffect(() => {
     const generateInitialCounts = () => {
       const counts = {};
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 6; i++) {
         counts[i] = Math.floor(Math.random() * 11) + 20;
       }
-      for (let i = 5; i < 11; i++) {
+      for (let i = 6; i < 12; i++) {
         counts[i] = Math.floor(Math.random() * 11) + 5;
       }
       return counts;
@@ -256,13 +258,23 @@ export default function Dashboard() {
         locked: false,
       },
       {
+        title: "Plan 2000",
+        days: 180,
+        min: 2000,
+        max: 2000,
+        percent: 7,
+        img: placeholderPlanImg2000,
+        invested: investedCounts[2] || 25,
+        locked: false,
+      },
+      {
         title: "Meta Messenger Community",
         days: 180,
         min: 3000,
         max: 3000,
         percent: 5.7,
         img: placeholderPlanImg2,
-        invested: investedCounts[2] || 25,
+        invested: investedCounts[3] || 25,
         locked: false,
       },
       {
@@ -272,7 +284,7 @@ export default function Dashboard() {
         max: 5000,
         percent: 6,
         img: placeholderPlanImg3,
-        invested: investedCounts[3] || 25,
+        invested: investedCounts[4] || 25,
         locked: false,
       },
       {
@@ -282,7 +294,7 @@ export default function Dashboard() {
         max: 10000,
         percent: 6.3,
         img: placeholderPlanImg4,
-        invested: investedCounts[4] || 25,
+        invested: investedCounts[5] || 25,
         locked: false,
       },
       {
@@ -292,7 +304,7 @@ export default function Dashboard() {
         max: 20000,
         percent: 6.5,
         img: placeholderPlanImg5,
-        invested: investedCounts[5] || 10,
+        invested: investedCounts[6] || 10,
         locked: true,
       },
       {
@@ -302,7 +314,7 @@ export default function Dashboard() {
         max: 30000,
         percent: 6.7,
         img: placeholderPlanImg6,
-        invested: investedCounts[6] || 10,
+        invested: investedCounts[7] || 10,
         locked: true,
       },
       {
@@ -312,7 +324,7 @@ export default function Dashboard() {
         max: 40000,
         percent: 7,
         img: placeholderPlanImg7,
-        invested: investedCounts[7] || 10,
+        invested: investedCounts[8] || 10,
         locked: true,
       },
       {
@@ -322,7 +334,7 @@ export default function Dashboard() {
         max: 50000,
         percent: 7.5,
         img: placeholderPlanImg8,
-        invested: investedCounts[8] || 10,
+        invested: investedCounts[9] || 10,
         locked: true,
       },
       {
@@ -332,7 +344,7 @@ export default function Dashboard() {
         max: 80000,
         percent: 8,
         img: metaAiImg,
-        invested: investedCounts[9] || 10,
+        invested: investedCounts[10] || 10,
         locked: true,
       },
       {
@@ -342,7 +354,7 @@ export default function Dashboard() {
         max: 100000,
         percent: 9,
         img: metaBusinessImg,
-        invested: investedCounts[10] || 10,
+        invested: investedCounts[11] || 10,
         locked: true,
       },
     ];
@@ -553,6 +565,12 @@ export default function Dashboard() {
             <RiGroupLine className="sx-nav-icon" />
           </div>
           <div className="sx-action-label">Invite</div>
+        </div>
+        <div className="sx-action" onClick={() => navigate("/teamreward")}>
+          <div className="sx-action-icon">
+            <FaGift className="sx-nav-icon" />
+          </div>
+          <div className="sx-action-label">Team Reward</div>
         </div>
         <div className="sx-action" onClick={() => navigate("/promocode")}>
           <div className="sx-action-icon">
