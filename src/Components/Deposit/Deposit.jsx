@@ -107,27 +107,19 @@ function Deposit() {
   ];
 
   const PAYMENT_METHODS = [
-    {
-      id: "bank",
-      label: "Bank Transfer",
-      icon: bankImage,
-      accountHolder: "SparkX Pvt Ltd",
-      accountNo: "1234 5678 9012 3456",
-      bankName: "HBL",
-    },
-    {
+   {
       id: "jazzcash",
       label: "JazzCash",
       icon: jazzcashImage,
-      accountHolder: "SparkX JazzCash",
-      accountNo: "0300 1234567",
+      accountHolder: "Iqra",
+      accountNo: "03014717823",
     },
     {
       id: "easypaisa",
       label: "EasyPaisa",
       icon: easypaisaImage,
-      accountHolder: "SparkX EasyPaisa",
-      accountNo: "0300 7654321",
+      accountHolder: "Iqra",
+      accountNo: "03014717823",
     },
     {
       id: "crypto",

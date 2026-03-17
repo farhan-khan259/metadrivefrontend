@@ -41,7 +41,8 @@ function Withdraw() {
   const [accounts, setAccounts] = useState({});
   const [selectedAccount, setSelectedAccount] = useState(null);
   const [showAddModal, setShowAddModal] = useState(false);
-  const [newAccount, setNewAccount] = useState({ name: "", number: "" });
+  // Add bankName to newAccount state
+  const [newAccount, setNewAccount] = useState({ name: "", number: "", bankName: "" });
   const [amount, setAmount] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [popup, setPopup] = useState({ show: false, type: "success", message: "" });
@@ -135,7 +136,9 @@ function Withdraw() {
       processingTime: "5-15 minutes",
       limits: "Min $1, Max $1000",
       networks: [
-        { id: "bep20", label: "BEP-20", address: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e" },
+        { id: "bep20", label: "BNB Smart Chain [BEP20]" },
+        { id: "trc20", label: "Tron [TRC20]" },
+        { id: "sol", label: "Solana" },
       ],
     },
     {
@@ -199,12 +202,16 @@ function Withdraw() {
   // Handle add account
   const handleAddAccount = () => {
     setShowAddModal(true);
-    setNewAccount({ name: "", number: "" });
+    setNewAccount({ name: "", number: "", bankName: "", network: "", addressAlias: "" });
   };
 
   // Handle save account
   const handleSaveAccount = () => {
-    if (!newAccount.name || !newAccount.number) return;
+    if (selectedMethod?.type === "crypto") {
+      if (!newAccount.network || !newAccount.number || !newAccount.addressAlias) return;
+    } else {
+      if (!newAccount.name || !newAccount.number || (selectedMethod?.id === "bank" && !newAccount.bankName)) return;
+    }
 
     setAccounts(prev => ({
       ...prev,
@@ -215,7 +222,7 @@ function Withdraw() {
     }));
 
     setShowAddModal(false);
-    setNewAccount({ name: "", number: "" });
+    setNewAccount({ name: "", number: "", bankName: "", network: "", addressAlias: "" });
   };
 
   // Handle delete account
@@ -703,25 +710,72 @@ function Withdraw() {
             </p>
 
             <div className="withdraw-modal-form">
-              <div className="withdraw-modal-field">
-                <label>Full Name</label>
-                <input
-                  type="text"
-                  placeholder="Enter account holder name"
-                  value={newAccount.name}
-                  onChange={(e) => setNewAccount({ ...newAccount, name: e.target.value })}
-                />
-              </div>
-
-              <div className="withdraw-modal-field">
-                <label>Account Number</label>
-                <input
-                  type="text"
-                  placeholder={selectedMethod?.type === "crypto" ? "Wallet Address" : "Enter account number"}
-                  value={newAccount.number}
-                  onChange={(e) => setNewAccount({ ...newAccount, number: e.target.value })}
-                />
-              </div>
+              {selectedMethod?.type === "crypto" ? (
+                <>
+                  <div className="withdraw-modal-field">
+                    <label>Select Network</label>
+                    <select
+                      value={newAccount.network}
+                      onChange={e => setNewAccount({ ...newAccount, network: e.target.value })}
+                    >
+                      <option value="">Choose network</option>
+                      {selectedMethod?.networks?.map((net) => (
+                        <option key={net.id} value={net.id}>{net.label}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="withdraw-modal-field">
+                    <label>Wallet Address</label>
+                    <input
+                      type="text"
+                      placeholder="Enter your wallet address"
+                      value={newAccount.number}
+                      onChange={e => setNewAccount({ ...newAccount, number: e.target.value })}
+                    />
+                  </div>
+                  <div className="withdraw-modal-field">
+                    <label>Address Alias</label>
+                    <input
+                      type="text"
+                      placeholder="E.g., Binance, Metamask, etc."
+                      value={newAccount.addressAlias}
+                      onChange={e => setNewAccount({ ...newAccount, addressAlias: e.target.value })}
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="withdraw-modal-field">
+                    <label>Full Name</label>
+                    <input
+                      type="text"
+                      placeholder="Enter account holder name"
+                      value={newAccount.name}
+                      onChange={(e) => setNewAccount({ ...newAccount, name: e.target.value })}
+                    />
+                  </div>
+                  <div className="withdraw-modal-field">
+                    <label>Account Number</label>
+                    <input
+                      type="text"
+                      placeholder="Enter account number"
+                      value={newAccount.number}
+                      onChange={(e) => setNewAccount({ ...newAccount, number: e.target.value })}
+                    />
+                  </div>
+                  {selectedMethod?.id === "bank" && (
+                    <div className="withdraw-modal-field">
+                      <label>Bank Name</label>
+                      <input
+                        type="text"
+                        placeholder="Enter bank name"
+                        value={newAccount.bankName}
+                        onChange={(e) => setNewAccount({ ...newAccount, bankName: e.target.value })}
+                      />
+                    </div>
+                  )}
+                </>
+              )}
             </div>
 
             <div className="withdraw-modal-actions">
@@ -734,7 +788,11 @@ function Withdraw() {
               <button
                 className="withdraw-modal-save"
                 onClick={handleSaveAccount}
-                disabled={!newAccount.name || !newAccount.number}
+                disabled={
+                  selectedMethod?.type === "crypto"
+                    ? (!newAccount.network || !newAccount.number || !newAccount.addressAlias)
+                    : (!newAccount.name || !newAccount.number || (selectedMethod?.id === "bank" && !newAccount.bankName))
+                }
               >
                 Save Address
               </button>

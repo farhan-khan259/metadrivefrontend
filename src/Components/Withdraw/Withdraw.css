@@ -1,3 +1,27 @@
+/* Styled select for modal to match input fields */
+.withdraw-modal-field select {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1.5px solid var(--withdraw-input-border);
+  background: var(--withdraw-input-bg);
+  color: var(--sx-text);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.withdraw-modal-field select:focus {
+  border-color: var(--withdraw-accent);
+}
+
+.withdraw-modal-field select option {
+  background: #181a2e;
+  color: var(--sx-text);
+}
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap");
 
 /* ═══════════════════════════════════════════════════════════
