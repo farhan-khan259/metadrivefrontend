@@ -253,7 +253,7 @@ function Deposit() {
 
   const handleLogout = () => {
     // Handle logout logic
-    navigate("/login");
+    navigate("/");
   };
 
   const handleMethodSelect = (method) => {
