@@ -1,15 +1,41 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { FaArrowLeft, FaEdit, FaKey, FaSave, FaUser } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import {
+  FiActivity,
+  FiArrowDown,
+  FiArrowUp,
+  FiBell,
+  FiPieChart,
+  FiCheckCircle,
+  FiCreditCard,
+  FiGrid,
+  FiHelpCircle,
+  FiHome,
+  FiLock,
+  FiMail,
+  FiMenu,
+  FiPhone,
+  FiSave,
+  FiShield,
+  FiUser,
+  FiUsers,
+  FiX,
+} from "react-icons/fi";
+import { FaGift, FaTags, FaWhatsapp } from "react-icons/fa";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import logoImage from "../../Assets/Pictures/sparkx-logo.jpeg";
 import "./Profile.css";
 
 export default function Profile() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [activeTab, setActiveTab] = useState("account");
   const [teamData, setTeamData] = useState(null);
   const [uplinerName, setUplinerName] = useState("Loading...");
   const [isEditing, setIsEditing] = useState(false);
   const [isEditingPassword, setIsEditingPassword] = useState(false);
+
+  const location = useLocation();
   const navigate = useNavigate();
 
   // ✅ Store user in state
@@ -32,13 +58,59 @@ export default function Profile() {
     confirmPassword: "",
   });
 
+  // Handle window resize
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+      if (window.innerWidth > 1024) {
+        setSidebarOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Close sidebar when clicking outside on mobile
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (isMobile && sidebarOpen && !e.target.closest('.sx-sidebar')) {
+        setSidebarOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isMobile, sidebarOpen]);
+
+  const whatsappGroupLink = "https://chat.whatsapp.com/LCW0V5VeVAr9NFIx1asQis?mode=gi_t";
+
+  const sidebarMain = [
+    { to: "/dashboard", icon: <FiHome />, label: "Dashboard" },
+    { to: "/investmentplans", icon: <FiPieChart />, label: "Investment Plans" },
+    { to: "/deposit", icon: <FiArrowDown />, label: "Deposit" },
+    { to: "/withdraw", icon: <FiArrowUp />, label: "Withdraw" },
+    { to: "/invite", icon: <FiUsers />, label: "Refer & Invite" },
+    { to: "/team", icon: <FiUsers />, label: "My Team" },
+    { to: "/managerranksystem", icon: <FaGift />, label: "Manager Rank System" },
+    { to: "/earningsummary", icon: <FiActivity />, label: "Earning Summary" },
+    { to: "/transactionhistory", icon: <FiCreditCard />, label: "Transaction History" },
+    { to: "/rankingdashboard", icon: <FaTags />, label: "Ranking Dashboard" },
+  ];
+
+  const sidebarMore = [
+    { to: "/profile", icon: <FiUser />, label: "Profile" },
+    { to: "/support", icon: <FiHelpCircle />, label: "Support" },
+    { to: "/privacypolicy", icon: <FiShield />, label: "Privacy Policy" },
+  ];
+
   // Function to get upliner name by referral code
   const getUplinerName = async (referralCode) => {
     if (!referralCode) return "No Upliner";
 
     try {
       const response = await axios.post(
-        "https://be.metadrive01.xyz/api/getUserByReferral",
+        "https://be.sparkx1.pro/api/getUserByReferral",
         {
           referralCode: referralCode,
         }
@@ -65,7 +137,7 @@ export default function Profile() {
 
       try {
         // Fetch team data - using the same endpoint as Team component
-        const response = await axios.post("https://be.metadrive01.xyz/team", {
+        const response = await axios.post("https://be.sparkx1.pro/team", {
           userId: userId,
         });
 
@@ -169,271 +241,493 @@ export default function Profile() {
   };
 
   // ✅ Update account info
-  const toggleEdit = async () => {
-    if (isEditing) {
-      try {
-        const response = await axios.post("https://be.metadrive01.xyz/api/account", {
-          userId,
-          fullName: formData.Name,
-          email: formData.email,
-          whatsappNumber: formData.phone,
-        });
-
-        if (response.data.success) {
-          alert("Profile updated successfully!");
-          localStorage.setItem("user", JSON.stringify(response.data.user));
-          setUser(response.data.user);
-        } else {
-          alert(response.data.message || "Update failed!");
-        }
-      } catch (error) {
-        console.error(error);
-        alert("Error updating profile");
+  const saveAccount = async () => {
+    try {
+      const response = await axios.post("https://be.sparkx1.pro/api/account", {
+        userId,
+        fullName: formData.Name,
+        email: formData.email,
+        whatsappNumber: formData.phone,
+      });
+      if (response.data.success) {
+        alert("Profile updated successfully!");
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        setUser(response.data.user);
+        setIsEditing(false);
+      } else {
+        alert(response.data.message || "Update failed!");
       }
+    } catch (error) {
+      console.error(error);
+      alert("Error updating profile");
     }
-    setIsEditing(!isEditing);
+  };
+
+  const cancelEdit = () => {
+    setFormData({
+      Name: user?.fullName || "",
+      email: user?.email || "",
+      phone: user?.whatsappNumber || "",
+    });
+    setIsEditing(false);
   };
 
   // ✅ Change password
-  const togglePasswordEdit = async () => {
-    if (isEditingPassword) {
-      if (passwordData.newPassword !== passwordData.confirmPassword) {
-        alert("New password and confirm password do not match!");
-        return;
-      }
-
-      try {
-        const response = await axios.post(
-          "https://be.metadrive01.xyz/api/changePassword",
-          {
-            userId,
-            oldpassword: passwordData.oldPassword,
-            newpassword: passwordData.newPassword,
-          }
-        );
-
-        if (response.data.success) {
-          alert("Password changed successfully!");
-          setPasswordData({
-            oldPassword: "",
-            newPassword: "",
-            confirmPassword: "",
-          });
-        } else {
-          alert(response.data.message || "Password change failed!");
-        }
-      } catch (error) {
-        console.error(error);
-        alert("Error changing password");
-      }
+  const savePassword = async () => {
+    if (passwordData.newPassword !== passwordData.confirmPassword) {
+      alert("New password and confirm password do not match!");
+      return;
     }
-    setIsEditingPassword(!isEditingPassword);
+    try {
+      const response = await axios.post(
+        "https://be.sparkx1.pro/api/changePassword",
+        {
+          userId,
+          oldpassword: passwordData.oldPassword,
+          newpassword: passwordData.newPassword,
+        }
+      );
+      if (response.data.success) {
+        alert("Password changed successfully!");
+        setPasswordData({ oldPassword: "", newPassword: "", confirmPassword: "" });
+        setIsEditingPassword(false);
+      } else {
+        alert(response.data.message || "Password change failed!");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Error changing password");
+    }
   };
 
-  // ✅ FIXED: Reliable back navigation
-  const handleBackClick = () => {
-    navigate("/dashboard");
+  const cancelPasswordEdit = () => {
+    setPasswordData({ oldPassword: "", newPassword: "", confirmPassword: "" });
+    setIsEditingPassword(false);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat('en-PK', {
+      style: 'currency',
+      currency: 'PKR',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(value).replace('PKR', 'PKR');
   };
 
   return (
-    <div className="profile-container7p">
-      {/* Header */}
-      <div className="profile-header-wrapper7p">
-        <button
-          className="back-linkpro7p"
-          onClick={handleBackClick}
-          type="button"
-        >
-          <FaArrowLeft />
-        </button>
-        <h2 className="profile-page-heading7p">My Profile Setup</h2>
-      </div>
-
-      {/* User Info Header */}
-      <div className="profile-header7p">
-        <div className="user-info-grid7p">
-          <div className="info-card7p">
-            <div className="info-icon7p user-icon">
-              <FaUser />
-            </div>
-            <div className="info-content7p">
-              <label>Username</label>
-              <h3>{formData.Name || "Loading..."}</h3>
-            </div>
+    <div className="sx-dashboard-root">
+      {/* Sidebar */}
+      <aside className={`sx-sidebar ${sidebarOpen ? "open" : ""}`}>
+        <div className="sx-sidebar-top">
+          <div className="sx-sidebar-brand">
+            <span className="sx-sidebar-brand-text">SPARK</span>
+            <img
+              src={logoImage}
+              alt="SparkX"
+              className="sx-sidebar-logo"
+            />
           </div>
-
-          <div className="info-card7p">
-            <div className="info-icon7p upliner-icon">
-              <FaUser />
-            </div>
-            <div className="info-content7p">
-              <label>Upliner</label>
-              <h3>{uplinerName}</h3>
-            </div>
-          </div>
-
-          <div className="info-card7p">
-            <div className="info-icon7p id-icon">
-              <FaKey />
-            </div>
-            <div className="info-content7p">
-              <label>User ID</label>
-              <h3>{user?.randomCode || "N/A"}</h3>
-            </div>
-          </div>
-
-          <div className="info-card7p">
-            <div className="info-icon7p team-icon">
-              <FaUser />
-            </div>
-            <div className="info-content7p">
-              <label>Team Size</label>
-              <h3>{getTotalTeamSize().toLocaleString()}</h3>
-            </div>
-          </div>
-
-          {/* Additional Stats Cards */}
-          <div className="info-card7p">
-            <div className="info-icon7p deposit-icon">
-              <FaKey />
-            </div>
-            <div className="info-content7p">
-              <label>Team Deposit</label>
-              <h3>PKR {additionalStats.totalDeposit.toLocaleString()}</h3>
-            </div>
-          </div>
-
-          <div className="info-card7p">
-            <div className="info-icon7p commission-icon">
-              <FaKey />
-            </div>
-            <div className="info-content7p">
-              <label>Team Commission</label>
-              <h3>PKR {additionalStats.totalCommission.toLocaleString()}</h3>
-            </div>
-          </div>
+          <button
+            className="sx-sidebar-close"
+            onClick={() => setSidebarOpen(false)}
+            type="button"
+          >
+            <FiX />
+          </button>
         </div>
-      </div>
 
-     
-
-      {/* Tabs */}
-      <div className="tabs7p">
-        <button
-          className={`tab7p ${activeTab === "account" ? "active7p" : ""}`}
-          onClick={() => setActiveTab("account")}
-          type="button"
-        >
-          <FaUser /> Account
-        </button>
-        <button
-          className={`tab7p ${activeTab === "password" ? "active7p" : ""}`}
-          onClick={() => setActiveTab("password")}
-          type="button"
-        >
-          <FaKey /> Change Password
-        </button>
-      </div>
-
-      {/* Account Section */}
-      {activeTab === "account" && (
-        <div className="account-section7p">
-          <div className="account-header7p">
-            <h4>Account</h4>
-            <button className="edit-btn7p" onClick={toggleEdit} type="button">
-              {isEditing ? <FaSave /> : <FaEdit />}
-              {isEditing ? " Save" : " Edit"}
-            </button>
-          </div>
-          <div className="account-grid7p">
-            <div className="input-group7p">
-              <label>Name</label>
-              <input
-                type="text"
-                name="Name"
-                placeholder="Enter your Name"
-                value={formData.Name}
-                onChange={handleInputChange}
-                disabled={!isEditing}
-              />
-            </div>
-            <div className="input-group7p">
-              <label>Email</label>
-              <input
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                value={formData.email}
-                onChange={handleInputChange}
-                disabled={!isEditing}
-              />
-            </div>
-            <div className="input-group7p">
-              <label>Phone</label>
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Enter your phone number"
-                value={formData.phone}
-                onChange={handleInputChange}
-                disabled={!isEditing}
-              />
-            </div>
-          </div>
+        <div className="sx-sidebar-links">
+          {sidebarMain.map((item) => (
+            <Link
+              key={item.to}
+              to={item.to}
+              className={`sx-sidebar-link ${
+                location.pathname === item.to ? "active" : ""
+              }`}
+              onClick={() => setSidebarOpen(false)}
+            >
+              <span className="sx-sidebar-icon">{item.icon}</span>
+              <span>{item.label}</span>
+            </Link>
+          ))}
         </div>
+
+        <div className="sx-sidebar-divider" />
+
+        <div className="sx-sidebar-links">
+          {sidebarMore.map((item) => (
+            <Link
+              key={item.to}
+              to={item.to}
+              className={`sx-sidebar-link ${
+                location.pathname === item.to ? "active" : ""
+              }`}
+              onClick={() => setSidebarOpen(false)}
+            >
+              <span className="sx-sidebar-icon">{item.icon}</span>
+              <span>{item.label}</span>
+            </Link>
+          ))}
+
+          <a
+            href={whatsappGroupLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="sx-sidebar-link"
+            onClick={() => setSidebarOpen(false)}
+          >
+            <span className="sx-sidebar-icon"><FaWhatsapp /></span>
+            <span>WhatsApp Group</span>
+          </a>
+
+          <button
+            type="button"
+            className="sx-sidebar-link sx-logout"
+            onClick={handleLogout}
+          >
+            <span className="sx-sidebar-icon"><FiX /></span>
+            <span>Logout</span>
+          </button>
+        </div>
+      </aside>
+
+      {sidebarOpen && (
+        <div
+          className="sx-sidebar-overlay"
+          onClick={() => setSidebarOpen(false)}
+        />
       )}
 
-      {/* Change Password Section */}
-      {activeTab === "password" && (
-        <div className="account-section7p">
-          <div className="account-header7p">
-            <h4>Change Password</h4>
+      {/* Main Content */}
+      <main className="sx-main">
+        <header className="sx-header">
+          <div className="sx-header-left">
             <button
-              className="edit-btn7p"
-              onClick={togglePasswordEdit}
+              className="sx-menu-btn"
+              onClick={() => setSidebarOpen(true)}
               type="button"
             >
-              {isEditingPassword ? <FaSave /> : <FaEdit />}
-              {isEditingPassword ? " Save" : " Edit"}
+              <FiMenu />
+            </button>
+            <div>
+              <h2 className="sx-title">My Profile</h2>
+              <p className="sx-subtitle">Manage your account settings</p>
+            </div>
+          </div>
+
+          <div className="sx-header-right">
+            <a
+              href={whatsappGroupLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="sx-whatsapp-pill"
+            >
+              <FaWhatsapp /> Join WhatsApp
+            </a>
+            <button className="sx-icon-btn" type="button">
+              <FiBell />
+            </button>
+            <button
+              className="sx-profile-avatar-btn"
+              onClick={() => navigate("/profile")}
+              type="button"
+            >
+              <FiUser className="sx-profile-avatar-icon" />
             </button>
           </div>
-          <div className="account-grid7p">
-            <div className="input-group7p">
-              <label>Old Password</label>
-              <input
-                type="password"
-                name="oldPassword"
-                placeholder="Enter old password"
-                value={passwordData.oldPassword}
-                onChange={handlePasswordChange}
-                disabled={!isEditingPassword}
-              />
+        </header>
+
+        <div className="profile-shell">
+          {/* Header Section */}
+          <div className="profile-header-section">
+            <div className="profile-header-content">
+              <div className="profile-header-badge">
+                <FiUser /> ACCOUNT PROFILE
+              </div>
+              <h1 className="profile-header-title">Welcome Back, {formData.Name || "User"}!</h1>
+              <p className="profile-header-subtitle">
+                View and manage your personal information, security settings, and account preferences
+              </p>
             </div>
-            <div className="input-group7p">
-              <label>New Password</label>
-              <input
-                type="password"
-                name="newPassword"
-                placeholder="Enter new password"
-                value={passwordData.newPassword}
-                onChange={handlePasswordChange}
-                disabled={!isEditingPassword}
-              />
+          </div>
+
+          {/* Stats Cards */}
+          <div className="profile-stats-grid">
+            <div className="profile-stat-card">
+              <div className="profile-stat-icon">
+                <FiUsers />
+              </div>
+              <div className="profile-stat-info">
+                <span className="profile-stat-label">Total Team</span>
+                <strong className="profile-stat-value">{getTotalTeamSize().toLocaleString()}</strong>
+              </div>
             </div>
-            <div className="input-group7p">
-              <label>Confirm New Password</label>
-              <input
-                type="password"
-                name="confirmPassword"
-                placeholder="Confirm new password"
-                value={passwordData.confirmPassword}
-                onChange={handlePasswordChange}
-                disabled={!isEditingPassword}
-              />
+            <div className="profile-stat-card">
+              <div className="profile-stat-icon">
+                <FiActivity />
+              </div>
+              <div className="profile-stat-info">
+                <span className="profile-stat-label">Team Deposit</span>
+                <strong className="profile-stat-value">{formatCurrency(additionalStats.totalDeposit)}</strong>
+              </div>
+            </div>
+            <div className="profile-stat-card">
+              <div className="profile-stat-icon">
+                <FiShield />
+              </div>
+              <div className="profile-stat-info">
+                <span className="profile-stat-label">Upliner</span>
+                <strong className="profile-stat-value">{uplinerName}</strong>
+              </div>
+            </div>
+            <div className="profile-stat-card">
+              <div className="profile-stat-icon">
+                <FiCheckCircle />
+              </div>
+              <div className="profile-stat-info">
+                <span className="profile-stat-label">Referral Code</span>
+                <strong className="profile-stat-value">{user?.randomCode || "N/A"}</strong>
+              </div>
+            </div>
+          </div>
+
+          {/* Main Profile Card */}
+          <div className="profile-card">
+            {/* User Header */}
+            <div className="profile-user-header">
+              <div className="profile-avatar">
+                <FiUser className="profile-avatar-icon" />
+              </div>
+              <div className="profile-user-info">
+                <h2 className="profile-user-name">{formData.Name || user?.fullName || "User"}</h2>
+                <p className="profile-user-email">{formData.email || user?.email || "No email provided"}</p>
+                <div className="profile-user-meta">
+                  <span className="profile-user-meta-item">
+                    <FiPhone /> {formData.phone || user?.whatsappNumber || "No phone"}
+                  </span>
+                  <span className="profile-user-meta-item">
+                    <FiShield /> Referral: {user?.randomCode || "N/A"}
+                  </span>
+                </div>
+              </div>
+              <div className="profile-badge">
+                <FiShield className="profile-badge-icon" />
+              </div>
+            </div>
+
+            <div className="profile-divider" />
+
+            {/* Tabs */}
+            <div className="profile-tabs">
+              <button
+                className={`profile-tab ${activeTab === "account" ? "active" : ""}`}
+                onClick={() => setActiveTab("account")}
+                type="button"
+              >
+                Account Information
+              </button>
+              <button
+                className={`profile-tab ${activeTab === "password" ? "active" : ""}`}
+                onClick={() => setActiveTab("password")}
+                type="button"
+              >
+                Security & Password
+              </button>
+            </div>
+
+            {/* Account Section */}
+            {activeTab === "account" && (
+              <div className="profile-section">
+                <div className="profile-section-header">
+                  <h3 className="profile-section-title">Personal Information</h3>
+                  {!isEditing ? (
+                    <button className="profile-edit-btn" onClick={() => setIsEditing(true)} type="button">
+                      Edit Profile
+                    </button>
+                  ) : (
+                    <button className="profile-cancel-top-btn" onClick={cancelEdit} type="button">
+                      Cancel
+                    </button>
+                  )}
+                </div>
+
+                <div className="profile-fields-grid">
+                  <div className="profile-field-group">
+                    <label className="profile-label">Full Name</label>
+                    <div className="profile-input-wrap">
+                      <FiUser className="profile-input-icon" />
+                      <input
+                        className="profile-input"
+                        type="text"
+                        name="Name"
+                        placeholder="Enter your full name"
+                        value={formData.Name}
+                        onChange={handleInputChange}
+                        disabled={!isEditing}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="profile-field-group">
+                    <label className="profile-label">Phone Number</label>
+                    <div className="profile-input-wrap">
+                      <FiPhone className="profile-input-icon" />
+                      <input
+                        className="profile-input"
+                        type="tel"
+                        name="phone"
+                        placeholder="Enter your phone number"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        disabled={!isEditing}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="profile-field-group profile-field-group--full">
+                    <label className="profile-label">Email Address</label>
+                    <div className="profile-input-wrap">
+                      <FiMail className="profile-input-icon" />
+                      <input
+                        className="profile-input"
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email address"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        disabled={!isEditing}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {isEditing && (
+                  <div className="profile-action-bar">
+                    <button className="profile-cancel-btn" onClick={cancelEdit} type="button">
+                      Cancel
+                    </button>
+                    <button className="profile-save-btn" onClick={saveAccount} type="button">
+                      <FiSave /> Save Changes
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Change Password Section */}
+            {activeTab === "password" && (
+              <div className="profile-section">
+                <div className="profile-section-header">
+                  <h3 className="profile-section-title">Change Password</h3>
+                  {!isEditingPassword ? (
+                    <button className="profile-edit-btn" onClick={() => setIsEditingPassword(true)} type="button">
+                      Update Password
+                    </button>
+                  ) : (
+                    <button className="profile-cancel-top-btn" onClick={cancelPasswordEdit} type="button">
+                      Cancel
+                    </button>
+                  )}
+                </div>
+
+                <div className="profile-fields-grid">
+                  <div className="profile-field-group">
+                    <label className="profile-label">Current Password</label>
+                    <div className="profile-input-wrap">
+                      <FiLock className="profile-input-icon" />
+                      <input
+                        className="profile-input"
+                        type="password"
+                        name="oldPassword"
+                        placeholder="Enter current password"
+                        value={passwordData.oldPassword}
+                        onChange={handlePasswordChange}
+                        disabled={!isEditingPassword}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="profile-field-group">
+                    <label className="profile-label">New Password</label>
+                    <div className="profile-input-wrap">
+                      <FiLock className="profile-input-icon" />
+                      <input
+                        className="profile-input"
+                        type="password"
+                        name="newPassword"
+                        placeholder="Enter new password"
+                        value={passwordData.newPassword}
+                        onChange={handlePasswordChange}
+                        disabled={!isEditingPassword}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="profile-field-group profile-field-group--full">
+                    <label className="profile-label">Confirm New Password</label>
+                    <div className="profile-input-wrap">
+                      <FiLock className="profile-input-icon" />
+                      <input
+                        className="profile-input"
+                        type="password"
+                        name="confirmPassword"
+                        placeholder="Confirm new password"
+                        value={passwordData.confirmPassword}
+                        onChange={handlePasswordChange}
+                        disabled={!isEditingPassword}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {isEditingPassword && (
+                  <div className="profile-action-bar">
+                    <button className="profile-cancel-btn" onClick={cancelPasswordEdit} type="button">
+                      Cancel
+                    </button>
+                    <button className="profile-save-btn" onClick={savePassword} type="button">
+                      <FiSave /> Update Password
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Additional Info */}
+            <div className="profile-info-section">
+              <h4 className="profile-info-title">Account Information</h4>
+              <div className="profile-info-grid">
+                <div className="profile-info-item">
+                  <span className="profile-info-label">Member Since</span>
+                  <span className="profile-info-value">
+                    {user?.createdAt ? new Date(user.createdAt).toLocaleDateString() : "N/A"}
+                  </span>
+                </div>
+                <div className="profile-info-item">
+                  <span className="profile-info-label">Last Updated</span>
+                  <span className="profile-info-value">
+                    {user?.updatedAt ? new Date(user.updatedAt).toLocaleDateString() : "N/A"}
+                  </span>
+                </div>
+                <div className="profile-info-item">
+                  <span className="profile-info-label">Account Status</span>
+                  <span className="profile-info-value status-active">Active</span>
+                </div>
+                <div className="profile-info-item">
+                  <span className="profile-info-label">User ID</span>
+                  <span className="profile-info-value">{userId?.slice(-8) || "N/A"}</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      )}
+      </main>
     </div>
   );
 }

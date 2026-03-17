@@ -1,736 +1,634 @@
 import axios from "axios";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import {
-  FaChartLine,
-  FaEye,
-  FaEyeSlash,
-  FaGift,
-  FaTags,
-  FaWhatsapp,
+  FiActivity,
+  FiArrowDown,
+  FiArrowUp,
+  FiBell,
+  FiCreditCard,
+  FiGrid,
+  FiHelpCircle,
+  FiHome,
+  FiPieChart,
+  FiMenu,
+  FiShield,
+  FiUser,
+  FiUsers,
+  FiX,
+  FiClock,
+} from "react-icons/fi";
+import { 
+  FaEye, 
+  FaEyeSlash, 
+  FaGift, 
+  FaTags, 
+  FaWhatsapp, 
+  FaTrophy, 
+  FaCrown, 
+  FaMedal, 
+  FaStar, 
+  FaRocket,
+  FaBitcoin,
+  FaCoins,
 } from "react-icons/fa";
-import { FiHome, FiMenu, FiPieChart, FiUsers } from "react-icons/fi";
-import {
-  RiBankLine,
-  RiGroupLine,
-  RiMoneyDollarCircleLine,
-} from "react-icons/ri";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import logoimagemetadrive from "../../Assets/Pictures/metadrivelogo.jpeg";
-import placeholderPlanImg1 from "../../Assets/Pictures/plan1.jpeg";
-import placeholderPlanImg2 from "../../Assets/Pictures/plan2.jpeg";
-import placeholderPlanImg3 from "../../Assets/Pictures/plan3.jpeg";
-import placeholderPlanImg4 from "../../Assets/Pictures/plan4.jpeg";
-import placeholderPlanImg5 from "../../Assets/Pictures/plan5.jpeg";
-import placeholderPlanImg6 from "../../Assets/Pictures/plan6.jpeg";
-import placeholderPlanImg7 from "../../Assets/Pictures/plan7.jpeg";
-import placeholderPlanImg8 from "../../Assets/Pictures/plan8.jpeg";
-import placeholderPlanImg500 from "../../Assets/Pictures/500plan.jpeg";
-import placeholderPlanImg2000 from "../../Assets/Pictures/plan2000.jpeg";
-import metaAiImg from "../../Assets/Pictures/metaai.jpg";
-import metaBusinessImg from "../../Assets/Pictures/metabuisness.jpeg";
-import Settings from "../Settings/Settings";
+import logoimagemetadrive from "../../Assets/Pictures/sparkx-logo.jpeg";
 import WelcomePopup from "../WelcomePopup/WelcomePopup";
 import "./Dashboard.css";
+
+const USD_TO_PKR = 280;
+const whatsappGroupLink = "https://chat.whatsapp.com/FvRiiZs7DyhIDIDHxTdRNj?mode=gi_t";
 
 export default function Dashboard() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [showSettings, setShowSettings] = useState(false);
+
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [showBalance, setShowBalance] = useState(true);
   const [welcomeDismissed, setWelcomeDismissed] = useState(false);
+  const [teamData, setTeamData] = useState({
+    user: {},
+    commissionSummary: {},
+  });
+  const [activeInvestments, setActiveInvestments] = useState([]);
+  const [timeLeft, setTimeLeft] = useState({});
 
   const shouldShowWelcomePopup =
-    new URLSearchParams(location.search).get("welcome") === "1" &&
-    !welcomeDismissed;
+    new URLSearchParams(location.search).get("welcome") === "1" && !welcomeDismissed;
 
-  const handleCloseWelcomePopup = () => {
-    setWelcomeDismissed(true);
-    navigate("/dashboard", { replace: true });
-  };
-
-  // User from localStorage
   const user = useMemo(() => {
     const str = localStorage.getItem("user");
     return str ? JSON.parse(str) : null;
   }, []);
+
   const userId = user?._id;
 
-  // Team data and user plans
-  const [teamData, setTeamData] = useState({
-    user: {},
-    plans: [],
-    commissionSummary: {},
-  });
-  const [userPlans, setUserPlans] = useState([]);
-  const [loadingTeam, setLoadingTeam] = useState(false);
+  const managerRanks = [
+    {
+      id: "v1",
+      version: "V1",
+      title: "Manager Rank V1",
+      selfInvestment: 5,
+      directActive: 10,
+      indirectActive: 30,
+      growthRate: 50,
+      salary: 35,
+      icon: <FaStar />,
+      color: "#22e88c",
+      bgGradient: "linear-gradient(135deg, #22e88c15, #9060ff15)",
+    },
+    {
+      id: "v2",
+      version: "V2",
+      title: "Manager Rank V2",
+      selfInvestment: 10,
+      directActive: 20,
+      indirectActive: 60,
+      growthRate: 50,
+      salary: 70,
+      icon: <FaMedal />,
+      color: "#5aa6ff",
+      bgGradient: "linear-gradient(135deg, #5aa6ff15, #9060ff15)",
+    },
+    {
+      id: "v3",
+      version: "V3",
+      title: "Manager Rank V3",
+      selfInvestment: 20,
+      directActive: 35,
+      indirectActive: 80,
+      growthRate: 50,
+      salary: 150,
+      icon: <FaMedal />,
+      color: "#c77dff",
+      bgGradient: "linear-gradient(135deg, #c77dff15, #9060ff15)",
+    },
+    {
+      id: "v4",
+      version: "V4",
+      title: "Manager Rank V4",
+      selfInvestment: 30,
+      directActive: 50,
+      indirectActive: 150,
+      growthRate: 50,
+      salary: 250,
+      icon: <FaTrophy />,
+      color: "#ffb14d",
+      bgGradient: "linear-gradient(135deg, #ffb14d15, #9060ff15)",
+    },
+    {
+      id: "v5",
+      version: "V5",
+      title: "Manager Rank V5",
+      selfInvestment: 40,
+      directActive: 100,
+      indirectActive: 300,
+      growthRate: 50,
+      salary: 600,
+      icon: <FaCrown />,
+      color: "#ff5a87",
+      bgGradient: "linear-gradient(135deg, #ff5a8715, #9060ff15)",
+    },
+    {
+      id: "v6",
+      version: "V6",
+      title: "Manager Rank V6",
+      selfInvestment: 50,
+      directActive: 150,
+      indirectActive: 500,
+      growthRate: 50,
+      salary: 1500,
+      icon: <FaRocket />,
+      color: "#ffd700",
+      bgGradient: "linear-gradient(135deg, #ffd70015, #9060ff15)",
+    },
+  ];
 
-  // State for dynamic invested people counts
-  const [investedCounts, setInvestedCounts] = useState({});
-  const [lastUpdate, setLastUpdate] = useState(null);
-
-  // Fetch team data
   const fetchTeamData = useCallback(async () => {
     if (!userId) return;
-    setLoadingTeam(true);
     try {
-      const res = await axios.post("https://be.metadrive01.xyz/team", { userId });
+      const res = await axios.post("https://be.sparkx1.pro/team", { userId });
       setTeamData(res.data || {});
+      
+      // Fetch active investments
+      const investmentsRes = await axios.get(`https://be.sparkx1.pro/api/user/investments/${userId}`);
+      setActiveInvestments(investmentsRes.data || []);
     } catch (err) {
-      console.error("Error fetching team data:", err);
-    } finally {
-      setLoadingTeam(false);
-    }
-  }, [userId]);
-
-  // Fetch user plans
-  const fetchUserPlans = useCallback(async () => {
-    if (!userId) return;
-    try {
-      const res = await axios.get(
-        `https://be.metadrive01.xyz/api/plans/user/active/${userId}`
-      );
-      if (res.data.success) {
-        setUserPlans(res.data.plans || []);
-      }
-    } catch (err) {
-      console.error("Error fetching user plans:", err);
+      console.error("Error fetching data:", err);
     }
   }, [userId]);
 
   useEffect(() => {
     fetchTeamData();
-    fetchUserPlans();
-  }, [fetchTeamData, fetchUserPlans]);
+    const interval = setInterval(fetchTeamData, 60000);
+    return () => clearInterval(interval);
+  }, [fetchTeamData]);
 
-  // ✅ CORRECT TOTAL BALANCE CALCULATION
-  const totalBalance = useMemo(() => {
-    // User's available balance (includes deposits, withdrawals, commissions, claimed plans)
-    return teamData?.user?.userbalance || 0;
+  // Timer effect for countdown
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const newTimeLeft = {};
+      activeInvestments.forEach(investment => {
+        const endTime = new Date(investment.nextPayout).getTime();
+        const now = new Date().getTime();
+        const distance = endTime - now;
+
+        if (distance < 0) {
+          newTimeLeft[investment._id] = "Ready";
+          // Trigger payout refresh
+          fetchTeamData();
+        } else {
+          const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+          
+          newTimeLeft[investment._id] = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+      });
+      setTimeLeft(newTimeLeft);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [activeInvestments, fetchTeamData]);
+
+  const totalBalancePKR = Number(teamData?.user?.userbalance || 0);
+
+  const stats = useMemo(() => {
+    const summary = teamData?.commissionSummary || {};
+    return {
+      invested: Number(summary?.totalInvested || 0),
+      referral: Number(summary?.referralCommission || 0),
+      deposit: Number(summary?.totalDeposit || 0),
+      withdrawn: Number(summary?.totalWithdrawn || 0),
+    };
   }, [teamData]);
 
-  // ✅ TOTAL NET WORTH (For display purposes - Available + Active Plans Value)
-  const totalNetWorth = useMemo(() => {
-    const availableBalance = teamData?.user?.userbalance || 0;
-
-    // Active plans current value (investment + earned profit)
-    const activePlansValue = userPlans.reduce((total, plan) => {
-      if (plan.status === "running") {
-        const startDate = new Date(plan.startingDate);
-        const currentDate = new Date();
-        const daysPassed = Math.floor(
-          (currentDate - startDate) / (1000 * 60 * 60 * 24)
-        );
-        const earnedDays = Math.min(daysPassed, plan.days);
-        const earnedAmount = plan.dailyEarning * earnedDays;
-        return total + plan.Investment + earnedAmount;
-      }
-      return total;
-    }, 0);
-
-    return availableBalance + activePlansValue;
-  }, [teamData, userPlans]);
-
-  // Initialize and update invested counts daily
-  useEffect(() => {
-    const generateInitialCounts = () => {
-      const counts = {};
-      for (let i = 0; i < 6; i++) {
-        counts[i] = Math.floor(Math.random() * 11) + 20;
-      }
-      for (let i = 6; i < 12; i++) {
-        counts[i] = Math.floor(Math.random() * 11) + 5;
-      }
-      return counts;
-    };
-
-    const loadCounts = () => {
-      const savedCounts = localStorage.getItem("dashboardInvestedCounts");
-      const savedLastUpdate = localStorage.getItem("dashboardLastUpdate");
-
-      if (savedCounts && savedLastUpdate) {
-        const lastUpdateDate = new Date(savedLastUpdate);
-        const today = new Date();
-        const isSameDay =
-          lastUpdateDate.toDateString() === today.toDateString();
-
-        if (isSameDay) {
-          setInvestedCounts(JSON.parse(savedCounts));
-          setLastUpdate(lastUpdateDate);
-          return JSON.parse(savedCounts);
-        }
-      }
-
-      const newCounts = generateInitialCounts();
-      const now = new Date();
-      localStorage.setItem(
-        "dashboardInvestedCounts",
-        JSON.stringify(newCounts)
-      );
-      localStorage.setItem("dashboardLastUpdate", now.toISOString());
-      setInvestedCounts(newCounts);
-      setLastUpdate(now);
-      return newCounts;
-    };
-
-    const updateCountsDaily = () => {
-      const now = new Date();
-      const savedLastUpdate = localStorage.getItem("dashboardLastUpdate");
-      if (!savedLastUpdate) {
-        loadCounts();
-        return;
-      }
-
-      const lastUpdateDate = new Date(savedLastUpdate);
-      const today = new Date();
-      const isNewDay = lastUpdateDate.toDateString() !== today.toDateString();
-
-      if (isNewDay) {
-        setInvestedCounts((prev) => {
-          const newCounts = { ...prev };
-          Object.keys(newCounts).forEach((key) => {
-            const index = parseInt(key);
-            let randomIncrease =
-              index >= 5
-                ? Math.floor(Math.random() * 11) + 5
-                : Math.floor(Math.random() * 11) + 20;
-            newCounts[key] += randomIncrease;
-          });
-          localStorage.setItem(
-            "dashboardInvestedCounts",
-            JSON.stringify(newCounts)
-          );
-          localStorage.setItem("dashboardLastUpdate", now.toISOString());
-          setLastUpdate(now);
-          return newCounts;
-        });
-      }
-    };
-
-    loadCounts();
-    const interval = setInterval(updateCountsDaily, 60 * 60 * 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const [showBalance, setShowBalance] = useState(true);
-
-  // Subscribers counts
-  const [subscribersCounts, setSubscribersCounts] = useState([]);
-  useEffect(() => {
-    const fetchCounts = async () => {
-      try {
-        const res = await axios.get(
-          "https://be.metadrive01.xyz/api/plans/countSubscribePlanName"
-        );
-        setSubscribersCounts(res.data.plans || []);
-      } catch (err) {
-        console.error("Error fetching subscriber counts:", err);
-      }
-    };
-    fetchCounts();
-  }, []);
-
-  // Dynamic percentage calculations
-  const calcDaily = (amt, percent) =>
-    Math.round(Number(amt || 0) * (percent / 100));
-  const calcTotal = (amt, percent, days) =>
-    Math.round(calcDaily(amt, percent) * (days || 0));
-
-  // Plans to show on dashboard
-  const dashboardPlans = useMemo(() => {
-    return [
-      {
-        title: "Basic Plan",
-        days: 180,
-        min: 500,
-        max: 500,
-        percent: 7,
-        img: placeholderPlanImg500,
-        invested: investedCounts[0] || 25,
-        locked: false,
-      },
-      {
-        title: "Meta Drive",
-        days: 180,
-        min: 1000,
-        max: 1000,
-        percent: 5.5,
-        img: placeholderPlanImg1,
-        invested: investedCounts[1] || 25,
-        locked: false,
-      },
-      {
-        title: "Plan 2000",
-        days: 180,
-        min: 2000,
-        max: 2000,
-        percent: 7,
-        img: placeholderPlanImg2000,
-        invested: investedCounts[2] || 25,
-        locked: false,
-      },
-      {
-        title: "Meta Messenger Community",
-        days: 180,
-        min: 3000,
-        max: 3000,
-        percent: 5.7,
-        img: placeholderPlanImg2,
-        invested: investedCounts[3] || 25,
-        locked: false,
-      },
-      {
-        title: "Meta WhatsApp Team",
-        days: 180,
-        min: 5000,
-        max: 5000,
-        percent: 6,
-        img: placeholderPlanImg3,
-        invested: investedCounts[4] || 25,
-        locked: false,
-      },
-      {
-        title: "Meta Instagram / Social Studies",
-        days: 180,
-        min: 10000,
-        max: 10000,
-        percent: 6.3,
-        img: placeholderPlanImg4,
-        invested: investedCounts[5] || 25,
-        locked: false,
-      },
-      {
-        title: "Meta Facebook / Social Media",
-        days: 180,
-        min: 20000,
-        max: 20000,
-        percent: 6.5,
-        img: placeholderPlanImg5,
-        invested: investedCounts[6] || 10,
-        locked: true,
-      },
-      {
-        title: "Meta Oculus / Products",
-        days: 180,
-        min: 30000,
-        max: 30000,
-        percent: 6.7,
-        img: placeholderPlanImg6,
-        invested: investedCounts[7] || 10,
-        locked: true,
-      },
-      {
-        title: "Meta Workplace / Teams",
-        days: 180,
-        min: 40000,
-        max: 40000,
-        percent: 7,
-        img: placeholderPlanImg7,
-        invested: investedCounts[8] || 10,
-        locked: true,
-      },
-      {
-        title: "Meta Portal / LCD",
-        days: 180,
-        min: 50000,
-        max: 50000,
-        percent: 7.5,
-        img: placeholderPlanImg8,
-        invested: investedCounts[9] || 10,
-        locked: true,
-      },
-      {
-        title: "Meta AI / Artificial Intelligence",
-        days: 180,
-        min: 80000,
-        max: 80000,
-        percent: 8,
-        img: metaAiImg,
-        invested: investedCounts[10] || 10,
-        locked: true,
-      },
-      {
-        title: "Meta Business",
-        days: 180,
-        min: 100000,
-        max: 100000,
-        percent: 9,
-        img: metaBusinessImg,
-        invested: investedCounts[11] || 10,
-        locked: true,
-      },
-    ];
-  }, [investedCounts]);
-
-  // INVEST MODAL state
-  const [modalOpen, setModalOpen] = useState(false);
-  const [activePlan, setActivePlan] = useState(null);
-  const [investAmount, setInvestAmount] = useState("");
-  const [modalError, setModalError] = useState("");
-  const [submitting, setSubmitting] = useState(false);
-
-  const openInvestModal = (plan) => {
-    setActivePlan(plan);
-    setInvestAmount(plan.min);
-    setModalError("");
-    setModalOpen(true);
+  // User stats for manager rank
+  const userStats = {
+    selfInvestment: teamData?.user?.UserInvestment || 0,
+    directActive: teamData?.directReferrals?.stats?.totalUsers || 0,
+    indirectActive: (teamData?.indirectReferrals?.stats?.totalUsers || 0) + 
+                    (teamData?.extendedReferrals?.stats?.totalUsers || 0) +
+                    (teamData?.level4Referrals?.stats?.totalUsers || 0) +
+                    (teamData?.level5Referrals?.stats?.totalUsers || 0),
+    claimedRanks: teamData?.user?.claimedManagerRanks || [],
   };
 
-  const closeInvestModal = () => {
-    setModalOpen(false);
-    setActivePlan(null);
-    setInvestAmount("");
-    setModalError("");
+  // Find the first unclaimed rank (current running rank)
+  const currentRank = managerRanks.find(rank => !userStats.claimedRanks?.includes(rank.id)) || managerRanks[0];
+
+  // Progress calculation helpers
+  const calcProgress = (val, req) => Math.min(100, (val / req) * 100);
+
+  const formatPKR = (value) =>
+    `PKR ${Number(value || 0).toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
+
+  const formatUSD = (pkr) =>
+    `$${(Number(pkr || 0) / USD_TO_PKR).toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
+
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(value);
   };
 
-  const confirmInvest = async () => {
-    setModalError("");
-    if (!activePlan) return;
-    const amt = Number(investAmount);
-    if (!amt || isNaN(amt)) {
-      setModalError("Enter a valid amount");
-      return;
-    }
-    if (amt !== activePlan.min) {
-      setModalError(`Amount must be exactly ${activePlan.min} PKR`);
-      return;
-    }
-    const userBalance = teamData?.user?.userbalance || 0;
-    if (amt > userBalance) {
-      setModalError("Insufficient balance. Deposit first.");
-      return;
-    }
-    if (!userId) {
-      setModalError("Please login to invest.");
-      return;
-    }
+  const balanceActions = [
+    {
+      label: "Deposit",
+      subtitle: "Add funds",
+      icon: <FiArrowDown />,
+      className: "deposit",
+      onClick: () => navigate("/deposit"),
+    },
+    {
+      label: "Withdraw",
+      subtitle: "Send to wallet",
+      icon: <FiArrowUp />,
+      className: "withdraw",
+      onClick: () => navigate("/withdraw"),
+    },
+    {
+      label: "Refer",
+      subtitle: "Invite your team",
+      icon: <FiUsers />,
+      className: "refer",
+      onClick: () => navigate("/invite"),
+    },
+  ];
 
-    setSubmitting(true);
-    try {
-      // `percent` is DAILY profit percentage for the plan.
-      const baseDaily = Math.round(amt * (activePlan.percent / 100));
-      const totalProfit = baseDaily * activePlan.days;
-      const lastDay = baseDaily;
-
-      const payload = {
-        user_id: userId,
-        PlanName: activePlan.title,
-        Investment: amt,
-        days: activePlan.days,
-        // Backend recomputes schedule too; we send these for transparency/backwards support.
-        dailyEarning: baseDaily,
-        returnProfit: totalProfit,
-        lastDayEarning: lastDay,
-        profitPercentage: activePlan.percent + "%",
-      };
-
-      console.log("Creating plan with payload:", payload);
-
-      const res = await axios.post("https://be.metadrive01.xyz/api/plans", payload);
-      if (res.data?.success) {
-        // Update balance immediately
-        setTeamData((prev) => ({
-          ...prev,
-          user: {
-            ...prev.user,
-            userbalance: prev.user.userbalance - amt,
-          },
-        }));
-
-        await fetchTeamData();
-        await fetchUserPlans();
-
-        closeInvestModal();
-        navigate("/activeplans");
-      } else {
-        setModalError(res.data?.message || "Subscription failed.");
-      }
-    } catch (err) {
-      console.error("subscribe err:", err);
-      setModalError(err.response?.data?.message || "Network error. Try again.");
-    } finally {
-      setSubmitting(false);
-    }
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    navigate("/");
   };
 
-  const getSubscribersFor = (plan) => {
-    if (!subscribersCounts || !Array.isArray(subscribersCounts))
-      return plan.invested || 0;
-    const found = subscribersCounts.find((s) => {
-      if (!s?.planName) return false;
-      if (s.planName.toString().includes(String(plan.days))) return true;
-      if (
-        plan.title &&
-        s.planName.toLowerCase().includes(plan.title.toLowerCase())
-      )
-        return true;
-      if (s.planName.toString().includes(String(plan.min))) return true;
-      return false;
-    });
-    return found?.subscribers ?? plan.invested ?? 0;
+  const sidebarMain = [
+    { to: "/dashboard", icon: <FiHome />, label: "Dashboard" },
+    { to: "/investmentplans", icon: <FiPieChart />, label: "Investment Plans" },
+    { to: "/deposit", icon: <FiArrowDown />, label: "Deposit" },
+    { to: "/withdraw", icon: <FiArrowUp />, label: "Withdraw" },
+    { to: "/invite", icon: <FiUsers />, label: "Refer & Invite" },
+    { to: "/team", icon: <FiUsers />, label: "My Team" },
+    { to: "/managerranksystem", icon: <FaGift />, label: "Manager Rank System" },
+    { to: "/earningsummary", icon: <FiActivity />, label: "Earning Summary" },
+    { to: "/transactionhistory", icon: <FiCreditCard />, label: "Transaction History" },
+    { to: "/rankingdashboard", icon: <FaTags />, label: "Ranking Dashboard" },
+  ];
+
+  const sidebarMore = [
+    { to: "/profile", icon: <FiUser />, label: "Profile" },
+    { to: "/support", icon: <FiHelpCircle />, label: "Support" },
+    { to: "/privacypolicy", icon: <FiShield />, label: "Privacy Policy" },
+  ];
+
+  const getPlanIcon = (planName) => {
+    if (planName?.toLowerCase().includes('lithium')) return <FaBitcoin />;
+    if (planName?.toLowerCase().includes('gold')) return <FaCoins />;
+    return <FaRocket />;
   };
 
-  const whatsappGroupLink =
-    "https://chat.whatsapp.com/FvRiiZs7DyhIDIDHxTdRNj?mode=gi_t";
+  // Sample active investments for demo (replace with real data)
+  const sampleInvestments = [
+    {
+      _id: "1",
+      planName: "Premium Plan",
+      amount: 100,
+      dailyProfit: 4.20,
+      totalProfit: 12.60,
+      startDate: new Date(),
+      nextPayout: new Date(Date.now() + 3 * 60 * 60 * 1000), // 3 hours from now
+      status: "active",
+    },
+    {
+      _id: "2",
+      planName: "Premium Plan",
+      amount: 250,
+      dailyProfit: 10.50,
+      totalProfit: 31.50,
+      startDate: new Date(),
+      nextPayout: new Date(Date.now() + 5 * 60 * 60 * 1000 + 30 * 60 * 1000), // 5.5 hours
+      status: "active",
+    },
+    {
+      _id: "3",
+      planName: "Premium Plan",
+      amount: 500,
+      dailyProfit: 21.00,
+      totalProfit: 63.00,
+      startDate: new Date(),
+      nextPayout: new Date(Date.now() + 1 * 60 * 60 * 1000 + 45 * 60 * 1000), // 1.75 hours
+      status: "active",
+    },
+  ];
 
-  const formatLastUpdate = () => {
-    if (!lastUpdate) return "Today";
-    const today = new Date();
-    const updateDate = new Date(lastUpdate);
-    if (updateDate.toDateString() === today.toDateString()) {
-      return "Today";
-    } else {
-      return updateDate.toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-      });
-    }
-  };
+  const displayInvestments = activeInvestments.length > 0 ? activeInvestments : sampleInvestments;
 
   return (
     <div className="sx-dashboard-root">
       <WelcomePopup
-        userName={user?.fullName || user?.name || "Nisbat X"}
+        userName={user?.fullName || user?.name || "User"}
         isOpen={shouldShowWelcomePopup}
-        onClose={handleCloseWelcomePopup}
+        onClose={() => {
+          setWelcomeDismissed(true);
+          navigate("/dashboard", { replace: true });
+        }}
       />
 
-      {/* TOP: Welcome header */}
-
-      <div className="sx-header">
-        <div className="sx-header-left">
-          <div className="sx-logo-container">
-            <img src={logoimagemetadrive} alt="MetaDrive" className="sx-logo" />
+      <aside className={`sx-sidebar ${sidebarOpen ? "open" : ""}`}>
+        <div className="sx-sidebar-top">
+          <div className="sx-sidebar-brand">
+            <span className="sx-sidebar-brand-text">SPARK</span>
+            <img src={logoimagemetadrive} alt="SparkX" className="sx-sidebar-logo" />
           </div>
-          <div className="sx-welcome-text">
-            <div className="sx-welcome-main">Meta Drive</div>
-            <div className="sx-welcome-name">
-              Welcome back, {user?.fullName || user?.name || "User"}
-            </div>
-          </div>
-        </div>
-
-        <div className="sx-header-right">
-          <div className="sx-nav-btn" onClick={() => setShowSettings(true)}>
-            <FiMenu className="sx-nav-icon" />
-          </div>
-        </div>
-      </div>
-
-      {/* Total Balance Card */}
-      <div className="sx-balance-card">
-        <div className="sx-balance-header">
-          <div className="sx-balance-title">Available Balance</div>
-          <button
-            className="sx-eye-toggle"
-            onClick={() => setShowBalance(!showBalance)}
-            type="button"
-          >
-            {showBalance ? <FaEye /> : <FaEyeSlash />}
+          <button className="sx-sidebar-close" onClick={() => setSidebarOpen(false)} type="button">
+            <FiX />
           </button>
         </div>
-        <div className="sx-balance-value">
-          {showBalance
-            ? Number(totalBalance || 0).toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              }) + " PKR"
-            : "••••••"}
-        </div>
-        <div className="sx-net-worth">
-          Net Worth:{" "}
-          {showBalance
-            ? Number(totalNetWorth || 0).toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              }) + " PKR"
-            : "••••••"}
-        </div>
-      </div>
 
-      {/* Quick Actions */}
-      <div className="sx-quick-actions">
-        <div className="sx-action" onClick={() => navigate("/deposit")}>
-          <div className="sx-action-icon">
-            <RiBankLine className="sx-nav-icon" />
-          </div>
-          <div className="sx-action-label">Deposit</div>
+        <div className="sx-sidebar-links">
+          {sidebarMain.map((item) => (
+            <Link
+              key={item.to}
+              to={item.to}
+              className={`sx-sidebar-link ${location.pathname === item.to ? "active" : ""}`}
+              onClick={() => setSidebarOpen(false)}
+            >
+              <span className="sx-sidebar-icon">{item.icon}</span>
+              <span>{item.label}</span>
+            </Link>
+          ))}
         </div>
-        <div className="sx-action" onClick={() => navigate("/withdraw")}>
-          <div className="sx-action-icon">
-            <RiMoneyDollarCircleLine className="sx-nav-icon" />
-          </div>
-          <div className="sx-action-label">Withdraw</div>
-        </div>
-        <div className="sx-action" onClick={() => navigate("/invite")}>
-          <div className="sx-action-icon">
-            <RiGroupLine className="sx-nav-icon" />
-          </div>
-          <div className="sx-action-label">Invite</div>
-        </div>
-        <div className="sx-action" onClick={() => navigate("/teamreward")}>
-          <div className="sx-action-icon">
-            <FaGift className="sx-nav-icon" />
-          </div>
-          <div className="sx-action-label">Team Reward</div>
-        </div>
-        <div className="sx-action" onClick={() => navigate("/promocode")}>
-          <div className="sx-action-icon">
-            <FaTags className="sx-nav-icon" />
-          </div>
-          <div className="sx-action-label">Promo Code</div>
-        </div>
-        <a
-          href={whatsappGroupLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="sx-action whatsapp-group-action"
-        >
-          <div className="sx-action-icon">
-            <FaWhatsapp className="sx-nav-icon" />
-          </div>
-          <div className="sx-action-label">
-            <span className="desktop-text">Join MetaDrive Whatsapp Group</span>
-            <span className="mobile-text">WhatsApp Group</span>
-          </div>
-        </a>
-      </div>
 
-      {/* Investment Plans Heading */}
-      <div className="sx-plans-header">
-        <h3>INVESTMENT DIFFERENT PRODUCTS</h3>
-        <p className="sx-sub">You can buy any product you want🔥</p>
-        <div className="sx-update-indicator">
-          📊 Investor counts updated daily • Last update: {formatLastUpdate()}
-        </div>
-      </div>
+        <div className="sx-sidebar-divider" />
 
-      {/* Plans List */}
-      <div className="sx-plans-list">
-        {dashboardPlans.map((p, idx) => (
-          <div className="sx-plan-card" key={idx}>
-            <div className="sx-plan-img-wrap">
-              <img src={p.img} alt={p.title} className="sx-plan-img" />
-              <div className="sx-plan-percent">{p.percent}%/PER DAY</div>
-              {idx < 5 && <div className="sx-popular-badge">🔥 POPULAR</div>}
+        <div className="sx-sidebar-links">
+          {sidebarMore.map((item) => (
+            <Link
+              key={item.to}
+              to={item.to}
+              className={`sx-sidebar-link ${location.pathname === item.to ? "active" : ""}`}
+              onClick={() => setSidebarOpen(false)}
+            >
+              <span className="sx-sidebar-icon">{item.icon}</span>
+              <span>{item.label}</span>
+            </Link>
+          ))}
+
+          <a
+            href={whatsappGroupLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="sx-sidebar-link"
+            onClick={() => setSidebarOpen(false)}
+          >
+            <span className="sx-sidebar-icon"><FaWhatsapp /></span>
+            <span>WhatsApp Group</span>
+          </a>
+
+          <button type="button" className="sx-sidebar-link sx-logout" onClick={handleLogout}>
+            <span className="sx-sidebar-icon"><FiX /></span>
+            <span>Logout</span>
+          </button>
+        </div>
+      </aside>
+
+      {sidebarOpen && <div className="sx-sidebar-overlay" onClick={() => setSidebarOpen(false)} />}
+
+      <main className="sx-main">
+        <header className="sx-header">
+          <div className="sx-header-left">
+            <button className="sx-menu-btn" onClick={() => setSidebarOpen(true)} type="button">
+              <FiMenu />
+            </button>
+            <div>
+              <h2 className="sx-title">Dashboard</h2>
+              <p className="sx-subtitle">Welcome back, {user?.fullName || user?.name || "User"}</p>
             </div>
-            <div className="sx-plan-body">
-              <div className="sx-plan-title">{p.title}</div>
-              <div className="sx-plan-range">
-                <span className="sx-range-min">{p.min.toLocaleString()} PKR</span>
+          </div>
+
+          <div className="sx-header-right">
+            <a href={whatsappGroupLink} target="_blank" rel="noopener noreferrer" className="sx-whatsapp-pill">
+              <FaWhatsapp /> Join WhatsApp
+            </a>
+            <button className="sx-icon-btn" type="button">
+              <FiBell />
+              <span className="sx-notify-dot">3</span>
+            </button>
+            <button className="sx-profile-avatar-btn" onClick={() => navigate("/profile")} type="button">
+              <FiUser className="sx-profile-avatar-icon" />
+            </button>
+          </div>
+        </header>
+
+        {/* Main Content Container */}
+        <div className="sx-dashboard-content">
+          {/* Balance Card */}
+          <section className="sx-balance-card">
+            <div className="sx-balance-head">
+              <h3>Available Balance</h3>
+              <button className="sx-eye-toggle" onClick={() => setShowBalance((v) => !v)} type="button">
+                {showBalance ? <FaEye /> : <FaEyeSlash />}
+              </button>
+            </div>
+
+            <div className="sx-balance-values">
+              <div>
+                <span className="sx-balance-label">PKR</span>
+                <p className="sx-balance-amount">{showBalance ? formatPKR(totalBalancePKR) : "••••••"}</p>
               </div>
-              <div className="sx-invested-people">
-                <div className="sx-invested-header">
-                  <span className="sx-invested-icon"></span>
-                  Activate Your Product
-                  <span className="sx-days-badge">{p.days} days</span>
-                </div>
-                <strong className="sx-invested-count">
-                  {getSubscribersFor(p).toLocaleString()}
-                </strong>
+              <div className="sx-balance-line" />
+              <div>
+                <span className="sx-balance-label">USD</span>
+                <p className="sx-balance-amount sx-usd">{showBalance ? formatUSD(totalBalancePKR) : "••••••"}</p>
               </div>
-              <div className="sx-plan-cta">
+            </div>
+            <p className="sx-conversion-note">1 USD = 280 PKR</p>
+
+            <div className="sx-balance-actions">
+              {balanceActions.map((action) => (
                 <button
-                  className="sx-invest-btn"
-                  onClick={() => !p.locked && openInvestModal(p)}
-                  disabled={p.locked}
+                  key={action.label}
+                  className={`sx-balance-action sx-balance-action-${action.className}`}
+                  onClick={action.onClick}
+                  type="button"
                 >
-                  {p.locked ? "TEMPORARY OFF  🔐" : "INVEST NOW"}
+                  <span className="sx-balance-action-icon">{action.icon}</span>
+                  <span className="sx-balance-action-copy">
+                    <strong>{action.label}</strong>
+                    <small>{action.subtitle}</small>
+                  </span>
                 </button>
-              </div>
+              ))}
             </div>
-          </div>
-        ))}
-      </div>
+          </section>
 
-      {/* Bottom Navigation */}
-      <footer className="sx-bottom-nav">
-        <Link to="/dashboard" className="sx-nav-btn active">
-          <FiHome className="sx-nav-icon" />
-        </Link>
-        <Link to="/activeplans" className="sx-nav-btn">
-          <FiPieChart className="sx-nav-icon" />
-        </Link>
-        <Link to="/team" className="sx-nav-btn">
-          <FiUsers className="sx-nav-icon" />
-        </Link>{" "}
-        <Link to="/earningsummary" className="sx-nav-btn">
-          <FaChartLine className="sx-nav-icon" />
-        </Link>
-      </footer>
+          {/* Stats Cards */}
+          <section className="sx-stats-grid">
+            <article className="sx-stat-card">
+              <h4>Total Invested</h4>
+              <p>{showBalance ? formatUSD(stats.invested) : "••••"}</p>
+            </article>
+            <article className="sx-stat-card">
+              <h4>Referral Earning</h4>
+              <p>{showBalance ? formatUSD(stats.referral) : "••••"}</p>
+            </article>
+            <article className="sx-stat-card">
+              <h4>Total Deposit</h4>
+              <p>{showBalance ? formatUSD(stats.deposit) : "••••"}</p>
+            </article>
+            <article className="sx-stat-card">
+              <h4>Total Withdrawn</h4>
+              <p>{showBalance ? formatUSD(stats.withdrawn) : "••••"}</p>
+            </article>
+          </section>
 
-      <Settings isOpen={showSettings} onClose={() => setShowSettings(false)} />
-
-      {/* INVEST MODAL */}
-      {modalOpen && activePlan && (
-        <div className="sx-modal-overlay">
-          <div className="sx-modal">
-            <div className="sx-modal-header">
-              <h4>Invest in {activePlan.title}</h4>
-              <button className="sx-modal-close" onClick={closeInvestModal}>
-                ✖
-              </button>
+          {/* Rank Section */}
+          <section className="sx-rank-section">
+            <div className="sx-rank-header">
+              <h3>My Current Rank</h3>
+              <span className="sx-rank-badge">{currentRank.version}</span>
             </div>
-            <div className="sx-modal-body">
-              <img src={activePlan.img} alt="" className="sx-modal-img" />
-              <p className="sx-modal-range">
-                 Price : {activePlan.min.toLocaleString()} PKR
-              </p>
-              <div className="sx-popularity-info">
-                <div className="sx-popularity-badge">
-                  {getSubscribersFor(activePlan).toLocaleString()}+ active
-                  investors
+            <div className="mr-rank-card" style={{ background: currentRank.bgGradient }}>
+              <div className="mr-rank-header">
+                <div className="mr-rank-version" style={{ color: currentRank.color }}>
+                  <span className="mr-rank-icon">{currentRank.icon}</span>
+                  <span>{currentRank.title}</span>
                 </div>
-                <p className="sx-popularity-note">
-                  Join {getSubscribersFor(activePlan).toLocaleString()}{" "}
-                  investors who trust this plan
-                </p>
               </div>
-              <div id="sx-balance-value">
-                Total Balance :
-                {showBalance
-                  ? (totalBalance || 0).toLocaleString() + " PKR"
-                  : "••••••"}
-              </div>
-
-              <div className="sx-calc">
-                <div>
-                  <small>Daily Profit ({activePlan.percent}%)</small>
-                  <div className="sx-calc-value">
-                    {calcDaily(
-                      investAmount || activePlan.min,
-                      activePlan.percent
-                    )}{" "}
-                    PKR
+              <div className="mr-rank-requirements">
+                <div className="mr-requirement-item">
+                  <span className="mr-req-label">Self Investment</span>
+                  <span className="mr-req-value">${currentRank.selfInvestment}</span>
+                  <div className="mr-progress-bar">
+                    <div 
+                      className="mr-progress-fill" 
+                      style={{ 
+                        width: `${calcProgress(userStats.selfInvestment, currentRank.selfInvestment)}%`, 
+                        background: currentRank.color 
+                      }} 
+                    />
                   </div>
+                  <span className="mr-progress-text">{calcProgress(userStats.selfInvestment, currentRank.selfInvestment).toFixed(0)}%</span>
                 </div>
-                <div>
-                  <small>Total Profit ({activePlan.days} days)</small>
-                  <div className="sx-calc-value">
-                    {calcTotal(
-                      investAmount || activePlan.min,
-                      activePlan.percent,
-                      activePlan.days
-                    )}{" "}
-                    PKR
+                <div className="mr-requirement-item">
+                  <span className="mr-req-label">Direct Active</span>
+                  <span className="mr-req-value">{currentRank.directActive} members</span>
+                  <div className="mr-progress-bar">
+                    <div 
+                      className="mr-progress-fill" 
+                      style={{ 
+                        width: `${calcProgress(userStats.directActive, currentRank.directActive)}%`, 
+                        background: currentRank.color 
+                      }} 
+                    />
                   </div>
+                  <span className="mr-progress-text">{calcProgress(userStats.directActive, currentRank.directActive).toFixed(0)}%</span>
+                </div>
+                <div className="mr-requirement-item">
+                  <span className="mr-req-label">Indirect Active</span>
+                  <span className="mr-req-value">{currentRank.indirectActive} members</span>
+                  <div className="mr-progress-bar">
+                    <div 
+                      className="mr-progress-fill" 
+                      style={{ 
+                        width: `${calcProgress(userStats.indirectActive, currentRank.indirectActive)}%`, 
+                        background: currentRank.color 
+                      }} 
+                    />
+                  </div>
+                  <span className="mr-progress-text">{calcProgress(userStats.indirectActive, currentRank.indirectActive).toFixed(0)}%</span>
                 </div>
               </div>
-              {modalError && <div className="sx-modal-error">{modalError}</div>}
+              <div className="mr-rank-footer">
+                <div className="mr-salary-info">
+                  <span className="mr-salary-label">15 Days Salary</span>
+                  <strong className="mr-salary-amount">${currentRank.salary}</strong>
+                  <span className="mr-growth-rate">Growth: {currentRank.growthRate}%</span>
+                </div>
+                <Link to="/managerranksystem" className="mr-view-all">View All Ranks →</Link>
+              </div>
             </div>
-            <div className="sx-modal-footer">
-              <button className="sx-btn-cancel" onClick={closeInvestModal}>
-                Cancel
-              </button>
-              <button
-                className="sx-btn-confirm"
-                onClick={confirmInvest}
-                disabled={submitting}
-              >
-                {submitting ? "Processing..." : "Confirm Invest"}
-              </button>
+          </section>
+
+          {/* Active Investments Section */}
+          <section className="sx-active-investments-section">
+            <div className="sx-section-header">
+              <h3>Active Investments</h3>
+             
             </div>
-          </div>
+            
+            {displayInvestments.length === 0 ? (
+              <div className="sx-no-investments">
+                <p>No active investments found.</p>
+                <Link to="/investmentplans" className="sx-start-investing-btn">Start Investing</Link>
+              </div>
+            ) : (
+              <div className="sx-investments-grid">
+                {displayInvestments.map((investment) => (
+                  <div key={investment._id} className="sx-investment-card">
+                    <div className="sx-investment-header">
+                      <div className="sx-investment-icon">
+                        {getPlanIcon(investment.planName)}
+                      </div>
+                      <div className="sx-investment-title">
+                        <h4>{investment.planName}</h4>
+                        <span className="sx-investment-status active">Active</span>
+                      </div>
+                    </div>
+
+                    <div className="sx-investment-details">
+                      <div className="sx-investment-detail">
+                        <span>Investment Amount</span>
+                        <strong>{formatCurrency(investment.amount)}</strong>
+                      </div>
+                      <div className="sx-investment-detail">
+                        <span>Daily Profit</span>
+                        <strong className="profit">{formatCurrency(investment.dailyProfit)}</strong>
+                      </div>
+                      <div className="sx-investment-detail">
+                        <span>Total Profit</span>
+                        <strong className="total-profit">{formatCurrency(investment.totalProfit)}</strong>
+                      </div>
+                    </div>
+
+                    <div className="sx-investment-timer">
+                      <FiClock className="sx-timer-icon" />
+                      <div className="sx-timer-info">
+                        <span>Next Payout in</span>
+                        <strong className="sx-timer-value">
+                          {timeLeft[investment._id] || "00:00:00"}
+                        </strong>
+                      </div>
+                    </div>
+
+                    <div className="sx-investment-progress">
+                      <div className="sx-progress-bar">
+                        <div 
+                          className="sx-progress-fill" 
+                          style={{ 
+                            width: `${Math.random() * 100}%`, // Replace with actual progress calculation
+                            background: 'linear-gradient(90deg, #22e88c, #9060ff)'
+                          }} 
+                        />
+                      </div>
+                      <span className="sx-progress-text">Cycle Progress</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
         </div>
-      )}
+      </main>
     </div>
   );
 }

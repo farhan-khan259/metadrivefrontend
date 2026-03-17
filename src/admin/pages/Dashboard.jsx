@@ -1,245 +1,3 @@
-// import axios from "axios";
-// import { useEffect, useState } from "react";
-// import { Link } from "react-router-dom"; // ✅ Add this
-// import Card from "../components/Card";
-// import Charts from "../components/Charts";
-// import Topbar from "../components/Topbar";
-// import "../styles/admin.css";
-
-// export default function Dashboard() {
-//   const [stats, setStats] = useState(null);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState("");
-
-//   useEffect(() => {
-//     const fetchDashboardStats = async () => {
-//       try {
-//         const response = await axios.get(
-//           "https://be.metadrive01.xyz/api/admin/dashboard-stats"
-//         );
-//         if (response.data.success) {
-//           setStats(response.data.stats);
-//         } else {
-//           setError("Failed to fetch dashboard statistics");
-//         }
-//       } catch (err) {
-//         console.error("Error fetching dashboard stats:", err);
-//         setError("Error loading dashboard data");
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//     fetchDashboardStats();
-//   }, []);
-
-//   if (loading) {
-//     return (
-//       <div className="admin-layout">
-//         <div className="main-content">
-//           <Topbar />
-//           <div className="dashboard-container">
-//             <div className="loading">Loading dashboard data...</div>
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   }
-
-//   if (error) {
-//     return (
-//       <div className="admin-layout">
-//         <div className="main-content">
-//           <Topbar />
-//           <div className="dashboard-container">
-//             <div className="error">{error}</div>
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   }
-
-//   if (!stats) {
-//     return (
-//       <div className="admin-layout">
-//         <div className="main-content">
-//           <Topbar />
-//           <div className="dashboard-container">
-//             <div className="error">No data available</div>
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   }
-
-//   const cards = [
-//     { title: "Today Users Join", value: stats.todayUsers },
-//     {
-//       title: "Today Deposit ",
-//       value: `PKR ${stats.todayDeposits?.toLocaleString()}`,
-//     },
-//     {
-//       title: "Today Withdraw ",
-//       value: `PKR ${stats.todayWithdrawals?.toLocaleString()}`,
-//     },
-//     { title: "Total Users", value: stats.totalUsers },
-//     {
-//       title: "Total Deposits ",
-//       value: `PKR ${stats.totalDeposits?.toLocaleString()}`,
-//     },
-//     {
-//       title: "Total Withdrawals ",
-//       value: `PKR ${stats.totalWithdrawals?.toLocaleString()}`,
-//     },
-//     {
-//       title: "Pending Deposits",
-//       value: stats.pendingDeposits,
-//       link: "/admin/deposits/pending", // ✅ Add link here
-//     },
-//     {
-//       title: "Pending Withdrawals",
-//       value: stats.pendingWithdrawals,
-//       link: "/admin/withdrawals/pending", // ✅ Add link here
-//     },
-//     { title: "Active Plans", value: stats.activePlans },
-//   ];
-
-//   return (
-//     <div className="admin-layout">
-//       <div className="main-content">
-//         <Topbar />
-//         <div className="dashboard-container">
-//           {/* Cards */}
-//           <div className="dashboard-cards">
-//             {cards.map((c, i) => {
-//               // 🎨 Define custom color styles
-//               let bgColor = "#fff";
-//               let textColor = "#000";
-
-//               if (
-//                 c.title === "Pending Deposits" ||
-//                 c.title === "Pending Withdrawals"
-//               ) {
-//                 bgColor = "#1e88e5"; // nice blue
-//                 textColor = "#fff"; // white text
-//               } else if (i < 3) {
-//                 bgColor = "#e53935"; // red for first 3
-//                 textColor = "#fff";
-//               }
-
-//               const cardContent = (
-//                 <Card
-//                   title={c.title}
-//                   value={c.value}
-//                   color={bgColor}
-//                   textColor={textColor}
-//                 />
-//               );
-
-//               return c.link ? (
-//                 <Link
-//                   to={c.link}
-//                   key={i}
-//                   className="card-link"
-//                   style={{ textDecoration: "none" }}
-//                 >
-//                   {cardContent}
-//                 </Link>
-//               ) : (
-//                 <div key={i}>{cardContent}</div>
-//               );
-//             })}
-//           </div>
-
-//           {/* Charts */}
-//           <div className="charts-section">
-//             <Charts
-//               userGrowth={stats.userGrowth}
-//               monthlyDeposits={stats.monthlyDeposits}
-//             />
-//           </div>
-
-//           {/* Recent Deposits */}
-//           <div className="recent-section">
-//             <h3>Recent Deposits</h3>
-//             <div className="table-responsive">
-//               <table className="dashboard-table">
-//                 <thead>
-//                   <tr>
-//                     <th>ID</th>
-//                     <th>User</th>
-//                     <th>Amount</th>
-//                     <th>Method</th>
-//                     <th>Status</th>
-//                     <th>Date</th>
-//                   </tr>
-//                 </thead>
-//                 <tbody>
-//                   {stats.recentDeposits.map((d, index) => (
-//                     <tr key={d.id}>
-//                       <td>D{String(index + 1).padStart(3, "0")}</td>
-//                       <td>{d.user_id}</td>
-//                       <td>{d.depositsAmount?.toLocaleString()}</td>
-//                       <td>{d.payment_method}</td>
-//                       <td
-//                         className={
-//                           d.depositStatus === "completed"
-//                             ? "status-completed"
-//                             : "status-pending"
-//                         }
-//                       >
-//                         {d.depositStatus}
-//                       </td>
-//                       <td>{d.createdAt}</td>
-//                     </tr>
-//                   ))}
-//                 </tbody>
-//               </table>
-//             </div>
-//           </div>
-
-//           {/* Recent Withdrawals */}
-//           <div className="recent-section">
-//             <h3>Recent Withdrawals</h3>
-//             <div className="table-responsive">
-//               <table className="dashboard-table">
-//                 <thead>
-//                   <tr>
-//                     <th>ID</th>
-//                     <th>User</th>
-//                     <th>Amount</th>
-//                     <th>Status</th>
-//                     <th>Date</th>
-//                   </tr>
-//                 </thead>
-//                 <tbody>
-//                   {stats.recentWithdrawals.map((w, index) => (
-//                     <tr key={w.id}>
-//                       <td>W{String(index + 1).padStart(3, "0")}</td>
-//                       <td>{w.user_id}</td>
-//                       <td>{w.withdrawalsAmount?.toLocaleString()}</td>
-//                       <td
-//                         className={
-//                           w.withdrawalStatus === "completed"
-//                             ? "status-completed"
-//                             : "status-pending"
-//                         }
-//                       >
-//                         {w.withdrawalStatus}
-//                       </td>
-//                       <td>{w.createdAt}</td>
-//                     </tr>
-//                   ))}
-//                 </tbody>
-//               </table>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {
@@ -251,7 +9,19 @@ import {
   FaRocket,
   FaUsers,
   FaWallet,
+  FaCoins,
+  FaCheckCircle,
+  FaHourglassHalf,
+  FaTimesCircle,
 } from "react-icons/fa";
+import {
+  FiActivity,
+  FiTrendingUp,
+  FiDollarSign,
+  FiUserPlus,
+  FiBell,
+  FiShoppingBag,
+} from "react-icons/fi";
 import { Link } from "react-router-dom";
 import Card from "../components/Card";
 import Charts from "../components/Charts";
@@ -268,7 +38,7 @@ export default function Dashboard() {
     const fetchDashboardStats = async () => {
       try {
         const response = await axios.get(
-          "https://be.metadrive01.xyz/api/admin/dashboard-stats"
+          "https://be.sparkx1.pro/api/admin/dashboard-stats"
         );
         if (response.data.success) {
           setStats(response.data.stats);
@@ -345,86 +115,125 @@ export default function Dashboard() {
     );
   }
 
-  const cards = [
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat('en-PK', {
+      style: 'currency',
+      currency: 'PKR',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(value || 0).replace('PKR', '₨');
+  };
+
+  const formatNumber = (value) => {
+    return new Intl.NumberFormat('en-PK').format(value || 0);
+  };
+
+  const statCards = [
     {
-      title: "Today Users Join",
-      value: stats.todayUsers,
+      title: "Today's Users",
+      value: formatNumber(stats.todayUsers),
       icon: FaUsers,
       variant: "primary",
       trend: "+12%",
-      description: "New registrations today",
+      trendUp: true,
+      subtitle: "New registrations",
+      color: "#22e88c",
+      link: "/admin/users?filter=today",
     },
     {
-      title: "Today Deposit",
-      value: `PKR ${stats.todayDeposits?.toLocaleString()}`,
+      title: "Today's Deposits",
+      value: formatCurrency(stats.todayDeposits),
       icon: FaMoneyBillWave,
       variant: "success",
       trend: "+8%",
-      description: "Total deposits today",
+      trendUp: true,
+      subtitle: "Total deposits today",
+      color: "#5aa6ff",
+      link: "/admin/deposits/completed?filter=today",
     },
     {
-      title: "Today Withdraw",
-      value: `PKR ${stats.todayWithdrawals?.toLocaleString()}`,
+      title: "Today's Withdrawals",
+      value: formatCurrency(stats.todayWithdrawals),
       icon: FaWallet,
-      variant: "accent",
-      trend: "+5%",
-      description: "Total withdrawals today",
+      variant: "warning",
+      trend: "-3%",
+      trendUp: false,
+      subtitle: "Total withdrawals today",
+      color: "#ffb14d",
+      link: "/admin/withdrawals/completed?filter=today",
     },
     {
       title: "Total Users",
-      value: stats.totalUsers,
-      icon: FaUsers,
-      variant: "secondary",
+      value: formatNumber(stats.totalUsers),
+      icon: FiUserPlus,
+      variant: "primary",
       trend: "+15%",
-      description: "All-time users",
+      trendUp: true,
+      subtitle: "All-time users",
+      color: "#c77dff",
+      link: "/admin/users",
     },
     {
       title: "Total Deposits",
-      value: `PKR ${stats.totalDeposits?.toLocaleString()}`,
-      icon: FaChartLine,
+      value: formatCurrency(stats.totalDeposits),
+      icon: FiTrendingUp,
       variant: "success",
       trend: "+22%",
-      description: "All-time deposits",
+      trendUp: true,
+      subtitle: "All-time deposits",
+      color: "#22e88c",
+      link: "/admin/deposits/completed",
     },
     {
       title: "Total Withdrawals",
-      value: `PKR ${stats.totalWithdrawals?.toLocaleString()}`,
-      icon: FaExchangeAlt,
+      value: formatCurrency(stats.totalWithdrawals),
+      icon: FiActivity,
       variant: "accent",
       trend: "+18%",
-      description: "All-time withdrawals",
+      trendUp: true,
+      subtitle: "All-time withdrawals",
+      color: "#ff5a87",
+      link: "/admin/withdrawals/completed",
     },
     {
       title: "Pending Deposits",
-      value: stats.pendingDeposits,
-      icon: FaClock,
+      value: formatNumber(stats.pendingDeposits),
+      icon: FaHourglassHalf,
       variant: "warning",
-      trend: "Needs attention",
-      description: "Awaiting approval",
+      badge: "Action Required",
+      badgeType: "warning",
+      subtitle: "Awaiting approval",
+      color: "#ffb14d",
       link: "/admin/deposits/pending",
     },
     {
       title: "Pending Withdrawals",
-      value: stats.pendingWithdrawals,
+      value: formatNumber(stats.pendingWithdrawals),
       icon: FaClock,
       variant: "warning",
-      trend: "Needs attention",
-      description: "Awaiting processing",
+      badge: "Action Required",
+      badgeType: "warning",
+      subtitle: "Awaiting processing",
+      color: "#ff5a87",
       link: "/admin/withdrawals/pending",
     },
     {
       title: "Active Plans",
-      value: stats.activePlans,
-      icon: FaRocket,
-      variant: "primary",
-      trend: "+10%",
-      description: "Running investments",
+      value: formatNumber(stats.activePlans),
+      icon: FiShoppingBag,
+      variant: "success",
+      badge: "Running",
+      badgeType: "success",
+      subtitle: "Currently active",
+      color: "#9060ff",
+      link: "/admin/plans",
     },
   ];
 
   const netProfit = (stats.totalDeposits || 0) - (stats.totalWithdrawals || 0);
-  const todayProfit =
-    (stats.todayDeposits || 0) - (stats.todayWithdrawals || 0);
+  const todayProfit = (stats.todayDeposits || 0) - (stats.todayWithdrawals || 0);
+  const profitTrend = todayProfit >= 0 ? "positive" : "negative";
+  const profitIcon = todayProfit >= 0 ? <FaArrowUp /> : <FaArrowUp style={{ transform: 'rotate(180deg)' }} />;
 
   return (
     <div className="admin-layout">
@@ -432,71 +241,94 @@ export default function Dashboard() {
       <div className="admin-main">
         <Topbar />
         <div className="admin-content">
-          {/* Header Section */}
-          <div className="admin-dashboard-header">
-            <div className="dashboard-welcome">
-              <h1>Dashboard Overview</h1>
-              <p>
+          {/* Welcome Banner */}
+          <div className="admin-welcome-banner">
+            <div className="banner-content">
+              <h1 className="banner-title">
+                <FaRocket className="banner-icon" />
+                Dashboard Overview
+              </h1>
+              <p className="banner-subtitle">
                 Welcome back! Here's what's happening with your platform today.
               </p>
             </div>
-            <div className="dashboard-summary">
-              <div className="summary-card profit">
-                <div className="summary-icon">
-                  <FaChartLine />
-                </div>
-                <div className="summary-content">
-                  <h3>Net Profit</h3>
-                  <p className="summary-value">
-                    PKR {netProfit?.toLocaleString()}
-                  </p>
-                  <span className="summary-trend positive">
-                    <FaArrowUp /> +15% this month
-                  </span>
-                </div>
+            <div className="banner-stats">
+              <div className="banner-stat">
+                <span className="banner-stat-label">Server Status</span>
+                <span className="banner-stat-value status-online">
+                  <span className="status-dot"></span>
+                  Online
+                </span>
               </div>
-              <div className="summary-card today">
-                <div className="summary-icon">
-                  <FaRocket />
-                </div>
-                <div className="summary-content">
-                  <h3>Today's Profit</h3>
-                  <p className="summary-value">
-                    PKR {todayProfit?.toLocaleString()}
-                  </p>
-                  <span className="summary-trend positive">
-                    <FaArrowUp /> +8% from yesterday
-                  </span>
-                </div>
+              <div className="banner-stat">
+                <span className="banner-stat-label">Last Update</span>
+                <span className="banner-stat-value">
+                  {new Date().toLocaleTimeString()}
+                </span>
               </div>
             </div>
           </div>
 
-          {/* Main Cards Grid */}
-          <div className="admin-cards-grid">
-            {cards.map((card, index) => {
-              const cardElement = (
-                <Card
-                  key={index}
-                  title={card.title}
-                  value={card.value}
-                  icon={card.icon}
-                  variant={card.variant}
-                  trend={card.trend}
-                  description={card.description}
-                />
-              );
-
-              return card.link ? (
-                <Link to={card.link} key={index} className="admin-card-link">
-                  {cardElement}
-                </Link>
-              ) : (
-                <div key={index} className="admin-card-wrapper">
-                  {cardElement}
+          {/* Profit Summary Cards */}
+          <div className="admin-profit-summary">
+            <Link to="/admin/reports/monthly" className="profit-card-link">
+              <div className="profit-card net-profit">
+                <div className="profit-icon">
+                  <FaCoins />
                 </div>
-              );
-            })}
+                <div className="profit-content">
+                  <h3>Net Profit</h3>
+                  <p className="profit-value">{formatCurrency(netProfit)}</p>
+                  <div className="profit-trend positive">
+                    <FaArrowUp /> +15% this month
+                  </div>
+                </div>
+              </div>
+            </Link>
+            <Link to="/admin/reports/daily" className="profit-card-link">
+              <div className="profit-card today-profit">
+                <div className="profit-icon">
+                  <FaChartLine />
+                </div>
+                <div className="profit-content">
+                  <h3>Today's P&L</h3>
+                  <p className="profit-value">{formatCurrency(todayProfit)}</p>
+                  <div className={`profit-trend ${profitTrend}`}>
+                    {profitIcon} {profitTrend === 'positive' ? '+8%' : '-2%'} from yesterday
+                  </div>
+                </div>
+              </div>
+            </Link>
+            <Link to="/admin/reports/weekly" className="profit-card-link">
+              <div className="profit-card conversion-rate">
+                <div className="profit-icon">
+                  <FiTrendingUp />
+                </div>
+                <div className="profit-content">
+                  <h3>Conversion Rate</h3>
+                  <p className="profit-value">68.5%</p>
+                  <div className="profit-trend positive">
+                    <FaArrowUp /> +5% this week
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </div>
+
+          {/* Main Stats Grid */}
+          <div className="admin-stats-grid">
+            {statCards.map((card, index) => (
+              <Link 
+                key={index} 
+                to={card.link} 
+                className="admin-stat-card-link"
+                style={{ textDecoration: 'none' }}
+              >
+                <div className="admin-stat-card-wrapper">
+                  <Card {...card} />
+                </div>
+              </Link>
+            ))}
           </div>
 
           {/* Charts Section */}
@@ -504,14 +336,18 @@ export default function Dashboard() {
             <div className="section-header">
               <h2>
                 <FaChartLine className="section-icon" />
-                Analytics & Trends
+                Analytics & Performance
               </h2>
-              <div className="chart-actions">
-                <button className="admin-btn outline">Last 7 Days</button>
-                <button className="admin-btn outline active">
-                  Last 30 Days
-                </button>
-                <button className="admin-btn outline">Last 90 Days</button>
+              <div className="chart-filters">
+                <Link to="/admin/reports/daily" className="filter-link">
+                  <button className="filter-btn active">Weekly</button>
+                </Link>
+                <Link to="/admin/reports/monthly" className="filter-link">
+                  <button className="filter-btn">Monthly</button>
+                </Link>
+                <Link to="/admin/reports/custom" className="filter-link">
+                  <button className="filter-btn">Yearly</button>
+                </Link>
               </div>
             </div>
             <Charts
@@ -520,76 +356,57 @@ export default function Dashboard() {
             />
           </div>
 
-          {/* Recent Activity Section */}
+          {/* Recent Activity Grid */}
           <div className="admin-activity-grid">
             {/* Recent Deposits */}
-            <div className="activity-section">
-              <div className="activity-header">
-                <h3>
-                  <FaMoneyBillWave className="activity-icon" />
-                  Recent Deposits
-                  <span className="activity-badge">
-                    {stats.recentDeposits?.length || 0}
-                  </span>
-                </h3>
-                <Link to="/admin/deposits/completed" className="view-all-link">
+            <div className="activity-card">
+              <div className="activity-card-header">
+                <div className="activity-card-title">
+                  <FaMoneyBillWave className="activity-card-icon" />
+                  <h3>Recent Deposits</h3>
+                </div>
+                <Link to="/admin/deposits/completed" className="activity-view-all">
                   View All →
                 </Link>
               </div>
-              <div className="activity-table-container">
+              <div className="activity-card-body">
                 {stats.recentDeposits?.length > 0 ? (
-                  <table className="admin-table">
-                    <thead>
-                      <tr>
-                        <th>User</th>
-                        <th>Amount</th>
-                        <th>Method</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {stats.recentDeposits.slice(0, 5).map((d, index) => (
-                        <tr key={d.id || index} className="admin-table-row">
-                          <td>
-                            <div className="user-cell">
-                              <span className="user-id">
-                                {d.user_id?.slice(-6) || "N/A"}
+                  <div className="activity-list">
+                    {stats.recentDeposits.slice(0, 5).map((deposit, index) => (
+                      <Link 
+                        key={deposit.id || index} 
+                        to={`/admin/userdetails/${deposit.user_id}`}
+                        state={{ userId: deposit.user_id }}
+                        className="activity-item-link"
+                      >
+                        <div className="activity-item">
+                          <div className="activity-user">
+                            <div className="activity-avatar">
+                              {deposit.user_id?.slice(0, 2).toUpperCase() || 'U'}
+                            </div>
+                            <div className="activity-user-info">
+                              <span className="activity-user-id">
+                                User {deposit.user_id?.slice(-6)}
+                              </span>
+                              <span className="activity-time">
+                                {new Date(deposit.createdAt).toLocaleTimeString()}
                               </span>
                             </div>
-                          </td>
-                          <td>
-                            <span className="amount-cell">
-                              PKR {d.depositsAmount?.toLocaleString()}
+                          </div>
+                          <div className="activity-details">
+                            <span className="activity-amount">
+                              {formatCurrency(deposit.depositsAmount)}
                             </span>
-                          </td>
-                          <td>
-                            <span className="method-badge">
-                              {d.payment_method}
+                            <span className={`activity-status ${deposit.depositStatus}`}>
+                              {deposit.depositStatus}
                             </span>
-                          </td>
-                          <td>
-                            <span
-                              className={`status-badge ${
-                                d.depositStatus === "approved"
-                                  ? "success"
-                                  : "pending"
-                              }`}
-                            >
-                              {d.depositStatus}
-                            </span>
-                          </td>
-                          <td>
-                            <span className="date-cell">
-                              {new Date(d.createdAt).toLocaleDateString()}
-                            </span>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
                 ) : (
-                  <div className="empty-activity">
+                  <div className="activity-empty">
                     <p>No recent deposits</p>
                   </div>
                 )}
@@ -597,71 +414,110 @@ export default function Dashboard() {
             </div>
 
             {/* Recent Withdrawals */}
-            <div className="activity-section">
-              <div className="activity-header">
-                <h3>
-                  <FaWallet className="activity-icon" />
-                  Recent Withdrawals
-                  <span className="activity-badge">
-                    {stats.recentWithdrawals?.length || 0}
-                  </span>
-                </h3>
-                <Link
-                  to="/admin/withdrawals/completed"
-                  className="view-all-link"
-                >
+            <div className="activity-card">
+              <div className="activity-card-header">
+                <div className="activity-card-title">
+                  <FaWallet className="activity-card-icon" />
+                  <h3>Recent Withdrawals</h3>
+                </div>
+                <Link to="/admin/withdrawals/completed" className="activity-view-all">
                   View All →
                 </Link>
               </div>
-              <div className="activity-table-container">
+              <div className="activity-card-body">
                 {stats.recentWithdrawals?.length > 0 ? (
-                  <table className="admin-table">
-                    <thead>
-                      <tr>
-                        <th>User</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {stats.recentWithdrawals.slice(0, 5).map((w, index) => (
-                        <tr key={w.id || index} className="admin-table-row">
-                          <td>
-                            <div className="user-cell">
-                              <span className="user-id">
-                                {w.user_id?.slice(-6) || "N/A"}
+                  <div className="activity-list">
+                    {stats.recentWithdrawals.slice(0, 5).map((withdrawal, index) => (
+                      <Link 
+                        key={withdrawal.id || index} 
+                        to={`/admin/userdetails/${withdrawal.user_id}`}
+                        state={{ userId: withdrawal.user_id }}
+                        className="activity-item-link"
+                      >
+                        <div className="activity-item">
+                          <div className="activity-user">
+                            <div className="activity-avatar">
+                              {withdrawal.user_id?.slice(0, 2).toUpperCase() || 'U'}
+                            </div>
+                            <div className="activity-user-info">
+                              <span className="activity-user-id">
+                                User {withdrawal.user_id?.slice(-6)}
+                              </span>
+                              <span className="activity-time">
+                                {new Date(withdrawal.createdAt).toLocaleTimeString()}
                               </span>
                             </div>
-                          </td>
-                          <td>
-                            <span className="amount-cell">
-                              PKR {w.withdrawalsAmount?.toLocaleString()}
+                          </div>
+                          <div className="activity-details">
+                            <span className="activity-amount">
+                              {formatCurrency(withdrawal.withdrawalsAmount)}
                             </span>
-                          </td>
-                          <td>
-                            <span
-                              className={`status-badge ${
-                                w.withdrawalStatus === "completed"
-                                  ? "success"
-                                  : "pending"
-                              }`}
-                            >
-                              {w.withdrawalStatus}
+                            <span className={`activity-status ${withdrawal.withdrawalStatus}`}>
+                              {withdrawal.withdrawalStatus}
                             </span>
-                          </td>
-                          <td>
-                            <span className="date-cell">
-                              {new Date(w.createdAt).toLocaleDateString()}
-                            </span>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
                 ) : (
-                  <div className="empty-activity">
+                  <div className="activity-empty">
                     <p>No recent withdrawals</p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Recent Users */}
+            <div className="activity-card">
+              <div className="activity-card-header">
+                <div className="activity-card-title">
+                  <FaUsers className="activity-card-icon" />
+                  <h3>Recent Users</h3>
+                </div>
+                <Link to="/admin/users" className="activity-view-all">
+                  View All →
+                </Link>
+              </div>
+              <div className="activity-card-body">
+                {stats.recentUsers?.length > 0 ? (
+                  <div className="activity-list">
+                    {stats.recentUsers.slice(0, 5).map((user, index) => (
+                      <Link 
+                        key={user.id || index} 
+                        to={`/admin/userdetails/${user._id}`}
+                        state={{ userId: user._id }}
+                        className="activity-item-link"
+                      >
+                        <div className="activity-item">
+                          <div className="activity-user">
+                            <div className="activity-avatar">
+                              {user.fullName?.slice(0, 2).toUpperCase() || 'U'}
+                            </div>
+                            <div className="activity-user-info">
+                              <span className="activity-user-id">
+                                {user.fullName || 'New User'}
+                              </span>
+                              <span className="activity-time">
+                                {new Date(user.createdAt).toLocaleTimeString()}
+                              </span>
+                            </div>
+                          </div>
+                          <div className="activity-details">
+                            <span className="activity-role">
+                              {user.role || 'Member'}
+                            </span>
+                            <span className="activity-status completed">
+                              Active
+                            </span>
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="activity-empty">
+                    <p>No recent users</p>
                   </div>
                 )}
               </div>
@@ -669,25 +525,43 @@ export default function Dashboard() {
           </div>
 
           {/* Quick Stats Footer */}
-          <div className="dashboard-footer">
-            <div className="quick-stats">
-              <div className="quick-stat">
-                <span className="stat-label">Active Sessions</span>
-                <span className="stat-value">142</span>
+          <div className="admin-quick-stats">
+            <Link to="/admin/reports/daily" className="quick-stat-link">
+              <div className="quick-stat-item">
+                <FiActivity className="quick-stat-icon" />
+                <div className="quick-stat-info">
+                  <span className="quick-stat-label">Active Sessions</span>
+                  <span className="quick-stat-value">1,432</span>
+                </div>
               </div>
-              <div className="quick-stat">
-                <span className="stat-label">Avg. Response Time</span>
-                <span className="stat-value">1.2s</span>
+            </Link>
+            <Link to="/admin/reports/daily" className="quick-stat-link">
+              <div className="quick-stat-item">
+                <FaClock className="quick-stat-icon" />
+                <div className="quick-stat-info">
+                  <span className="quick-stat-label">Avg. Response</span>
+                  <span className="quick-stat-value">1.2s</span>
+                </div>
               </div>
-              <div className="quick-stat">
-                <span className="stat-label">Server Uptime</span>
-                <span className="stat-value">99.9%</span>
+            </Link>
+            <Link to="/admin/reports/monthly" className="quick-stat-link">
+              <div className="quick-stat-item">
+                <FiTrendingUp className="quick-stat-icon" />
+                <div className="quick-stat-info">
+                  <span className="quick-stat-label">Server Uptime</span>
+                  <span className="quick-stat-value">99.9%</span>
+                </div>
               </div>
-              <div className="quick-stat">
-                <span className="stat-label">Platform Health</span>
-                <span className="stat-value success">Excellent</span>
+            </Link>
+            <Link to="/admin/status" className="quick-stat-link">
+              <div className="quick-stat-item">
+                <FaCheckCircle className="quick-stat-icon" />
+                <div className="quick-stat-info">
+                  <span className="quick-stat-label">System Health</span>
+                  <span className="quick-stat-value success">Excellent</span>
+                </div>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
       </div>

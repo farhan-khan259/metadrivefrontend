@@ -1,145 +1,13 @@
-// import { useState } from "react";
-// import { FaEye, FaEyeSlash } from "react-icons/fa";
-// import { Link, useNavigate } from "react-router-dom";
-// import "./Signin.css";
-
-// export default function Signin() {
-//   const [passwordVisible, setPasswordVisible] = useState(false);
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const [loading, setLoading] = useState(false);
-//   const [showPopup, setShowPopup] = useState(false);
-//   const [popupTitle, setPopupTitle] = useState("");
-//   const [popupMessage, setPopupMessage] = useState("");
-
-//   const navigate = useNavigate();
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     setLoading(true);
-
-//     try {
-//       const res = await fetch(`${process.env.REACT_APP_API_URL}/api/login`, {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({ email, password }),
-//         credentials: "include",
-//       });
-
-//       const data = await res.json();
-
-//       if (!res.ok || !data.user) {
-//         setPopupTitle("Login Failed");
-//         setPopupMessage(data.message || "Invalid email or password.");
-//         setShowPopup(true);
-//         setLoading(false);
-//         return;
-//       }
-
-//       localStorage.setItem("user", JSON.stringify(data.user));
-//       localStorage.setItem("role", data.user?.role || "user");
-//       localStorage.setItem(
-//         "userPlan",
-//         JSON.stringify(data.userPlanlength || [])
-//       );
-//       if (data.token) localStorage.setItem("token", data.token);
-
-//       sessionStorage.setItem("justLoggedIn", "true");
-
-//       if (data.user.role === "admin") navigate("/admin");
-//       else navigate("/dashboard");
-//     } catch (error) {
-//       console.error("Login Error:", error);
-//       setPopupTitle("Server Error");
-//       setPopupMessage("Could not connect to server. Try again later.");
-//       setShowPopup(true);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   return (
-//     <div className="signin-container">
-//       <div className="signin-card">
-//         <div className="signin-header">
-//           <h2>
-//             META <span>DRIVE</span>
-//           </h2>
-//           <p>Sign in to your account</p>
-//         </div>
-
-//         <form onSubmit={handleSubmit}>
-//           <div className="form-group">
-//             <label>Email</label>
-//             <div className="input-box">
-//               <input
-//                 type="email"
-//                 placeholder="example@email.com"
-//                 value={email}
-//                 onChange={(e) => setEmail(e.target.value)}
-//                 required
-//               />
-//             </div>
-//           </div>
-
-//           <div className="form-group">
-//             <label>Password</label>
-//             <div className="input-box password-box">
-//               <input
-//                 type={passwordVisible ? "text" : "password"}
-//                 placeholder="Enter your password"
-//                 value={password}
-//                 onChange={(e) => setPassword(e.target.value)}
-//                 required
-//               />
-//               <span
-//                 className="toggle-password-icon"
-//                 onClick={() => setPasswordVisible(!passwordVisible)}
-//               >
-//                 {passwordVisible ? <FaEyeSlash /> : <FaEye />}
-//               </span>
-//             </div>
-//           </div>
-
-//           <div className="forgot-password">
-//             <Link to="/forgetpassword">Forgot Password?</Link>
-//           </div>
-
-//           <button type="submit" className="signin-btn" disabled={loading}>
-//             {loading ? "Signing In..." : "Sign In"}
-//           </button>
-
-//           <Link to="/signup" className="create-account-btn">
-//             Create Account
-//           </Link>
-//         </form>
-//       </div>
-
-//       {showPopup && (
-//         <div className="popup-overlay">
-//           <div className="popup-box">
-//             <h2>❌ {popupTitle}</h2>
-//             <p>{popupMessage}</p>
-//             <button onClick={() => setShowPopup(false)}>Close</button>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
-
 import { useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import logoImage from "../../Assets/Pictures/sparkx-logo.jpeg";
 import "./Signin.css";
 
 export default function Signin() {
-  const [passwordVisible, setPasswordVisible] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  const [popupTitle, setPopupTitle] = useState("");
   const [popupMessage, setPopupMessage] = useState("");
 
   const navigate = useNavigate();
@@ -149,37 +17,36 @@ export default function Signin() {
     setLoading(true);
 
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${process.env.REACT_APP_API_URL || "https://be.sparkx1.pro"}/api/login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: email.trim().toLowerCase(),
+            password,
+          }),
+          credentials: "include",
+        }
+      );
 
       const data = await res.json();
 
       if (!res.ok || !data.user) {
-        setPopupTitle("Login Failed");
         setPopupMessage(data.message || "Invalid email or password.");
         setShowPopup(true);
-        setLoading(false);
         return;
       }
 
       localStorage.setItem("user", JSON.stringify(data.user));
       localStorage.setItem("role", data.user?.role || "user");
-      localStorage.setItem(
-        "userPlan",
-        JSON.stringify(data.userPlanlength || [])
-      );
+      localStorage.setItem("userPlan", JSON.stringify(data.userPlanlength || []));
       if (data.token) localStorage.setItem("token", data.token);
 
       if (data.user.role === "admin") navigate("/admin");
       else navigate("/dashboard?welcome=1");
     } catch (error) {
-      console.error("Login Error:", error);
-      setPopupTitle("Server Error");
-      setPopupMessage("Could not connect to server. Try again later.");
+      setPopupMessage("Could not connect to server. Please try again.");
       setShowPopup(true);
     } finally {
       setLoading(false);
@@ -187,88 +54,55 @@ export default function Signin() {
   };
 
   return (
-    <div className="signin-container">
-      <div className="signin-card">
-        <div className="signin-header-section">
-          <div className="signin-header">
-            <h1 className="signin-title">Welcome Back</h1>
-            <p className="signin-subtitle">
-              Sign in to your account to continue
-            </p>
+    <div className="auth-page">
+      <div className="auth-brand">
+        <span className="auth-brand-text">SPARK</span>
+        <img src={logoImage} alt="SparkX logo" className="auth-brand-logo" />
+      </div>
+
+      <div className="auth-card signin-card">
+        <h1>Welcome Back</h1>
+        <p className="auth-subtitle">Login to your account</p>
+
+        <form onSubmit={handleSubmit} className="auth-form">
+          <label>Email</label>
+          <input
+            type="email"
+            placeholder="john123@gmail.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+
+          <label>Password</label>
+          <input
+            type="password"
+            placeholder="Enter password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          <div className="auth-link-row">
+            <Link to="/forgetpassword">Forgot password</Link>
           </div>
-        </div>
 
-        <div className="signin-content">
-          <form onSubmit={handleSubmit} className="signin-form">
-            <div className="form-group">
-              <div className="input-container">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="form-input"
-                />
-                <label className="input-label">Email Address</label>
-              </div>
-            </div>
+          <button type="submit" className="auth-button" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
+          </button>
 
-            <div className="form-group">
-              <div className="input-container password-container">
-                <input
-                  type={passwordVisible ? "text" : "password"}
-                  placeholder="Enter your password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="form-input"
-                />
-                <label className="input-label">Password</label>
-                <span
-                  className="toggle-password-icon"
-                  onClick={() => setPasswordVisible(!passwordVisible)}
-                >
-                  {passwordVisible ? <FaEyeSlash /> : <FaEye />}
-                </span>
-              </div>
-            </div>
-
-            <div className="form-options">
-              <Link to="/forgetpassword" className="forgot-password-link">
-                Forgot Password?
-              </Link>
-            </div>
-
-            <button type="submit" className="signin-btn" disabled={loading}>
-              {loading ? "Signing In..." : "Sign In"}
-            </button>
-
-            <div className="signup-redirect">
-              <p>Don't have an account?</p>
-              <Link to="/signup" className="signup-link">
-                Create Account
-              </Link>
-            </div>
-          </form>
-        </div>
+          <p className="auth-bottom-text">
+            Don&apos;t have an account? <Link to="/signup">Sign Up</Link>
+          </p>
+        </form>
       </div>
 
       {showPopup && (
-        <div className="popup-overlay">
-          <div className="popup-box error-popup">
-            <div className="popup-icon">⚠️</div>
+        <div className="auth-popup-overlay">
+          <div className="auth-popup">
             <h3>Login Failed</h3>
             <p>{popupMessage}</p>
-            <div className="popup-note">
-              Please check your credentials and try again
-            </div>
-            <button
-              onClick={() => setShowPopup(false)}
-              className="popup-btn error-btn"
-            >
-              Try Again
-            </button>
+            <button onClick={() => setShowPopup(false)}>Close</button>
           </div>
         </div>
       )}

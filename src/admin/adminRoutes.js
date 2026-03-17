@@ -5,9 +5,7 @@ import Pages from "./pages/CMS/Pages";
 import Dashboard from "./pages/Dashboard";
 import CompletedDeposits from "./pages/Deposits/CompletedDeposits";
 import PendingDeposits from "./pages/Deposits/PendingDeposits";
-import AddPlan from "./pages/Plans/AddPlan";
-import PlansList from "./pages/Plans/PlansList";
-import AdminPromoCodes from "./pages/Promocode/AdminPromoCodes";
+
 
 import DailyReport from "./pages/Reports/DailyReport";
 import MonthlyReport from "./pages/Reports/MonthlyReport";
@@ -19,7 +17,6 @@ import UserDetails from "./pages/Users/UserDetails";
 import UserList from "./pages/Users/UserList";
 import CompletedWithdrawals from "./pages/Withdrawals/CompletedWithdrawals";
 import PendingWithdrawals from "./pages/Withdrawals/PendingWithdrawals";
-import WithdrawalSettings from "./pages/Withdrawals/WithdrawalSettings";
 
 const adminRoutes = {
     Dashboard,
@@ -29,15 +26,11 @@ const adminRoutes = {
     CompletedDeposits,
     PendingWithdrawals,
     CompletedWithdrawals,
-    WithdrawalSettings,
-    PlansList,
-    AddPlan,
     AllTransactions,
     DepositHistory,
     WithdrawalHistory,
     DailyReport,
     MonthlyReport,
-    AdminPromoCodes,
     Pages,
     Announcements,
 

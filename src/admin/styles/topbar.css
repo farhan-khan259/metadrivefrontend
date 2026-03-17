@@ -1,249 +1,347 @@
-/* Admin Topbar - Modern Metadrive Theme */
+/* Admin Topbar - Modern SparkX Theme */
+
 .admin-topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--darker);
-    color: var(--light);
-    padding: 0 30px;
-    height: 80px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: var(--shadow);
-    backdrop-filter: blur(20px);
+  height: 80px;
+  background: var(--admin-card-bg);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--admin-card-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px 0 100px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .admin-topbar-left {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-    margin-left: 70px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
 }
 
+/* Breadcrumb */
 .admin-breadcrumb {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .admin-page-title {
-    margin: 0;
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--light);
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  font-family: var(--sx-font-display);
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin: 0;
+  background: linear-gradient(135deg, #fff, #9060ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .admin-breadcrumb-items {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
 }
 
 .admin-breadcrumb-item {
-    color: var(--gray);
-    font-weight: 500;
-    transition: color 0.3s ease;
+  color: var(--sx-muted);
+  font-weight: 500;
+  transition: color 0.2s ease;
 }
 
 .admin-breadcrumb-item.active {
-    color: var(--primary);
-    font-weight: 600;
+  color: #22e88c;
+  font-weight: 600;
 }
 
 .admin-breadcrumb-divider {
-    color: var(--gray);
-    opacity: 0.6;
+  color: var(--sx-muted);
+  opacity: 0.4;
 }
 
+/* Topbar Right */
 .admin-topbar-right {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
+/* Search Bar */
+.admin-topbar-search {
+  position: relative;
+  width: 280px;
+}
+
+.admin-search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--sx-muted);
+  font-size: 1rem;
+}
+
+.admin-search-input {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px 0 42px;
+  border-radius: 22px;
+  border: 1px solid var(--admin-card-border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--sx-text);
+  font-family: var(--sx-font-body);
+  font-size: 0.9rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.admin-search-input:focus {
+  border-color: #9060ff;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 3px rgba(144, 96, 255, 0.15);
+}
+
+.admin-search-input::placeholder {
+  color: rgba(186, 199, 234, 0.4);
+}
+
+/* Topbar Actions */
 .admin-topbar-actions {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .admin-action-btn {
-    position: relative;
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    color: var(--gray);
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 18px;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid var(--admin-card-border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--sx-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
 }
 
 .admin-action-btn:hover {
-    background: rgba(0, 212, 170, 0.2);
-    color: var(--primary);
-    transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  transform: translateY(-2px);
+  border-color: #9060ff;
 }
 
 .admin-notification-badge {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: var(--accent);
-    color: white;
-    font-size: 10px;
-    padding: 2px 6px;
-    border-radius: 10px;
-    min-width: 16px;
-    text-align: center;
-    font-weight: 700;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 9px;
+  background: #ff5a87;
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--admin-card-bg);
 }
 
+/* Profile Button */
 .admin-profile-btn {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 8px 16px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    color: var(--light);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 12px 6px 6px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--admin-card-border);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .admin-profile-btn:hover {
-    background: rgba(0, 212, 170, 0.2);
-    border-color: rgba(0, 212, 170, 0.3);
-    transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #9060ff;
+  transform: translateY(-2px);
 }
 
 .admin-profile-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 12px;
-    background: var(--gradient-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--darker);
-    font-weight: 800;
-    font-size: 16px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #22e88c, #9060ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .admin-profile-info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
 }
 
 .admin-profile-name {
-    font-weight: 600;
-    font-size: 14px;
-    color: var(--light);
+  color: var(--sx-text);
+  font-weight: 700;
+  font-size: 0.9rem;
 }
 
 .admin-profile-role {
-    font-size: 12px;
-    color: var(--gray);
-    font-weight: 500;
+  color: var(--sx-muted);
+  font-size: 0.7rem;
 }
 
 .admin-logout-icon {
-    font-size: 16px;
-    color: var(--gray);
-    transition: color 0.3s ease;
+  color: #ff5a87;
+  font-size: 1rem;
+  margin-left: 4px;
+  transition: all 0.3s ease;
 }
 
 .admin-profile-btn:hover .admin-logout-icon {
-    color: var(--accent);
+  transform: translateX(3px);
 }
 
 /* Responsive Design */
-@media (max-width: 992px) {
-    .admin-topbar {
-        padding: 0 20px;
-    }
+@media (max-width: 1200px) {
+  .admin-topbar {
+    padding: 0 20px 0 90px;
+  }
 
-    .admin-page-title {
-        font-size: 20px;
-    }
+  .admin-topbar-search {
+    width: 240px;
+  }
+}
+
+@media (max-width: 992px) {
+  .admin-topbar {
+    padding: 0 20px 0 85px;
+  }
+
+  .admin-page-title {
+    font-size: 1.2rem;
+  }
+
+  .admin-breadcrumb-items {
+    font-size: 0.75rem;
+  }
+
+  .admin-topbar-search {
+    width: 200px;
+  }
+
+  .admin-profile-info {
+    display: none;
+  }
+
+  .admin-profile-btn {
+    padding: 6px;
+  }
+
+  .admin-profile-avatar {
+    width: 42px;
+    height: 42px;
+  }
 }
 
 @media (max-width: 768px) {
-    .admin-topbar {
-        height: 70px;
-        padding: 0 15px;
-    }
+  .admin-topbar {
+    height: 70px;
+    padding: 0 15px 0 70px;
+  }
 
-    .admin-topbar-left {
-        gap: 15px;
-    }
+  .admin-breadcrumb {
+    display: none;
+  }
 
-    .admin-page-title {
-        font-size: 18px;
-    }
+  .admin-topbar-search {
+    display: none;
+  }
 
-    .admin-breadcrumb-items {
-        font-size: 13px;
-    }
+  .admin-topbar-actions {
+    gap: 8px;
+  }
 
-    .admin-profile-info {
-        display: none;
-    }
+  .admin-action-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 1.1rem;
+  }
 
-    .admin-profile-btn {
-        padding: 8px;
-    }
-
-    .admin-action-btn {
-        width: 44px;
-        height: 44px;
-        font-size: 16px;
-    }
+  .admin-profile-avatar {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 @media (max-width: 480px) {
-    .admin-topbar {
-        padding: 0 12px;
-    }
+  .admin-topbar {
+    height: 60px;
+    padding: 0 12px 0 60px;
+  }
 
-    .admin-page-title {
-        font-size: 16px;
-    }
+  .admin-topbar-actions {
+    gap: 6px;
+  }
 
-    .admin-breadcrumb {
-        display: none;
-    }
+  .admin-action-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
+  }
 
-    .admin-topbar-actions {
-        gap: 8px;
-    }
+  .admin-notification-badge {
+    top: -3px;
+    right: -3px;
+    min-width: 16px;
+    height: 16px;
+    font-size: 0.6rem;
+  }
 
-    .admin-action-btn {
-        width: 40px;
-        height: 40px;
-    }
+  .admin-profile-avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 0.8rem;
+  }
+}
 
-    .admin-profile-btn {
-        padding: 6px;
-    }
+/* Animations */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-    .admin-profile-avatar {
-        width: 36px;
-        height: 36px;
-        font-size: 14px;
-    }
+.admin-topbar {
+  animation: slideDown 0.3s ease forwards;
+}
+
+/* Touch-friendly targets */
+@media (max-width: 768px) {
+  .admin-action-btn,
+  .admin-profile-btn,
+  .admin-search-input {
+    min-height: 44px;
+  }
 }

@@ -11,7 +11,7 @@ export default function OurInfo() {
           <Link to="/dashboard" className="ourinfo-back-link">
             <FaArrowLeft className="back-icon" />
           </Link>
-          <h1 className="ourinfo-title-new">About MetaDrive</h1>
+          <h1 className="ourinfo-title-new">About SparkX</h1>
         </div>
       </div>
 
@@ -19,7 +19,7 @@ export default function OurInfo() {
       <div className="ourinfo-content">
         <div className="ourinfo-card">
           <p className="ourinfo-text-new">
-            <strong className="metadrive-highlight">"MetaDrive"</strong> is a
+            <strong className="metadrive-highlight">"SparkX"</strong> is a
             revolutionary investment platform that focuses on digital asset
             management and team-based earning opportunities in the modern
             digital economy.
@@ -27,7 +27,7 @@ export default function OurInfo() {
 
           <div className="section">
             <h3 className="section-title">
-              Key Features of MetaDrive Platform:
+              Key Features of SparkX Platform:
             </h3>
             <ol className="numbered-list">
               <li>
@@ -42,7 +42,7 @@ export default function OurInfo() {
                 <strong className="metadrive-highlight">
                   Team Commission System
                 </strong>
-                : MetaDrive offers a multi-level commission structure where you
+                : SparkX offers a multi-level commission structure where you
                 can earn from your direct referrals and extended team network
                 across three levels.
               </li>
@@ -86,7 +86,7 @@ export default function OurInfo() {
                 <strong className="metadrive-highlight">
                   Growth Potential
                 </strong>
-                : As the digital economy expands, MetaDrive positions you to
+                : As the digital economy expands, SparkX positions you to
                 benefit from emerging opportunities in digital asset management.
               </li>
               <li>
@@ -183,7 +183,7 @@ export default function OurInfo() {
           <div className="notice-box">
             <h4>📢 Important Notice</h4>
             <p>
-              Start your financial journey with MetaDrive today and unlock the
+              Start your financial journey with SparkX today and unlock the
               potential of digital asset management with our proven investment
               strategies and team-based earning model.
             </p>

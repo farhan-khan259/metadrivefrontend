@@ -1,52 +1,36 @@
-import { useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import "./App.css";
 
-import Loader from "./Components/Loader/Loader";
+
 import ProtectedRoute from "./ProtectedRoute";
 
 // ---- USER PANEL COMPONENTS ----
-import Activeplans from "./Components/Activeplans/Activeplans";
+import Investmentplans from "./Components/Investmentplans/Investmentplans";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import Deposit from "./Components/Deposit/Deposit";
 import Forgetpassword from "./Components/Forgetpassword/Forgetpassword";
 import InviteScreen from "./Components/InviteScreen/InviteScreen";
 import Profile from "./Components/Profile/Profile";
-import Profilecard from "./Components/Profilecard/Profilecard";
-import Settings from "./Components/Settings/Settings";
 import Signin from "./Components/Signin/Signin";
 import Signup from "./Components/Signup/Signup";
 import Support from "./Components/Support/Support";
 import Team from "./Components/Team/Team";
-import UserCommission from "./Components/UserCommission/UserCommission";
-import UserDeposit from "./Components/UserDeposit/UserDeposit";
-import UserWithdraw from "./Components/UserWithdraw/UserWithdraw";
+import ManagerRankSystem from "./Components/ManagerRankSystem/ManagerRankSystem";
+import TransactionHistory from "./Components/TransactionHistory/TransactionHistory";
 import Withdraw from "./Components/Withdraw/Withdraw";
-import Withdrawform from "./Components/Withdrawform/Withdrawform";
-import Withdrawfunds from "./Components/Withdrawfunds/Withdrawfunds";
+
+import Rankingdashboard from "./Components/Rankingdashboard/Rankingdashboard";
 
 // ---- ADMIN PANEL COMPONENTS ----
 import adminRoutes from "./admin/adminRoutes";
 import EarningsSummary from "./Components/EarningsSummary/EarningsSummary";
 import OurInfo from "./Components/OurInfo/OurInfo";
-import RebateCommission from "./Components/PlanExpireCommission/PlanExpireCommission";
 import PrivacyPolicy from "./Components/PrivacyPolicy/PrivacyPolicy";
-import Promocodepage from "./Components/Promocodepage/Promocodepage";
+
 
 function AppRoutes() {
-	const location = useLocation();
-	const [loading, setLoading] = useState(false);
-
-	useEffect(() => {
-		setLoading(true);
-		const timeout = setTimeout(() => setLoading(false), 500);
-		return () => clearTimeout(timeout);
-	}, [location.pathname]);
-
-	if (loading) return <Loader />;
-
 	return (
 		<Routes>
 			{/* -------- PUBLIC ROUTES -------- */}
@@ -56,6 +40,14 @@ function AppRoutes() {
 			<Route path="/ourinfo" element={<OurInfo />} />
 
 			{/* -------- USER PROTECTED ROUTES -------- */}
+						<Route
+							path="/rankingdashboard"
+							element={
+								<ProtectedRoute>
+									<Rankingdashboard />
+								</ProtectedRoute>
+							}
+						/>
 			<Route
 				path="/dashboard"
 				element={
@@ -80,22 +72,7 @@ function AppRoutes() {
 					</ProtectedRoute>
 				}
 			/>
-			<Route
-				path="/withdrawform"
-				element={
-					<ProtectedRoute>
-						<Withdrawform />
-					</ProtectedRoute>
-				}
-			/>
-			<Route
-				path="/withdrawfunds"
-				element={
-					<ProtectedRoute>
-						<Withdrawfunds />
-					</ProtectedRoute>
-				}
-			/>
+			
 			<Route
 				path="/team"
 				element={
@@ -106,29 +83,24 @@ function AppRoutes() {
 			/>
 
 			<Route
-				path="/activeplans"
-				element={
-					<ProtectedRoute>
-						<Activeplans />
-					</ProtectedRoute>
-				}
+				   path="/managerranksystem"
+				   element={
+					   <ProtectedRoute>
+						   <ManagerRankSystem />
+					   </ProtectedRoute>
+				   }
 			/>
+
 			<Route
-				path="/profilecard"
+				path="/investmentplans"
 				element={
 					<ProtectedRoute>
-						<Profilecard />
+						<Investmentplans />
 					</ProtectedRoute>
 				}
 			/>
-			<Route
-				path="/setting"
-				element={
-					<ProtectedRoute>
-						<Settings />
-					</ProtectedRoute>
-				}
-			/>
+			
+			
 
 			<Route
 				path="/support"
@@ -173,58 +145,18 @@ function AppRoutes() {
 			/>
 
 
-			<Route
-				path="/rebatecommission"
-				element={
-					<ProtectedRoute>
-						<RebateCommission />
-					</ProtectedRoute>
-				}
-			/>
+			
 
 			<Route
-				path="/planexpire"
-				element={
-					<ProtectedRoute>
-						<RebateCommission />
-					</ProtectedRoute>
-				}
+				   path="/transactionhistory"
+				   element={
+					   <ProtectedRoute>
+						   <TransactionHistory />
+					   </ProtectedRoute>
+				   }
 			/>
 
-			<Route
-				path="/userdeposit"
-				element={
-					<ProtectedRoute>
-						<UserDeposit />
-					</ProtectedRoute>
-				}
-			/>
-			<Route
-				path="/userwithdraw"
-				element={
-					<ProtectedRoute>
-						<UserWithdraw />
-					</ProtectedRoute>
-				}
-			/>
-
-			<Route
-				path="/usercommission"
-				element={
-					<ProtectedRoute>
-						<UserCommission />
-					</ProtectedRoute>
-				}
-			/>
-
-			<Route
-				path="/promocode"
-				element={
-					<ProtectedRoute>
-						<Promocodepage />
-					</ProtectedRoute>
-				}
-			/>
+		
 
 
 			{/* -------- ADMIN PROTECTED ROUTES -------- */}

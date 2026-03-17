@@ -1,861 +1,81 @@
-// import axios from "axios";
-// import { useEffect, useState } from "react";
-// import {
-//   FaCode,
-//   FaEnvelope,
-//   FaEye,
-//   FaEyeSlash,
-//   FaLock,
-//   FaPhoneAlt,
-//   FaUser,
-// } from "react-icons/fa";
-// import { Link } from "react-router-dom";
-// // import logo from "../../Assets/Pictures/Solarxlogo.jpeg";
-// import "./Signup.css";
-
-// export default function Signup() {
-//   const params = new URLSearchParams(window.location.search);
-
-//   const [passwordVisible, setPasswordVisible] = useState(false);
-//   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
-//   const [referralCode, setReferralCode] = useState("");
-//   const [fullName, setFullName] = useState("");
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const [confirmPassword, setConfirmPassword] = useState("");
-//   const [whatsAppNumber, setWhatsAppNumber] = useState("+92");
-//   const [showPopup, setShowPopup] = useState(false);
-//   const [popupTitle, setPopupTitle] = useState("");
-//   const [popupMessage, setPopupMessage] = useState("");
-//   const [showSuccess, setShowSuccess] = useState(false);
-//   const [errors, setErrors] = useState({});
-
-//   useEffect(() => {
-//     const ref = params.get("ref");
-//     if (ref) setReferralCode(ref);
-//   }, []);
-
-//   const validateForm = () => {
-//     const newErrors = {};
-
-//     if (!fullName.trim()) newErrors.fullName = "Full name is required";
-//     if (!email.trim()) newErrors.email = "Email is required";
-//     if (!password) newErrors.password = "Password is required";
-//     if (password.length < 6)
-//       newErrors.password = "Password must be at least 6 characters";
-//     if (password !== confirmPassword)
-//       newErrors.confirmPassword = "Passwords do not match";
-//     if (!whatsAppNumber || whatsAppNumber === "+92")
-//       newErrors.whatsAppNumber = "WhatsApp number is required";
-//     if (!referralCode.trim())
-//       newErrors.referralCode = "Referral code is required";
-
-//     setErrors(newErrors);
-//     return Object.keys(newErrors).length === 0;
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     if (!validateForm()) {
-//       setPopupTitle("Form Validation Error");
-//       setPopupMessage("Please fill all required fields correctly.");
-//       setShowPopup(true);
-//       return;
-//     }
-
-//     try {
-//       const res = await axios.post("https://be.metadrive01.xyz/api/signup", {
-//         fullName,
-//         whatsappNumber: whatsAppNumber,
-//         refercode: referralCode,
-//         password,
-//         email,
-//       });
-
-//       localStorage.setItem("user", JSON.stringify(res.data.user));
-//       setShowSuccess(true);
-
-//       setReferralCode("");
-//       setFullName("");
-//       setEmail("");
-//       setPassword("");
-//       setConfirmPassword("");
-//       setWhatsAppNumber("+92");
-//       setErrors({});
-
-//       setTimeout(() => {
-//         window.location.href = "/";
-//       }, 2000);
-//     } catch (error) {
-//       setPopupTitle("Signup Failed");
-//       setPopupMessage(
-//         error.response?.data?.message ||
-//           "Something went wrong. Please try again!"
-//       );
-//       setShowPopup(true);
-//     }
-//   };
-
-//   return (
-//     <div className="signup-page">
-//       <div className="signup-container">
-//         <div className="signup-header">
-//           {/* <img src={logo} alt="Solar X" className="signup-logo" /> */}
-//           <h2>
-//             SOLAR <span>X</span>
-//           </h2>
-//           <p>Create Your Account</p>
-//         </div>
-
-//         <form onSubmit={handleSubmit} className="signup-form">
-//           <div className="input-group">
-//             <FaPhoneAlt className="input-icon" />
-//             <input
-//               type="text"
-//               placeholder="+92XXXXXXXXXX"
-//               value={whatsAppNumber}
-//               onChange={(e) => {
-//                 let value = e.target.value;
-//                 if (!value.startsWith("+92")) {
-//                   value = "+92" + value.replace(/^(\+92)?/, "");
-//                 }
-//                 const onlyDigits = value
-//                   .replace("+92", "")
-//                   .replace(/[^0-9]/g, "")
-//                   .slice(0, 10);
-//                 setWhatsAppNumber("+92" + onlyDigits);
-//               }}
-//               required
-//             />
-//           </div>
-//           {errors.whatsAppNumber && (
-//             <span className="error-text">{errors.whatsAppNumber}</span>
-//           )}
-
-//           <div className="input-group">
-//             <FaUser className="input-icon" />
-//             <input
-//               type="text"
-//               placeholder="Full Name"
-//               value={fullName}
-//               onChange={(e) => setFullName(e.target.value)}
-//               required
-//             />
-//           </div>
-//           {errors.fullName && (
-//             <span className="error-text">{errors.fullName}</span>
-//           )}
-
-//           <div className="input-group">
-//             <FaEnvelope className="input-icon" />
-//             <input
-//               type="email"
-//               placeholder="Email Address"
-//               value={email}
-//               onChange={(e) => setEmail(e.target.value)}
-//               required
-//             />
-//           </div>
-//           {errors.email && <span className="error-text">{errors.email}</span>}
-
-//           <div className="input-group">
-//             <FaLock className="input-icon" />
-//             <input
-//               type={passwordVisible ? "text" : "password"}
-//               placeholder="Password (min 6 characters)"
-//               value={password}
-//               onChange={(e) => setPassword(e.target.value)}
-//               required
-//             />
-//             <span
-//               className="toggle-icon"
-//               onClick={() => setPasswordVisible(!passwordVisible)}
-//             >
-//               {passwordVisible ? <FaEyeSlash /> : <FaEye />}
-//             </span>
-//           </div>
-//           {errors.password && (
-//             <span className="error-text">{errors.password}</span>
-//           )}
-
-//           <div className="input-group">
-//             <FaLock className="input-icon" />
-//             <input
-//               type={confirmPasswordVisible ? "text" : "password"}
-//               placeholder="Confirm Password"
-//               value={confirmPassword}
-//               onChange={(e) => setConfirmPassword(e.target.value)}
-//               required
-//             />
-//             <span
-//               className="toggle-icon"
-//               onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
-//             >
-//               {confirmPasswordVisible ? <FaEyeSlash /> : <FaEye />}
-//             </span>
-//           </div>
-//           {errors.confirmPassword && (
-//             <span className="error-text">{errors.confirmPassword}</span>
-//           )}
-
-//           <div className="input-group">
-//             <FaCode className="input-icon" />
-//             <input
-//               type="text"
-//               placeholder="Referral Code"
-//               value={referralCode}
-//               onChange={(e) => setReferralCode(e.target.value)}
-//               required
-//             />
-//           </div>
-//           {errors.referralCode && (
-//             <span className="error-text">{errors.referralCode}</span>
-//           )}
-
-//           <button type="submit" className="signup-btn">
-//             Create Account & Start Earning
-//           </button>
-
-//           <p className="login-text">
-//             Already have an account?{" "}
-//             <Link to="/" className="login-link">
-//               Sign In
-//             </Link>
-//           </p>
-//         </form>
-//       </div>
-
-//       {showPopup && (
-//         <div className="popup-overlay">
-//           <div className="popup-box">
-//             <h2>❌ {popupTitle}</h2>
-//             <p>{popupMessage}</p>
-//             <button onClick={() => setShowPopup(false)}>Close</button>
-//           </div>
-//         </div>
-//       )}
-
-//       {showSuccess && (
-//         <div className="popup-overlay">
-//           <div className="popup-box">
-//             <h2>✅ Account Created</h2>
-//             <p>Your account has been created successfully!</p>
-//             <button
-//               onClick={() => {
-//                 setShowSuccess(false);
-//                 window.location.href = "/";
-//               }}
-//             >
-//               Go to Login
-//             </button>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
-
-// import axios from "axios";
-// import { useEffect, useState } from "react";
-// import {
-//   FaCode,
-//   FaEnvelope,
-//   FaEye,
-//   FaEyeSlash,
-//   FaLock,
-//   FaPhoneAlt,
-//   FaUser,
-// } from "react-icons/fa";
-// import { Link } from "react-router-dom";
-// import "./Signup.css";
-
-// export default function Signup() {
-//   const params = new URLSearchParams(window.location.search);
-
-//   const [passwordVisible, setPasswordVisible] = useState(false);
-//   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
-//   const [referralCode, setReferralCode] = useState("");
-//   const [fullName, setFullName] = useState("");
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const [confirmPassword, setConfirmPassword] = useState("");
-//   const [whatsAppNumber, setWhatsAppNumber] = useState("+92");
-//   const [showPopup, setShowPopup] = useState(false);
-//   const [popupTitle, setPopupTitle] = useState("");
-//   const [popupMessage, setPopupMessage] = useState("");
-//   const [showSuccess, setShowSuccess] = useState(false);
-//   const [errors, setErrors] = useState({});
-
-//   useEffect(() => {
-//     const ref = params.get("ref");
-//     if (ref) setReferralCode(ref);
-//   }, []);
-
-//   const validateForm = () => {
-//     const newErrors = {};
-
-//     if (!fullName.trim()) newErrors.fullName = "Full name is required";
-//     if (!email.trim()) newErrors.email = "Email is required";
-//     if (!password) newErrors.password = "Password is required";
-//     if (password.length < 6)
-//       newErrors.password = "Password must be at least 6 characters";
-//     if (password !== confirmPassword)
-//       newErrors.confirmPassword = "Passwords do not match";
-//     if (!whatsAppNumber || whatsAppNumber === "+92")
-//       newErrors.whatsAppNumber = "WhatsApp number is required";
-//     if (!referralCode.trim())
-//       newErrors.referralCode = "Referral code is required";
-
-//     setErrors(newErrors);
-//     return Object.keys(newErrors).length === 0;
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     if (!validateForm()) {
-//       setPopupTitle("Form Validation Error");
-//       setPopupMessage("Please fill all required fields correctly.");
-//       setShowPopup(true);
-//       return;
-//     }
-
-//     try {
-//       const res = await axios.post("https://be.metadrive01.xyz/api/signup", {
-//         fullName,
-//         whatsappNumber: whatsAppNumber,
-//         refercode: referralCode,
-//         password,
-//         email,
-//       });
-
-//       localStorage.setItem("user", JSON.stringify(res.data.user));
-//       setShowSuccess(true);
-
-//       setReferralCode("");
-//       setFullName("");
-//       setEmail("");
-//       setPassword("");
-//       setConfirmPassword("");
-//       setWhatsAppNumber("+92");
-//       setErrors({});
-
-//       setTimeout(() => {
-//         window.location.href = "/";
-//       }, 2000);
-//     } catch (error) {
-//       setPopupTitle("Signup Failed");
-//       setPopupMessage(
-//         error.response?.data?.message ||
-//           "Something went wrong. Please try again!"
-//       );
-//       setShowPopup(true);
-//     }
-//   };
-
-//   return (
-//     <div className="signup-page">
-//       <div className="signup-container">
-//         <div className="signup-header">
-
-//           <h2>
-//             META <span>DRIVE</span>
-//           </h2>
-//           <p>Create Your Account</p>
-//         </div>
-
-//         <form onSubmit={handleSubmit} className="signup-form">
-//           <div className="input-group">
-//             <FaPhoneAlt className="input-icon" />
-//             <input
-//               type="text"
-//               placeholder="+92XXXXXXXXXX"
-//               value={whatsAppNumber}
-//               onChange={(e) => {
-//                 let value = e.target.value;
-//                 if (!value.startsWith("+92")) {
-//                   value = "+92" + value.replace(/^(\+92)?/, "");
-//                 }
-//                 const onlyDigits = value
-//                   .replace("+92", "")
-//                   .replace(/[^0-9]/g, "")
-//                   .slice(0, 10);
-//                 setWhatsAppNumber("+92" + onlyDigits);
-//               }}
-//               required
-//             />
-//           </div>
-//           {errors.whatsAppNumber && (
-//             <span className="error-text">{errors.whatsAppNumber}</span>
-//           )}
-
-//           <div className="input-group">
-//             <FaUser className="input-icon" />
-//             <input
-//               type="text"
-//               placeholder="Full Name"
-//               value={fullName}
-//               onChange={(e) => setFullName(e.target.value)}
-//               required
-//             />
-//           </div>
-//           {errors.fullName && (
-//             <span className="error-text">{errors.fullName}</span>
-//           )}
-
-//           <div className="input-group">
-//             <FaEnvelope className="input-icon" />
-//             <input
-//               type="email"
-//               placeholder="Email Address"
-//               value={email}
-//               onChange={(e) => setEmail(e.target.value)}
-//               required
-//             />
-//           </div>
-//           {errors.email && <span className="error-text">{errors.email}</span>}
-
-//           <div className="input-group">
-//             <FaLock className="input-icon" />
-//             <input
-//               type={passwordVisible ? "text" : "password"}
-//               placeholder="Password (min 6 characters)"
-//               value={password}
-//               onChange={(e) => setPassword(e.target.value)}
-//               required
-//             />
-//             <span
-//               className="toggle-icon"
-//               onClick={() => setPasswordVisible(!passwordVisible)}
-//             >
-//               {passwordVisible ? <FaEyeSlash /> : <FaEye />}
-//             </span>
-//           </div>
-//           {errors.password && (
-//             <span className="error-text">{errors.password}</span>
-//           )}
-
-//           <div className="input-group">
-//             <FaLock className="input-icon" />
-//             <input
-//               type={confirmPasswordVisible ? "text" : "password"}
-//               placeholder="Confirm Password"
-//               value={confirmPassword}
-//               onChange={(e) => setConfirmPassword(e.target.value)}
-//               required
-//             />
-//             <span
-//               className="toggle-icon"
-//               onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
-//             >
-//               {confirmPasswordVisible ? <FaEyeSlash /> : <FaEye />}
-//             </span>
-//           </div>
-//           {errors.confirmPassword && (
-//             <span className="error-text">{errors.confirmPassword}</span>
-//           )}
-
-//           <div className="input-group">
-//             <FaCode className="input-icon" />
-//             <input
-//               type="text"
-//               placeholder="Referral Code"
-//               value={referralCode}
-//               onChange={(e) => setReferralCode(e.target.value)}
-//               required
-//             />
-//           </div>
-//           {errors.referralCode && (
-//             <span className="error-text">{errors.referralCode}</span>
-//           )}
-
-//           <button type="submit" className="signup-btn">
-//             Create Account & Start Earning
-//           </button>
-
-//           <p className="login-text">
-//             Already have an account?{" "}
-//             <Link to="/" className="login-link">
-//               Sign In
-//             </Link>
-//           </p>
-//         </form>
-//       </div>
-
-//       {showPopup && (
-//         <div className="popup-overlay">
-//           <div className="popup-box">
-//             <h2>❌ {popupTitle}</h2>
-//             <p>{popupMessage}</p>
-//             <button onClick={() => setShowPopup(false)}>Close</button>
-//           </div>
-//         </div>
-//       )}
-
-//       {showSuccess && (
-//         <div className="popup-overlay">
-//           <div className="popup-box">
-//             <h2>✅ Account Created</h2>
-//             <p>Your account has been created successfully!</p>
-//             <button
-//               onClick={() => {
-//                 setShowSuccess(false);
-//                 window.location.href = "/";
-//               }}
-//             >
-//               Go to Login
-//             </button>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
-// import axios from "axios";
-// import { useEffect, useState } from "react";
-// import {
-//   FaCode,
-//   FaEnvelope,
-//   FaEye,
-//   FaEyeSlash,
-//   FaLock,
-//   FaPhoneAlt,
-//   FaUser,
-// } from "react-icons/fa";
-// import { Link } from "react-router-dom";
-// import "./Signup.css";
-
-// export default function Signup() {
-//   const params = new URLSearchParams(window.location.search);
-
-//   const [passwordVisible, setPasswordVisible] = useState(false);
-//   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
-//   const [referralCode, setReferralCode] = useState("");
-//   const [fullName, setFullName] = useState("");
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const [confirmPassword, setConfirmPassword] = useState("");
-//   const [whatsAppNumber, setWhatsAppNumber] = useState("+92");
-//   const [showPopup, setShowPopup] = useState(false);
-//   const [popupTitle, setPopupTitle] = useState("");
-//   const [popupMessage, setPopupMessage] = useState("");
-//   const [showSuccess, setShowSuccess] = useState(false);
-//   const [errors, setErrors] = useState({});
-
-//   useEffect(() => {
-//     const ref = params.get("ref");
-//     if (ref) setReferralCode(ref);
-//   }, []);
-
-//   const validateForm = () => {
-//     const newErrors = {};
-
-//     if (!fullName.trim()) newErrors.fullName = "Full name is required";
-//     if (!email.trim()) newErrors.email = "Email is required";
-//     if (!password) newErrors.password = "Password is required";
-//     if (password.length < 6)
-//       newErrors.password = "Password must be at least 6 characters";
-//     if (password !== confirmPassword)
-//       newErrors.confirmPassword = "Passwords do not match";
-//     if (!whatsAppNumber || whatsAppNumber === "+92")
-//       newErrors.whatsAppNumber = "WhatsApp number is required";
-//     if (!referralCode.trim())
-//       newErrors.referralCode = "Referral code is required";
-
-//     setErrors(newErrors);
-//     return Object.keys(newErrors).length === 0;
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     if (!validateForm()) {
-//       setPopupTitle("Form Validation Error");
-//       setPopupMessage("Please fill all required fields correctly.");
-//       setShowPopup(true);
-//       return;
-//     }
-
-//     try {
-//       const res = await axios.post("https://be.metadrive01.xyz/api/signup", {
-//         fullName,
-//         whatsappNumber: whatsAppNumber,
-//         refercode: referralCode,
-//         password,
-//         email,
-//       });
-
-//       localStorage.setItem("user", JSON.stringify(res.data.user));
-//       setShowSuccess(true);
-
-//       setReferralCode("");
-//       setFullName("");
-//       setEmail("");
-//       setPassword("");
-//       setConfirmPassword("");
-//       setWhatsAppNumber("+92");
-//       setErrors({});
-
-//       setTimeout(() => {
-//         window.location.href = "/";
-//       }, 2000);
-//     } catch (error) {
-//       setPopupTitle("Signup Failed");
-//       setPopupMessage(
-//         error.response?.data?.message ||
-//           "Something went wrong. Please try again!"
-//       );
-//       setShowPopup(true);
-//     }
-//   };
-
-//   return (
-//     <div className="signup-page">
-//       <div className="signup-container">
-//         <div className="signup-header">
-
-//           <h2>
-//             META <span>DRIVE</span>
-//           </h2>
-//           <p>Create Your Account</p>
-//         </div>
-
-//         <form onSubmit={handleSubmit} className="signup-form">
-//           <div className="input-group">
-//             <FaPhoneAlt className="input-icon" />
-//             <input
-//               type="text"
-//               placeholder="+92XXXXXXXXXX"
-//               value={whatsAppNumber}
-//               onChange={(e) => {
-//                 let value = e.target.value;
-//                 if (!value.startsWith("+92")) {
-//                   value = "+92" + value.replace(/^(\+92)?/, "");
-//                 }
-//                 const onlyDigits = value
-//                   .replace("+92", "")
-//                   .replace(/[^0-9]/g, "")
-//                   .slice(0, 10);
-//                 setWhatsAppNumber("+92" + onlyDigits);
-//               }}
-//               required
-//             />
-//           </div>
-//           {errors.whatsAppNumber && (
-//             <span className="error-text">{errors.whatsAppNumber}</span>
-//           )}
-
-//           <div className="input-group">
-//             <FaUser className="input-icon" />
-//             <input
-//               type="text"
-//               placeholder="Full Name"
-//               value={fullName}
-//               onChange={(e) => setFullName(e.target.value)}
-//               required
-//             />
-//           </div>
-//           {errors.fullName && (
-//             <span className="error-text">{errors.fullName}</span>
-//           )}
-
-//           <div className="input-group">
-//             <FaEnvelope className="input-icon" />
-//             <input
-//               type="email"
-//               placeholder="Email Address"
-//               value={email}
-//               onChange={(e) => setEmail(e.target.value)}
-//               required
-//             />
-//           </div>
-//           {errors.email && <span className="error-text">{errors.email}</span>}
-
-//           <div className="input-group">
-//             <FaLock className="input-icon" />
-//             <input
-//               type={passwordVisible ? "text" : "password"}
-//               placeholder="Password (min 6 characters)"
-//               value={password}
-//               onChange={(e) => setPassword(e.target.value)}
-//               required
-//             />
-//             <span
-//               className="toggle-icon"
-//               onClick={() => setPasswordVisible(!passwordVisible)}
-//             >
-//               {passwordVisible ? <FaEyeSlash /> : <FaEye />}
-//             </span>
-//           </div>
-//           {errors.password && (
-//             <span className="error-text">{errors.password}</span>
-//           )}
-
-//           <div className="input-group">
-//             <FaLock className="input-icon" />
-//             <input
-//               type={confirmPasswordVisible ? "text" : "password"}
-//               placeholder="Confirm Password"
-//               value={confirmPassword}
-//               onChange={(e) => setConfirmPassword(e.target.value)}
-//               required
-//             />
-//             <span
-//               className="toggle-icon"
-//               onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
-//             >
-//               {confirmPasswordVisible ? <FaEyeSlash /> : <FaEye />}
-//             </span>
-//           </div>
-//           {errors.confirmPassword && (
-//             <span className="error-text">{errors.confirmPassword}</span>
-//           )}
-
-//           <div className="input-group">
-//             <FaCode className="input-icon" />
-//             <input
-//               type="text"
-//               placeholder="Referral Code"
-//               value={referralCode}
-//               onChange={(e) => setReferralCode(e.target.value)}
-//               required
-//             />
-//           </div>
-//           {errors.referralCode && (
-//             <span className="error-text">{errors.referralCode}</span>
-//           )}
-
-//           <button type="submit" className="signup-btn">
-//             Create Account & Start Earning
-//           </button>
-
-//           <p className="login-text">
-//             Already have an account?{" "}
-//             <Link to="/" className="login-link">
-//               Sign In
-//             </Link>
-//           </p>
-//         </form>
-//       </div>
-
-//       {showPopup && (
-//         <div className="popup-overlay">
-//           <div className="popup-box">
-//             <h2>❌ {popupTitle}</h2>
-//             <p>{popupMessage}</p>
-//             <button onClick={() => setShowPopup(false)}>Close</button>
-//           </div>
-//         </div>
-//       )}
-
-//       {showSuccess && (
-//         <div className="popup-overlay">
-//           <div className="popup-box">
-//             <h2>✅ Account Created</h2>
-//             <p>Your account has been created successfully!</p>
-//             <button
-//               onClick={() => {
-//                 setShowSuccess(false);
-//                 window.location.href = "/";
-//               }}
-//             >
-//               Go to Login
-//             </button>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import logoImage from "../../Assets/Pictures/sparkx-logo.jpeg";
 import "./Signup.css";
 
 export default function Signup() {
   const params = new URLSearchParams(window.location.search);
+  const navigate = useNavigate();
 
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
-  const [referralCode, setReferralCode] = useState("");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
+  const [inviteCode, setInviteCode] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [whatsAppNumber, setWhatsAppNumber] = useState("+92");
+  const [acceptTerms, setAcceptTerms] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [popupTitle, setPopupTitle] = useState("");
   const [popupMessage, setPopupMessage] = useState("");
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const ref = params.get("ref");
-    if (ref) setReferralCode(ref);
-  }, []);
+    if (ref) setInviteCode(ref);
+  }, [params]);
 
-  const validateForm = () => {
-    const newErrors = {};
-
-    if (!fullName.trim()) newErrors.fullName = "Full name is required";
-    if (!email.trim()) newErrors.email = "Email is required";
-    if (!password) newErrors.password = "Password is required";
-    if (password.length < 6)
-      newErrors.password = "Password must be at least 6 characters";
-    if (password !== confirmPassword)
-      newErrors.confirmPassword = "Passwords do not match";
-    if (!whatsAppNumber || whatsAppNumber === "+92")
-      newErrors.whatsAppNumber = "WhatsApp number is required";
-    if (!referralCode.trim())
-      newErrors.referralCode = "Referral code is required";
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+  const validate = () => {
+    if (!fullName.trim() || !email.trim() || !password.trim() || !phone.trim()) {
+      return "Please fill all required fields.";
+    }
+    if (password.length < 6) return "Password must be at least 6 characters.";
+    if (!acceptTerms) return "Please accept terms and conditions to continue.";
+    return "";
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-
-    if (!validateForm()) {
-      setPopupTitle("Form Validation Error");
-      setPopupMessage("Please fill all required fields correctly.");
+    const validationError = validate();
+    if (validationError) {
+      setPopupTitle("Signup Failed");
+      setPopupMessage(validationError);
       setShowPopup(true);
-      setLoading(false);
       return;
     }
 
+    setLoading(true);
     try {
-      const res = await axios.post("https://be.metadrive01.xyz/api/signup", {
-        fullName,
-        whatsappNumber: whatsAppNumber,
-        refercode: referralCode,
+      const baseUrl = process.env.REACT_APP_API_URL || "https://be.sparkx1.pro";
+      const payload = {
+        fullName: fullName.trim(),
+        email: email.trim().toLowerCase(),
         password,
-        email,
-      });
+        refercode: inviteCode.trim(),
+        whatsappNumber: phone.trim(),
+        phone: phone.trim(),
+        termsAccepted: acceptTerms,
+      };
 
-      localStorage.setItem("user", JSON.stringify(res.data.user));
-      setShowSuccess(true);
+      const res = await axios.post(`${baseUrl}/api/signup`, payload);
 
-      setReferralCode("");
-      setFullName("");
-      setEmail("");
-      setPassword("");
-      setConfirmPassword("");
-      setWhatsAppNumber("+92");
-      setErrors({});
+      if (res.data?.user) {
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+      }
+      if (res.data?.token) {
+        localStorage.setItem("token", res.data.token);
+      }
+
+      setPopupTitle("Account Created");
+      setPopupMessage("Your account has been created successfully.");
+      setShowPopup(true);
 
       setTimeout(() => {
-        window.location.href = "/";
-      }, 2000);
+        navigate("/");
+      }, 1200);
     } catch (error) {
       setPopupTitle("Signup Failed");
       setPopupMessage(
-        error.response?.data?.message ||
-          "Something went wrong. Please try again!"
+        error.response?.data?.message || "Something went wrong. Please try again."
       );
       setShowPopup(true);
     } finally {
@@ -864,197 +84,86 @@ export default function Signup() {
   };
 
   return (
-    <div className="signup-container">
-      <div className="signup-card">
-        <div className="signup-header-section">
-          <div className="signup-header">
-            <h1 className="signup-title">Create Account</h1>
-            <p className="signup-subtitle">
-              Join us and start your investment journey
-            </p>
-          </div>
-        </div>
+    <div className="auth-page">
+      <div className="auth-brand">
+        <span className="auth-brand-text">SPARK</span>
+        <img src={logoImage} alt="SparkX logo" className="auth-brand-logo" />
+      </div>
 
-        <div className="signup-content">
-          <form onSubmit={handleSubmit} className="signup-form">
-            <div className="form-group">
-              <div className="input-container">
-                <input
-                  type="text"
-                  placeholder="Full Name"
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                  required
-                  className="form-input"
-                />
-                <label className="input-label">Full Name</label>
-              </div>
-              {errors.fullName && (
-                <span className="error-text">{errors.fullName}</span>
-              )}
-            </div>
+      <div className="auth-card signup-card">
+        <h1>Create an Account</h1>
+        <p className="auth-subtitle">Join the future of AI investing</p>
 
-            <div className="form-group">
-              <div className="input-container">
-                <input
-                  type="text"
-                  placeholder="+92XXXXXXXXXX"
-                  value={whatsAppNumber}
-                  onChange={(e) => {
-                    let value = e.target.value;
-                    if (!value.startsWith("+92")) {
-                      value = "+92" + value.replace(/^(\+92)?/, "");
-                    }
-                    const onlyDigits = value
-                      .replace("+92", "")
-                      .replace(/[^0-9]/g, "")
-                      .slice(0, 10);
-                    setWhatsAppNumber("+92" + onlyDigits);
-                  }}
-                  required
-                  className="form-input"
-                />
-                <label className="input-label">WhatsApp Number</label>
-              </div>
-              {errors.whatsAppNumber && (
-                <span className="error-text">{errors.whatsAppNumber}</span>
-              )}
-            </div>
+        <form onSubmit={handleSubmit} className="auth-form">
+          <label>Full Name</label>
+          <input
+            type="text"
+            placeholder="John"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            required
+          />
 
-            <div className="form-group">
-              <div className="input-container">
-                <input
-                  type="email"
-                  placeholder="Email Address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  requiredB
-                  className="form-input"
-                />
-                <label className="input-label">Email Address</label>
-              </div>
-              {errors.email && (
-                <span className="error-text">{errors.email}</span>
-              )}
-            </div>
+          <label>Email</label>
+          <input
+            type="email"
+            placeholder="john123@gmail.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-            <div className="form-group">
-              <div className="input-container password-container">
-                <input
-                  type={passwordVisible ? "text" : "password"}
-                  placeholder="Password (min 6 characters)"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="form-input"
-                />
-                <label className="input-label">Password</label>
-                <span
-                  className="toggle-password-icon"
-                  onClick={() => setPasswordVisible(!passwordVisible)}
-                >
-                  {passwordVisible ? <FaEyeSlash /> : <FaEye />}
-                </span>
-              </div>
-              {errors.password && (
-                <span className="error-text">{errors.password}</span>
-              )}
-            </div>
+          <label>Invite Code</label>
+          <input
+            type="text"
+            placeholder="MONEYMAKER6159"
+            value={inviteCode}
+            onChange={(e) => setInviteCode(e.target.value.toUpperCase())}
+          />
 
-            <div className="form-group">
-              <div className="input-container password-container">
-                <input
-                  type={confirmPasswordVisible ? "text" : "password"}
-                  placeholder="Confirm Password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                  className="form-input"
-                />
-                <label className="input-label">Confirm Password</label>
-                <span
-                  className="toggle-password-icon"
-                  onClick={() =>
-                    setConfirmPasswordVisible(!confirmPasswordVisible)
-                  }
-                >
-                  {confirmPasswordVisible ? <FaEyeSlash /> : <FaEye />}
-                </span>
-              </div>
-              {errors.confirmPassword && (
-                <span className="error-text">{errors.confirmPassword}</span>
-              )}
-            </div>
+          <label>Phone</label>
+          <input
+            type="text"
+            placeholder="+1 123 456 7890"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            required
+          />
 
-            <div className="form-group">
-              <div className="input-container">
-                <input
-                  type="text"
-                  placeholder="Referral Code"
-                  value={referralCode}
-                  onChange={(e) => setReferralCode(e.target.value)}
-                  required
-                  className="form-input"
-                />
-                <label className="input-label">Referral Code</label>
-              </div>
-              {errors.referralCode && (
-                <span className="error-text">{errors.referralCode}</span>
-              )}
-            </div>
+          <label>Password</label>
+          <input
+            type="password"
+            placeholder="Enter password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
 
-            <button type="submit" className="signup-btn" disabled={loading}>
-              {loading ? "Creating Account..." : "Sign Up & Begin Earning"}
-            </button>
+          <label className="auth-checkbox-row">
+            <input
+              type="checkbox"
+              checked={acceptTerms}
+              onChange={(e) => setAcceptTerms(e.target.checked)}
+            />
+            <span>I accept the terms and conditions</span>
+          </label>
 
-            <div className="login-redirect">
-              <p>Already have an account?</p>
-              <Link to="/" className="login-link">
-                Sign In
-              </Link>
-            </div>
-          </form>
-        </div>
+          <button type="submit" className="auth-button" disabled={loading}>
+            {loading ? "Creating..." : "Sign Up"}
+          </button>
+
+          <p className="auth-bottom-text">
+            Already have an account? <Link to="/">Login</Link>
+          </p>
+        </form>
       </div>
 
       {showPopup && (
-        <div className="popup-overlay">
-          <div className="popup-box error-popup">
-            <div className="popup-icon">⚠️</div>
-            <h3>Action Required</h3>
+        <div className="auth-popup-overlay">
+          <div className="auth-popup">
+            <h3>{popupTitle}</h3>
             <p>{popupMessage}</p>
-            <div className="popup-note">
-              Please check all fields and try again
-            </div>
-            <button
-              onClick={() => setShowPopup(false)}
-              className="popup-btn error-btn"
-            >
-              Try Again
-            </button>
-          </div>
-        </div>
-      )}
-
-      {showSuccess && (
-        <div className="popup-overlay">
-          <div className="popup-box success-popup">
-            <div className="popup-icon">🎉</div>
-            <h3>Welcome to Meta Drive!</h3>
-            <p>
-              Your account has been created successfully! You're now part of our
-              investment community and ready to start your journey.
-            </p>
-            <div className="popup-note">⏳ Redirecting to login page...</div>
-            <button
-              onClick={() => {
-                setShowSuccess(false);
-                window.location.href = "/";
-              }}
-              className="popup-btn success-btn"
-            >
-              Start Earning Now
-            </button>
+            <button onClick={() => setShowPopup(false)}>Close</button>
           </div>
         </div>
       )}

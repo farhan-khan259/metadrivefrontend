@@ -15,7 +15,7 @@ export default function CompletedDeposits() {
     const fetchDeposits = async () => {
       try {
         setLoading(true);
-        const res = await axios.get("https://be.metadrive01.xyz/api/payments");
+        const res = await axios.get("https://be.sparkx1.pro/api/payments");
         setDeposits(res.data.data || []);
       } catch (error) {
         console.error("Error fetching deposits:", error);
@@ -146,14 +146,14 @@ export default function CompletedDeposits() {
                         <td>
                           {d.screenshot ? (
                             <a
-                              href={`https://be.metadrive01.xyz/${d.screenshot}`}
+                              href={`https://be.sparkx1.pro/${d.screenshot}`}
                               target="_blank"
                               rel="noreferrer"
                               className="proof-link"
                             >
                               <div className="proof-thumbnail">
                                 <img
-                                  src={`https://be.metadrive01.xyz/${d.screenshot}`}
+                                  src={`https://be.sparkx1.pro/${d.screenshot}`}
                                   alt="Deposit Proof"
                                 />
                                 <div className="proof-overlay">

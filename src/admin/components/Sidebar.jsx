@@ -42,7 +42,7 @@ const Sidebar = () => {
           <div className="admin-sidebar-header">
             <div className="admin-sidebar-logo">
               <FaRocket className="admin-logo-icon" />
-              <span className="admin-logo-text">MetaDrive Admin</span>
+              <span className="admin-logo-text">SparkX Admin</span>
             </div>
             <button
               className="admin-sidebar-close"
@@ -84,14 +84,7 @@ const Sidebar = () => {
               <span className="admin-menu-text">Transactions</span>
             </NavLink>
 
-            <NavLink
-              to="/admin/promocode"
-              onClick={() => setOpen(false)}
-              className="admin-menu-item"
-            >
-              <FaTags className="admin-menu-icon" />
-              <span className="admin-menu-text">Promo Code</span>
-            </NavLink>
+           
 
             {/* Analytics Dropdown */}
             <div className="admin-dropdown-section">

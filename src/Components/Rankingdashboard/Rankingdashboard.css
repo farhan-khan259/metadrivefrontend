@@ -1,0 +1,846 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap");
+
+/* ═══════════════════════════════════════════════════════════
+   CSS VARIABLES
+═══════════════════════════════════════════════════════════ */
+:root {
+  --sx-font-body: "Manrope", sans-serif;
+  --sx-font-display: "Sora", sans-serif;
+  --sx-bg-1: #060229;
+  --sx-bg-2: #14055b;
+  --sx-bg-3: #09023a;
+  --sx-card-border: rgba(85, 140, 255, 0.32);
+  --sx-text: #f2f6ff;
+  --sx-muted: #bac7ea;
+  --sx-btn: linear-gradient(90deg, #5e7dff 0%, #9e43ff 55%, #ff63da 100%);
+
+  --rank-card-bg: rgba(10, 12, 38, 0.82);
+  --rank-card-border: rgba(94, 125, 255, 0.22);
+  --rank-radius: 18px;
+  --rank-accent: #9060ff;
+  --rank-accent2: #ff5dd8;
+  --rank-green: #22e88c;
+  --rank-red: #ff5a87;
+  --rank-yellow: #ffb14d;
+  --rank-blue: #5aa6ff;
+  --rank-purple: #c77dff;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RANK SHELL
+═══════════════════════════════════════════════════════════ */
+.rank-shell {
+  padding: 22px 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* Header Section */
+.rank-header-section {
+  margin-bottom: 24px;
+}
+
+.rank-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--rank-card-border);
+  color: var(--sx-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  transition: all 0.2s ease;
+}
+
+.rank-back-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--sx-text);
+  transform: translateX(-5px);
+}
+
+.rank-header-content {
+  background: linear-gradient(135deg, rgba(94, 125, 255, 0.15) 0%, rgba(158, 67, 255, 0.15) 100%);
+  border: 1px solid var(--rank-card-border);
+  border-radius: 24px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.rank-header-content::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(144, 96, 255, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.rank-header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 100px;
+  color: var(--rank-yellow);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.rank-header-title {
+  font-family: var(--sx-font-display);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 800;
+  margin: 0 0 8px;
+  background: linear-gradient(135deg, #fff, var(--sx-muted));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  z-index: 1;
+}
+
+.rank-header-subtitle {
+  color: var(--sx-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 600px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Status Card */
+.rank-status-card {
+  background: var(--rank-card-bg);
+  border: 1px solid var(--rank-card-border);
+  border-radius: var(--rank-radius);
+  padding: 24px;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  backdrop-filter: blur(8px);
+}
+
+.rank-status-left {
+  flex: 1;
+  min-width: 200px;
+}
+
+.rank-status-label {
+  display: block;
+  color: var(--sx-muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.rank-status-value {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rank-status-icon {
+  font-size: 2rem;
+}
+
+.rank-status-value h2 {
+  font-family: var(--sx-font-display);
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 0;
+  color: var(--sx-text);
+}
+
+.rank-status-right {
+  flex: 1;
+  min-width: 250px;
+}
+
+.rank-next-goal {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.rank-next-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.rank-next-icon {
+  font-size: 1.2rem;
+}
+
+.rank-next-name {
+  font-weight: 600;
+  color: var(--sx-text);
+}
+
+.rank-next-progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rank-next-progress-bar {
+  flex: 1;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.rank-next-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--rank-accent), var(--rank-accent2));
+  border-radius: 100px;
+  transition: width 0.3s ease;
+}
+
+.rank-next-percent {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--rank-green);
+  min-width: 45px;
+}
+
+/* Summary Grid */
+.rank-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.rank-summary-card {
+  background: var(--rank-card-bg);
+  border: 1px solid var(--rank-card-border);
+  border-radius: var(--rank-radius);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  backdrop-filter: blur(8px);
+  transition: transform 0.2s ease;
+}
+
+.rank-summary-card:hover {
+  transform: translateY(-3px);
+}
+
+.rank-summary-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--rank-green);
+}
+
+.rank-summary-info {
+  flex: 1;
+}
+
+.rank-summary-label {
+  display: block;
+  color: var(--sx-muted);
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+}
+
+.rank-summary-value {
+  display: block;
+  font-family: var(--sx-font-display);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--sx-text);
+}
+
+/* Ranks Grid */
+.rank-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 20px;
+}
+
+/* Rank Card */
+.rank-card {
+  background: var(--rank-card-bg);
+  border: 1px solid var(--rank-card-border);
+  border-radius: var(--rank-radius);
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.rank-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--rank-color, var(--rank-accent));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.rank-card:hover::before {
+  opacity: 1;
+}
+
+.rank-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.rank-card.current {
+  border-color: var(--rank-green);
+  box-shadow: 0 0 20px rgba(34, 232, 140, 0.2);
+}
+
+.rank-card.current::before {
+  opacity: 1;
+  background: var(--rank-green);
+}
+
+.rank-card.completed {
+  opacity: 0.8;
+}
+
+.rank-card.completed::before {
+  opacity: 1;
+  background: var(--rank-color);
+}
+
+.rank-card.next {
+  border-color: var(--rank-yellow);
+}
+
+/* Card Header */
+.rank-card-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.rank-card-image {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.rank-card-title {
+  flex: 1;
+}
+
+.rank-card-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.rank-card-icon {
+  font-size: 1.4rem;
+}
+
+.rank-card-name h3 {
+  font-family: var(--sx-font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--sx-text);
+}
+
+.rank-card-level {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.rank-level-pill {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--sx-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.rank-current-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 100px;
+  background: rgba(34, 232, 140, 0.15);
+  color: var(--rank-green);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Card Content */
+.rank-card-content {
+  padding: 20px;
+}
+
+/* Requirements */
+.rank-requirements {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.rank-requirement {
+  display: grid;
+  grid-template-columns: 80px 1fr 50px;
+  align-items: center;
+  gap: 12px;
+}
+
+.rank-requirement-label {
+  color: var(--sx-muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.rank-requirement-value {
+  color: var(--sx-text);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: right;
+}
+
+.rank-requirement-progress {
+  grid-column: 2 / -1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.rank-requirement-fill {
+  height: 100%;
+  background: var(--rank-color, var(--rank-accent));
+  border-radius: 100px;
+  transition: width 0.3s ease;
+}
+
+.rank-requirement-percent {
+  grid-column: 3;
+  font-size: 0.8rem;
+  color: var(--rank-color, var(--rank-accent));
+  font-weight: 600;
+  text-align: right;
+}
+
+/* Reward Section */
+.rank-reward-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 14px;
+  margin-bottom: 16px;
+}
+
+.rank-reward-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rank-reward-icon {
+  font-size: 1.4rem;
+  color: var(--rank-yellow);
+}
+
+.rank-reward-label {
+  display: block;
+  color: var(--sx-muted);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 2px;
+}
+
+.rank-reward-amount {
+  display: block;
+  font-family: var(--sx-font-display);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--rank-green);
+}
+
+/* Claim Button */
+.rank-claim-btn {
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(90deg, #6e3dff 0%, #bf43ff 55%, #ff58d1 100%);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(159, 67, 255, 0.3);
+}
+
+.rank-claim-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(159, 67, 255, 0.4);
+}
+
+/* Claimed Badge */
+.rank-claimed-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  background: rgba(34, 232, 140, 0.15);
+  color: var(--rank-green);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Locked Badge */
+.rank-locked-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--sx-muted);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Overall Progress */
+.rank-overall-progress {
+  margin-top: 12px;
+}
+
+.rank-overall-progress-bar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 100px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.rank-overall-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--rank-accent), var(--rank-accent2));
+  border-radius: 100px;
+  transition: width 0.3s ease;
+}
+
+.rank-overall-percent {
+  display: block;
+  text-align: right;
+  font-size: 0.8rem;
+  color: var(--sx-muted);
+}
+
+/* Loading State */
+.rank-state-shell {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.rank-state-card {
+  background: var(--rank-card-bg);
+  border: 1px solid var(--rank-card-border);
+  border-radius: 24px;
+  padding: 40px;
+  text-align: center;
+  backdrop-filter: blur(8px);
+  max-width: 400px;
+  width: 100%;
+}
+
+.rank-state-spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: var(--rank-accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+.rank-state-card p {
+  color: var(--sx-muted);
+  font-size: 1rem;
+  margin: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Popup */
+.rank-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.rank-popup {
+  background: rgba(12, 14, 42, 0.97);
+  border: 1px solid var(--rank-card-border);
+  border-radius: 24px;
+  padding: 36px 32px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+}
+
+.rank-popup-success {
+  border-color: rgba(34, 232, 140, 0.3);
+}
+
+.rank-popup-error {
+  border-color: rgba(255, 90, 135, 0.3);
+}
+
+.rank-popup-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+.rank-popup-title {
+  font-family: var(--sx-font-display);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--sx-text);
+  margin: 0 0 10px;
+}
+
+.rank-popup-message {
+  color: var(--sx-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0 0 24px;
+  white-space: pre-line;
+}
+
+.rank-popup-close {
+  padding: 14px 32px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(90deg, #6e3dff 0%, #bf43ff 55%, #ff58d1 100%);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 140px;
+}
+
+.rank-popup-close:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE DESIGN
+═══════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .sx-sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.28s ease;
+  }
+
+  .sx-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sx-sidebar-close {
+    display: flex;
+  }
+
+  .sx-sidebar-overlay {
+    display: block;
+  }
+
+  .sx-main {
+    margin-left: 0;
+  }
+
+  .sx-menu-btn {
+    display: flex;
+  }
+
+  .rank-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .rank-shell {
+    padding: 16px;
+  }
+
+  .rank-header-content {
+    padding: 24px;
+  }
+
+  .rank-header-title {
+    font-size: 1.8rem;
+  }
+
+  .rank-status-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .rank-status-right {
+    width: 100%;
+  }
+
+  .rank-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rank-requirement {
+    grid-template-columns: 70px 1fr 40px;
+    gap: 8px;
+  }
+
+  .rank-reward-section {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .rank-claim-btn,
+  .rank-claimed-badge,
+  .rank-locked-badge {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .rank-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .rank-card-image {
+    width: 80px;
+    height: 80px;
+  }
+
+  .rank-requirement {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .rank-requirement-value {
+    text-align: left;
+  }
+
+  .rank-requirement-progress {
+    grid-column: 1 / -1;
+  }
+
+  .rank-requirement-percent {
+    grid-column: 1 / -1;
+    text-align: left;
+  }
+
+  .rank-popup {
+    padding: 28px 20px;
+  }
+
+  .rank-popup-icon {
+    font-size: 2.5rem;
+  }
+
+  .rank-popup-title {
+    font-size: 1.1rem;
+  }
+
+  .rank-popup-message {
+    font-size: 0.85rem;
+  }
+}
+
+/* Touch-friendly targets */
+@media (max-width: 768px) {
+  .rank-claim-btn,
+  .rank-back-link,
+  .sx-menu-btn,
+  .sx-icon-btn,
+  .sx-profile-avatar-btn {
+    min-height: 44px;
+  }
+}
+
+/* Landscape orientation */
+@media (max-height: 600px) and (orientation: landscape) {
+  .rank-popup {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+}
+
+/* High-resolution screens */
+@media (min-width: 1440px) {
+  .rank-shell {
+    max-width: 1400px;
+  }
+
+  .rank-grid {
+    grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  }
+}
