@@ -410,7 +410,7 @@ export default function Dashboard() {
               <FiMenu />
             </button>
             <div>
-              <h2 className="sx-title">Dashboard</h2>
+              <h2 className="sx-title">Updated code!!!</h2>
               <p className="sx-subtitle">Welcome back, {user?.fullName || user?.name || "User"}</p>
             </div>
           </div>
